@@ -23,4 +23,10 @@ public class QuestionFIB extends Question{
     public String getAnswer() {
         return answer;
     }  
+    
+    @Override
+    public String toString()
+    {
+       return super.toString()+" answer:"+ this.getAnswer();
+    }
 }

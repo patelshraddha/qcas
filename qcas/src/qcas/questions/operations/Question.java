@@ -1,6 +1,7 @@
 package qcas.questions.operations;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Question a generic class to process all question types
@@ -54,6 +55,12 @@ public class Question {
 
     public String getSubjectCode() {
         return subjectCode;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Type:"+this.type+" Level:"+this.level+" Description:"+this.description+" SubjectCode:"+this.subjectCode+" Answer Choices:"+Arrays.toString(this.choices.toArray());
     }
 
 }

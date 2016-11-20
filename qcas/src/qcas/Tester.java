@@ -5,7 +5,9 @@
  */
 package qcas;
 
+import java.util.ArrayList;
 import qcas.csvreader.CSVReader;
+import qcas.questions.operations.Question;
 
 /**
  *
@@ -14,10 +16,12 @@ import qcas.csvreader.CSVReader;
 public class Tester {
    public  static void main(String[] args)
    {
-       CSVReader reader = new CSVReader("test.csv");
+       CSVReader reader = new CSVReader("test.csv","OOP");
        if(reader.ParseCSV())
        {
-           System.out.println("Done");
+           ArrayList<Question> questions = reader.getQuestions();
+           for(Question question:questions)
+               System.out.println(question);
        }
        else
        {

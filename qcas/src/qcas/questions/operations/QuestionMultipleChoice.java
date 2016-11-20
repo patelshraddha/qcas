@@ -18,7 +18,7 @@ public class QuestionMultipleChoice extends Question{
     }
 
     public QuestionMultipleChoice(String type, String level, String description, String subjectCode,int answer,String... choices) {
-        super(type, level, description, subjectCode);
+        super(type, level, description, subjectCode,choices);
         this.answer=answer;
     }
 
@@ -27,7 +27,11 @@ public class QuestionMultipleChoice extends Question{
         return answer;
     }
     
-    
+    @Override
+    public String toString()
+    {
+       return super.toString()+" answer:"+ this.getChoices().get(answer);
+    }
     
     
 }

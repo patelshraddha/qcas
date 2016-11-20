@@ -22,5 +22,12 @@ public class QuestionTF extends Question{
     
     public boolean getAnswer() {
         return answer;
-    }  
+    } 
+    
+    
+    @Override
+    public String toString()
+    {
+       return super.toString()+" answer:"+ this.getAnswer();
+    }
 }
