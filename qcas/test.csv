@@ -1,0 +1,4 @@
+MC,M,{ public static void main(String[] args) { int j = 0; int i = ++j + j * 5;"hdhdhd" System.out.println(""What is i? "" + i); } },6,correct,3,incorrect,1,incorrect,5,incorrect
+MA,H,What Java datatypes are 16 bits? ,int,incorrect,short,correct,double,incorrect,char,correct
+TF,E,Java is an OOP Language,true
+FIB,E,The inventor of Java was ___ ,James Gosling
