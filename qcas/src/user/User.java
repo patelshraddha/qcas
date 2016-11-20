@@ -10,16 +10,26 @@ package user;
  * @author Dell
  */
 public class User {
-     private final String id;
+    private final String id;
     private final String userKey;
-    String firstName;
-    String lastName;
-    String email;
-    String timeStamp;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String timeStamp;
+    private String type;
 
-    public User(String id, String userKey) {
+    public User(String id, String userKey, String firstName, String lastName, String email, String timeStamp,String type) {
         this.id = id;
         this.userKey = userKey;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.timeStamp = timeStamp;
+        this.type=type;
+    }
+
+    public String getType() {
+        return type;
     }
 
  
