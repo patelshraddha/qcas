@@ -31,7 +31,7 @@ public class ConnectionDB {
 
         }
 
-        System.out.println("MySQL JDBC Driver Registered!");
+        //System.out.println("MySQL JDBC Driver Registered!");
         
 
         try {
