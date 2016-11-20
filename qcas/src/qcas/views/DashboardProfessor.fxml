@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="qcas.views.controllers.DashboardStudentController">
+   <children>
+      <Pane layoutX="-7.0" layoutY="774.0" prefHeight="89.0" prefWidth="1339.0" style="-fx-background-color: #BD2031; -fx-border-color: black;" />
+      <ImageView fitHeight="47.0" fitWidth="277.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../2000px-Carnegie_Mellon_wordmark.svg.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="417.0" layoutY="15.0" prefHeight="47.0" prefWidth="578.0" text="QUIZ CREATION AND ASSESSMENT SYSTEM (QCAS)">
+         <font>
+            <Font name="Microsoft JhengHei UI Light" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="1038.0" layoutY="26.0" text="Signed in as:">
+         <font>
+            <Font name="Microsoft JhengHei UI Light" size="18.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="1148.0" layoutY="23.0" prefWidth="150.0" promptText="Name" visibleRowCount="1">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <InnerShadow color="#c92222" />
+         </effect>
+      </ComboBox>
+      <Pane layoutX="14.0" layoutY="79.0" prefHeight="694.0" prefWidth="275.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: #494443;">
+         <children>
+            <Button layoutY="27.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="275.0" style="-fx-border-width: 1px; -fx-background-color: BLACK; -fx-border-color: BLACK;" text="Home" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Microsoft JhengHei UI Light" size="23.0" />
+               </font>
+            </Button>
+            <Button layoutY="121.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="275.0" style="-fx-border-width: 1px; -fx-background-color: BLACK; -fx-border-color: BLACK;" text="Upload" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Microsoft JhengHei UI Light" size="23.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="76.0" fitWidth="77.0" layoutX="11.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../5559065-icon-house-black-white.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="83.0" fitWidth="64.0" layoutX="20.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../stock-vector-clipboard-pencil-vector-icon-white-illustration-isolated-on-black-background-for-graphic-and-web-401178952.jpg" />
+               </image>
+            </ImageView>
+            <Button layoutY="216.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="275.0" style="-fx-border-width: 1px; -fx-background-color: BLACK; -fx-border-color: BLACK;" text="Reports" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Microsoft JhengHei UI Light" size="23.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="73.0" fitWidth="64.0" layoutX="17.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../report.png" />
+               </image>
+            </ImageView>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+         <children>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="FACULTY HOME">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="122.0" prefHeight="65.0" prefWidth="109.0" text="NAME: ">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="177.0" prefHeight="65.0" prefWidth="109.0" text="EMAIL:">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="122.0" prefHeight="65.0" prefWidth="249.0" text="Shraddha Patel">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="177.0" prefHeight="65.0" prefWidth="249.0" text="shrap@1.com">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Separator blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="10.0" layoutY="103.0" prefHeight="9.0" prefWidth="995.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Separator>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+         <children>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="325.0" text="UPLOAD QUESTION BANK">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
+            <Separator blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="14.0" layoutY="109.0" prefHeight="9.0" prefWidth="995.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Separator>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="129.0" prefHeight="76.0" prefWidth="214.0" text="Select subject: ">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="205.0" prefHeight="76.0" prefWidth="268.0" text="Choose file:">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <ChoiceBox blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="152.0" prefHeight="41.0" prefWidth="150.0" />
+            <Button layoutX="48.0" layoutY="318.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="138.0" text="Upload">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Microsoft YaHei UI" size="20.0" />
+               </font>
+            </Button>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="231.0" layoutY="392.0" prefHeight="76.0" prefWidth="501.0" text="Question set selected is not available, please re-select." textFill="#bd2031" visible="false">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Button blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="223.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="150.0" text="Select file">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Button>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="557.0" layoutY="223.0" prefHeight="41.0" prefWidth="446.0" text="File location C:\sd\dfdfd\dfgfg.docx" textFill="#0f84dd">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="15.0" />
+               </font>
+            </Label>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+      <Pane layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;">
+         <children>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="Reports">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
+            <Separator blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="14.0" layoutY="109.0" prefHeight="9.0" prefWidth="995.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Separator>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Pane>
+   </children>
+</AnchorPane>
