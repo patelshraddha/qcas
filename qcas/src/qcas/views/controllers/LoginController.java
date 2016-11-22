@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import qcas.Main;
 
 /**
@@ -23,15 +24,19 @@ import qcas.Main;
  */
 public class LoginController implements Initializable {
 
-    @FXML
-    TextField userId;
-    @FXML
-    TextField password;
-    @FXML
-    Button login;
+    
     
 
     private Main application;
+    @FXML
+    private ToggleGroup signup;
+    
+    @FXML
+    private TextField userPassword;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private TextField userId;
     
     
     public void setApp(Main application){
@@ -41,13 +46,12 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        userId.setPromptText("demo");
-        password.setPromptText("demo");
+      //  userId.setPromptText("demo");
+      //  userPassword.setPromptText("demo");
         
     }
     
     
-    @FXML
     public void processLogin(ActionEvent event) {
         System.out.println("Test");
         System.out.println(userId.getText());

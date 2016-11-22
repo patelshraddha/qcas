@@ -39,7 +39,7 @@
                   <Font name="Microsoft JhengHei Light" size="29.0" />
                </font>
             </Label>
-            <TextField promptText="Login ID">
+            <TextField fx:id="userId" promptText="Login ID">
                <font>
                   <Font name="Microsoft JhengHei Light" size="29.0" />
                </font>
@@ -52,7 +52,7 @@
                   <Font name="Microsoft JhengHei Light" size="29.0" />
                </font>
             </Label>
-            <TextField layoutX="32.0" layoutY="72.0" promptText="Password">
+            <TextField fx:id="userPassword" layoutX="32.0" layoutY="72.0" promptText="Password">
                <font>
                   <Font name="Microsoft JhengHei Light" size="29.0" />
                </font>
@@ -62,7 +62,7 @@
             </TextField>
             <HBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="80.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="176.0" text="Login">
+                  <Button fx:id="loginButton" mnemonicParsing="false" prefHeight="58.0" prefWidth="176.0" text="Login">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
