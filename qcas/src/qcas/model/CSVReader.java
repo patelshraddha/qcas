@@ -26,6 +26,17 @@ public class CSVReader {
     private String filename = null;
     private ArrayList<Question> questions = new ArrayList<Question>();
     private String subjectCode;
+    
+    public static void main(String[] args)
+    {
+        CSVReader reader = new CSVReader("test.csv", "OOP");
+        if (reader.ParseCSV()) {
+            ArrayList<Question> questions = reader.getQuestions();
+            for (Question question : questions) {
+                System.out.println(question);
+            }
+        } 
+    }
 
     public CSVReader(String filename, String subjectCode) {
         this.filename = filename;

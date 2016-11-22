@@ -46,24 +46,22 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-      //  userId.setPromptText("demo");
-      //  userPassword.setPromptText("demo");
-        
     }
     
     
+    @FXML
     public void processLogin(ActionEvent event) {
-        System.out.println("Test");
-        System.out.println(userId.getText());
-       /* if (application == null){
-            // We are running in isolated FXML, possibly in Scene Builder.
-            // NO-OP.
-            errorMessage.setText("Hello " + userId.getText());
+        
+       System.out.println(userId.getText());
+       if (application == null){
+            System.exit(0);
         } else {
-            if (!application.userLogging(userId.getText(), password.getText())){
-                errorMessage.setText("Username/Password is incorrect");
+            if (!application.userLogging(userId.getText(), userPassword.getText())){
+                // error message displayed
+                //errorMessage.setText("Username/Password is incorrect");
+                System.out.println("Error Logging in!!");
             }
-        }*/
+        }
     }    
     
 }

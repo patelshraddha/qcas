@@ -4,6 +4,8 @@
 package qcas;
 
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -15,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javafx.scene.Parent;
+import qcas.model.DatabaseHandler;
+import qcas.model.UserLoginTableHandler;
 import qcas.views.controllers.LoginController;
 
 /**
@@ -23,6 +27,7 @@ import qcas.views.controllers.LoginController;
 public class Main extends Application {
 
     private Stage stage;
+    private DatabaseHandler database;
     //private User loggedUser;
     private final double MINIMUM_WINDOW_WIDTH = 390.0;
     private final double MINIMUM_WINDOW_HEIGHT = 500.0;
@@ -37,8 +42,19 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+            database= new DatabaseHandler(Constants.databaseDriver+Constants.databaseUrl,Constants.userName,Constants.userPassword);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Could not connect ");
+            return;
+        }
+        
+        
+        
+        try {
             stage = primaryStage;
-            stage.setTitle("FXML Login Sample");
+            stage.setTitle("Quiz Creation and Assessment System");
             stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
             stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
             gotoLogin();
@@ -51,11 +67,11 @@ public class Main extends Application {
 
     /*public User getLoggedUser() {
         return loggedUser;
-    }
+    }*/
         
     public boolean userLogging(String userId, String password){
-        if (Authenticator.validate(userId, password)) {
-            loggedUser = User.of(userId);
+        if (UserLoginTableHandler.verifyLogin(this.database,userId, password)) {
+            //loggedUser = User.of(userId);
             gotoProfile();
             return true;
         } else {
@@ -63,19 +79,20 @@ public class Main extends Application {
         }
     }
     
-    void userLogout(){
+    /*void userLogout(){
         loggedUser = null;
         gotoLogin();
-    }
+    }*/
     
     private void gotoProfile() {
         try {
-            ProfileController profile = (ProfileController) replaceSceneContent("profile.fxml");
-            profile.setApp(this);
+            System.out.println("Logged in");
+            //ProfileController profile = (ProfileController) replaceSceneContent("profile.fxml");
+            //profile.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
 
     private void gotoLogin() {
         try {
@@ -102,4 +119,6 @@ public class Main extends Application {
         stage.sizeToScene();
         return (Initializable) loader.getController();
     }
+
+    
 }
