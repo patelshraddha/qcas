@@ -1,4 +1,4 @@
-package qcas.csvreader;
+package qcas.model;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,11 +10,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import qcas.questions.operations.Question;
-import qcas.questions.operations.QuestionFIB;
-import qcas.questions.operations.QuestionMultipleAnswer;
-import qcas.questions.operations.QuestionMultipleChoice;
-import qcas.questions.operations.QuestionTF;
+import qcas.operations.questions.Question;
+import qcas.operations.questions.QuestionFIB;
+import qcas.operations.questions.QuestionMultipleAnswer;
+import qcas.operations.questions.QuestionMultipleChoice;
+import qcas.operations.questions.QuestionTF;
 
 /**
  * CSVReader methods to load and read a quiz in the csv format

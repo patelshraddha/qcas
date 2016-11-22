@@ -1,5 +1,5 @@
 
-package qcas.questions.operations;
+package qcas.operations.questions;
 
 /**
  * QuestionTF a class dealing with true or false question

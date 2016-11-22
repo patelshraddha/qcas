@@ -1,4 +1,4 @@
-package qcas.questions.operations;
+package qcas.operations.questions;
 
 import java.util.Arrays;
 

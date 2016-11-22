@@ -5,11 +5,11 @@
  */
 package qcas;
 
+import qcas.model.ConnectionDB;
 import java.util.ArrayList;
-import qcas.csvreader.CSVReader;
-import qcas.questions.operations.Question;
+import qcas.model.CSVReader;
+import qcas.operations.questions.Question;
 
-import dbconn.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;

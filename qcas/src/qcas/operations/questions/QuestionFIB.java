@@ -1,5 +1,5 @@
 
-package qcas.questions.operations;
+package qcas.operations.questions;
 
 /**
  * QuestionMultipleAnswer a class dealing with fill in the blanks question
