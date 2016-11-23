@@ -16,7 +16,7 @@
 <AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="qcas.views.controllers.DashboardStudentController">
    <children>
       <Pane layoutX="-7.0" layoutY="774.0" prefHeight="89.0" prefWidth="1339.0" style="-fx-background-color: #BD2031; -fx-border-color: black;" />
-      <ImageView fitHeight="47.0" fitWidth="277.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="clgLogo" fitHeight="47.0" fitWidth="277.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../2000px-Carnegie_Mellon_wordmark.svg.png" />
          </image>
@@ -44,7 +44,7 @@
             <DropShadow />
          </effect>
          <children>
-            <Button layoutY="27.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="275.0" style="-fx-border-width: 1px; -fx-background-color: BLACK; -fx-border-color: BLACK;" text="Home" textFill="WHITE">
+            <Button fx:id="homeButton" layoutY="27.0" mnemonicParsing="false" onAction="#homePressed" prefHeight="89.0" prefWidth="275.0" style="-fx-border-width: 1px; -fx-background-color: BLACK; -fx-border-color: BLACK;" text="Home" textFill="WHITE">
                <font>
                   <Font name="Microsoft JhengHei UI Light" size="23.0" />
                </font>
@@ -52,7 +52,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutY="121.0" mnemonicParsing="false" prefHeight="89.0" prefWidth="275.0" style="-fx-border-width: 1px; -fx-background-color: BLACK; -fx-border-color: BLACK;" text="Quiz" textFill="WHITE">
+            <Button fx:id="quizButton" layoutY="121.0" mnemonicParsing="false" onAction="#quizPressed" prefHeight="89.0" prefWidth="275.0" style="-fx-border-width: 1px; -fx-background-color: BLACK; -fx-border-color: BLACK;" text="Quiz" textFill="WHITE">
                <font>
                   <Font name="Microsoft JhengHei UI Light" size="23.0" />
                </font>
@@ -60,19 +60,19 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="76.0" fitWidth="77.0" layoutX="11.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="homeImg" fitHeight="76.0" fitWidth="77.0" layoutX="11.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../5559065-icon-house-black-white.jpg" />
                </image>
             </ImageView>
-            <ImageView fitHeight="83.0" fitWidth="64.0" layoutX="20.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="quizImg" fitHeight="83.0" fitWidth="64.0" layoutX="20.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../stock-vector-clipboard-pencil-vector-icon-white-illustration-isolated-on-black-background-for-graphic-and-web-401178952.jpg" />
                </image>
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
          <effect>
             <DropShadow />
          </effect>
@@ -109,7 +109,7 @@
             </Separator>
          </children>
       </Pane>
-      <Pane layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="quizPane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="PLAN QUIZ">
                <font>

@@ -5,6 +5,7 @@
  */
 package qcas.views.controllers;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +16,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import qcas.Constants;
 import qcas.Main;
 
 /**
@@ -24,44 +28,40 @@ import qcas.Main;
  */
 public class LoginController implements Initializable {
 
-    
-    
-
     private Main application;
     @FXML
     private ToggleGroup signup;
-    
+
     @FXML
     private TextField userPassword;
     @FXML
     private Button loginButton;
     @FXML
     private TextField userId;
-    
-    
-    public void setApp(Main application){
+    @FXML
+    private ImageView clglogo;
+
+    public void setApp(Main application) {
         this.application = application;
     }
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        clglogo.setImage(new Image(getClass().getResourceAsStream(Constants.clgLogo)));
     }
-    
-    
+
     @FXML
     public void processLogin(ActionEvent event) {
+
         
-       System.out.println(userId.getText());
-       if (application == null){
+        if (application == null) {
             System.exit(0);
-        } else {
-            if (!application.userLogging(userId.getText(), userPassword.getText())){
-                // error message displayed
-                //errorMessage.setText("Username/Password is incorrect");
-                System.out.println("Error Logging in!!");
-            }
+        } else if (!application.userLogging(userId.getText(), userPassword.getText())) {
+            // error message displayed
+            //errorMessage.setText("Username/Password is incorrect");
+            System.out.println("Error Logging in!!");
+
         }
-    }    
-    
+    }
+
 }

@@ -22,7 +22,7 @@
             </Label>
          </children>
       </Pane>
-      <ImageView fitHeight="152.0" fitWidth="450.0" layoutX="270.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="clglogo" fitHeight="152.0" fitWidth="450.0" layoutX="270.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../2000px-Carnegie_Mellon_wordmark.svg.png" />
          </image>
