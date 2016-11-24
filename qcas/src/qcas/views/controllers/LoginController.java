@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import qcas.Constants;
 import qcas.Main;
 
@@ -40,6 +41,12 @@ public class LoginController implements Initializable {
     private TextField userId;
     @FXML
     private ImageView clglogo;
+    @FXML
+    private Label invalidLabel;
+    @FXML
+    private Pane signUpPane;
+    @FXML
+    private Button registerButton;
 
     public void setApp(Main application) {
         this.application = application;
@@ -60,8 +67,24 @@ public class LoginController implements Initializable {
             // error message displayed
             //errorMessage.setText("Username/Password is incorrect");
             System.out.println("Error Logging in!!");
+            invalidLabel.setVisible(true);
 
         }
     }
+    
+    @FXML
+    public void processSignUp(ActionEvent event) {
+        signUpPane.setVisible(true);
+        
+    }
+    
+    @FXML
+    public void registerUser(ActionEvent event) {
+        
+        signUpPane.setVisible(false);
+      
+    }
+    
+            
 
 }
