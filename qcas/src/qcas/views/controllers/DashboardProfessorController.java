@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -45,6 +46,9 @@ public class DashboardProfessorController implements Initializable {
     private Pane uploadPane;
     @FXML
     private Pane reportPane;
+    @FXML
+    private ComboBox loginBox;
+    
     /**
      * Initializes the controller class.
      */
@@ -56,6 +60,8 @@ public class DashboardProfessorController implements Initializable {
         uploadImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
         reportImg.setImage(new Image(getClass().getResourceAsStream(Constants.reportImg)));
         homePane.setVisible(true);
+        loginBox.getItems().clear();
+        loginBox.getItems().addAll("Log Out");
     }    
     
     public void setApp(Main application){
@@ -82,5 +88,9 @@ public class DashboardProfessorController implements Initializable {
         reportPane.setVisible(true);
         uploadPane.setVisible(false);
     }
-    
+    @FXML
+    private void logout(ActionEvent event) {
+        //Logout
+        System.exit(0);
+    }
 }

@@ -31,7 +31,7 @@
             <Font name="Microsoft JhengHei UI Light" size="18.0" />
          </font>
       </Label>
-      <ComboBox layoutX="1148.0" layoutY="23.0" prefWidth="150.0" promptText="Name" visibleRowCount="1">
+      <ComboBox fx:id="loginBox" layoutX="1148.0" layoutY="23.0" onAction="#logout" prefWidth="150.0" promptText="Name" visibleRowCount="1">
          <effect>
             <InnerShadow color="#c92222" />
          </effect>
@@ -72,7 +72,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;">
          <effect>
             <DropShadow />
          </effect>

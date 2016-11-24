@@ -82,7 +82,7 @@ public class UserLoginTableHandler {
             if (rowcount == 1) {
                 verified = true;
             }
-           return new User("1",username,"Rahul","Baijal","badass.com","500A.D.","s");
+           return new User("1",username,"Rahul","Baijal","badass.com","500A.D.","p");
 
         } catch (SQLException ex) {
             Logger.getLogger(UserLoginTableHandler.class.getName()).log(Level.SEVERE, null, ex);

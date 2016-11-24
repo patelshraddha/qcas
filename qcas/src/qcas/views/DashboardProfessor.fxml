@@ -28,7 +28,7 @@
             <Font name="Microsoft JhengHei UI Light" size="18.0" />
          </font>
       </Label>
-      <ComboBox layoutX="1148.0" layoutY="23.0" prefWidth="150.0" promptText="Name" visibleRowCount="1">
+      <ComboBox fx:id="loginBox" layoutX="1148.0" layoutY="23.0" onAction="#logout" prefWidth="150.0" promptText="Name" visibleRowCount="1">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

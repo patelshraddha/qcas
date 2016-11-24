@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -18,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import qcas.Constants;
 import qcas.Main;
+import qcas.operations.user.User;
 
 /**
  * FXML Controller class
@@ -44,6 +46,8 @@ public class DashboardStudentController implements Initializable {
     private Pane homePane;
     @FXML
     private Pane quizPane;
+    @FXML
+    private ComboBox loginBox;
 
 
     /**
@@ -54,6 +58,10 @@ public class DashboardStudentController implements Initializable {
         clgLogo.setImage(new Image(getClass().getResourceAsStream(Constants.clgLogo)));
         homeImg.setImage(new Image(getClass().getResourceAsStream(Constants.homeImg)));        
         quizImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
+        loginBox.getItems().clear();
+      
+        loginBox.getItems().addAll("Log Out");
+        
     } 
     
     public void setApp(Main application){
@@ -72,6 +80,12 @@ public class DashboardStudentController implements Initializable {
         //TODO check here if a quiz is in process
         homePane.setVisible(false);
         quizPane.setVisible(true);
+    }
+    
+    @FXML
+    private void logout(ActionEvent event) {
+        //Logout
+        System.exit(0);
     }
     
 }
