@@ -48,6 +48,12 @@ public class DashboardStudentController implements Initializable {
     private Pane quizPane;
     @FXML
     private ComboBox loginBox;
+    @FXML
+    private Label studentName;
+    @FXML
+    private Label studentEmail;
+    
+    
 
 
     /**
@@ -66,6 +72,9 @@ public class DashboardStudentController implements Initializable {
     
     public void setApp(Main application){
         this.application = application;
+        studentName.setText(this.application.getLoggedUser().getFirstName());
+        studentEmail.setText(this.application.getLoggedUser().getEmail());
+        loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
     }
 
     @FXML

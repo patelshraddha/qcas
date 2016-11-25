@@ -47,6 +47,10 @@ public class LoginController implements Initializable {
     private Pane signUpPane;
     @FXML
     private Button registerButton;
+    @FXML
+    private Button signUp;
+    @FXML
+    private Button exit;
 
     public void setApp(Main application) {
         this.application = application;

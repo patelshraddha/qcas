@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -43,6 +44,10 @@ public class DashboardProfessorController implements Initializable {
     @FXML
     private Pane homePane;
     @FXML
+    private Label professorName;
+    @FXML
+    private Label professorEmail;
+    @FXML
     private Pane uploadPane;
     @FXML
     private Pane reportPane;
@@ -60,12 +65,17 @@ public class DashboardProfessorController implements Initializable {
         uploadImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
         reportImg.setImage(new Image(getClass().getResourceAsStream(Constants.reportImg)));
         homePane.setVisible(true);
+       // 
+       // professorName.setText("Test");
         loginBox.getItems().clear();
         loginBox.getItems().addAll("Log Out");
     }    
     
     public void setApp(Main application){
         this.application = application;
+        professorName.setText(this.application.getLoggedUser().getFirstName());
+        professorEmail.setText(this.application.getLoggedUser().getEmail());
+        loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
     }
 
     @FXML
@@ -92,5 +102,5 @@ public class DashboardProfessorController implements Initializable {
     private void logout(ActionEvent event) {
         //Logout
         System.exit(0);
-    }
+    }            
 }

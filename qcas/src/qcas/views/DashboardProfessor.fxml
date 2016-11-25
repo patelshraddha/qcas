@@ -28,7 +28,7 @@
             <Font name="Microsoft JhengHei UI Light" size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="loginBox" layoutX="1148.0" layoutY="23.0" onAction="#logout" prefWidth="150.0" promptText="Name" visibleRowCount="1">
+      <ComboBox fx:id="loginBox" layoutX="1148.0" layoutY="23.0" onAction="#logout" prefWidth="150.0" visibleRowCount="1">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -82,7 +82,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="FACULTY HOME">
                <font>
@@ -99,12 +99,12 @@
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="122.0" prefHeight="65.0" prefWidth="249.0" text="Shraddha Patel">
+            <Label fx:id="professorName" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="122.0" prefHeight="65.0" prefWidth="249.0">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="177.0" prefHeight="65.0" prefWidth="249.0" text="shrap@1.com">
+            <Label fx:id="professorEmail" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="177.0" prefHeight="65.0" prefWidth="249.0">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
