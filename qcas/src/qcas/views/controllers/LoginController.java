@@ -68,11 +68,8 @@ public class LoginController implements Initializable {
         if (application == null) {
             System.exit(0);
         } else if (!application.userLogging(userId.getText(), userPassword.getText())) {
-            // error message displayed
-            //errorMessage.setText("Username/Password is incorrect");
             System.out.println("Error Logging in!!");
             invalidLabel.setVisible(true);
-
         }
     }
     

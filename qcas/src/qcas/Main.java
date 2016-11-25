@@ -3,9 +3,11 @@
  */
 package qcas;
 
+import java.io.File;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -17,8 +19,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javafx.scene.Parent;
+import javafx.stage.Window;
+import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
 import qcas.model.UserLoginTableHandler;
+import qcas.operations.questions.Question;
 import qcas.operations.user.User;
 import qcas.views.controllers.DashboardProfessorController;
 import qcas.views.controllers.DashboardStudentController;
@@ -80,10 +85,13 @@ public class Main extends Application {
 
     }
 
-    /*void userLogout(){
+    public void userLogout(){
         loggedUser = null;
         gotoLogin();
-    }*/
+    }
+    
+    
+    
     private void gotoProfile() {
         try {
 
@@ -100,6 +108,10 @@ public class Main extends Application {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Stage getStage() {
+        return this.stage;
     }
 
     private void gotoLogin() {
@@ -126,6 +138,27 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.sizeToScene();
         return (Initializable) loader.getController();
+    }
+
+    public int uploadFile(File file, String subject) {
+        CSVReader reader = new CSVReader(file, subject);
+        if (reader.ParseCSV()) {
+            ArrayList<Question> questions = reader.getQuestions();
+
+            
+            if (questions.size() == 0) {
+                return 0;
+            } else {
+                //TODO call the database
+                for (Question question : questions) {
+                    System.out.println(question);
+                }
+                //TODO check the return values
+                return questions.size();
+            }
+        } else {
+            return -1;
+        }
     }
 
 }

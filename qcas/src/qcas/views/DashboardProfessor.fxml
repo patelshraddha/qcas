@@ -142,7 +142,7 @@
                </font>
             </Label>
             <ChoiceBox blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="152.0" prefHeight="41.0" prefWidth="150.0" />
-            <Button layoutX="48.0" layoutY="318.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="138.0" text="Upload">
+            <Button fx:id="uploadFileButton" layoutX="48.0" layoutY="318.0" mnemonicParsing="false" onAction="#uploadFile" prefHeight="59.0" prefWidth="138.0" text="Upload">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -155,7 +155,7 @@
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
-            <Button blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="223.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="150.0" text="Select file">
+            <Button fx:id="selectFile" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="223.0" mnemonicParsing="false" onAction="#openSelectFile" prefHeight="41.0" prefWidth="150.0" text="Select file">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -163,9 +163,14 @@
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Button>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="557.0" layoutY="223.0" prefHeight="41.0" prefWidth="446.0" text="File location C:\sd\dfdfd\dfgfg.docx" textFill="#0f84dd">
+            <Label fx:id="selectfilename" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="557.0" layoutY="223.0" prefHeight="41.0" prefWidth="446.0" textFill="#0f84dd">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="fileuploadalert" layoutX="117.0" layoutY="404.0" prefHeight="24.0" prefWidth="268.0" text="File not uploaded.">
+               <font>
+                  <Font size="29.0" />
                </font>
             </Label>
          </children>

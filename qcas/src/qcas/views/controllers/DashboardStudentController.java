@@ -65,9 +65,9 @@ public class DashboardStudentController implements Initializable {
         homeImg.setImage(new Image(getClass().getResourceAsStream(Constants.homeImg)));        
         quizImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
         loginBox.getItems().clear();
-      
         loginBox.getItems().addAll("Log Out");
-        
+        homePane.setVisible(true);
+        quizPane.setVisible(false);        
     } 
     
     public void setApp(Main application){
@@ -94,7 +94,7 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private void logout(ActionEvent event) {
         //Logout
-        System.exit(0);
+        this.application.userLogout();
     }
     
 }
