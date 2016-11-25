@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.stage.Window;
 import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
+import qcas.model.ProfessorHandler;
 import qcas.model.UserLoginTableHandler;
 import qcas.operations.questions.Question;
 import qcas.operations.user.User;
@@ -154,6 +155,9 @@ public class Main extends Application {
                     System.out.println(question);
                 }
                 //TODO check the return values
+                int test;
+                test = ProfessorHandler.insertQuestions(database,questions);
+                System.out.println("Upload Successful!!No: "+test+"\n");
                 return questions.size();
             }
         } else {
