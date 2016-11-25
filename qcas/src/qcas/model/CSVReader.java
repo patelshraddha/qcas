@@ -1,5 +1,6 @@
 package qcas.model;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,33 +23,23 @@ import qcas.operations.questions.QuestionTF;
  */
 public class CSVReader {
 
-    private String filename = null;
+    private File file = null;
     private ArrayList<Question> questions = new ArrayList<Question>();
     private String subjectCode;
     
-    public static void main(String[] args)
-    {
-        CSVReader reader = new CSVReader("test.csv", "OOP");
-        if (reader.ParseCSV()) {
-            ArrayList<Question> questions = reader.getQuestions();
-            for (Question question : questions) {
-                System.out.println(question);
-            }
-        } 
-    }
-
-    public CSVReader(String filename, String subjectCode) {
-        this.filename = filename;
+    
+    public CSVReader(File file, String subjectCode) {
+        this.file = file;
         this.subjectCode = subjectCode;
     }
 
     public boolean ParseCSV() {
-        if (filename == null) {
+        if (file == null) {
             return false;
         }
         Reader in;
         try {
-            in = new FileReader(filename);
+            in = new FileReader(file);
             final CSVFormat csvFileFormat = CSVFormat.RFC4180.withIgnoreSurroundingSpaces().newFormat(',').withEscape('"');
             Iterable<CSVRecord> records = csvFileFormat.parse(in);
             for (CSVRecord record : records) {
@@ -72,8 +63,8 @@ public class CSVReader {
 
     }
 
-    public String getFilename() {
-        return filename;
+    public File getFile() {
+        return file;
     }
 
     public ArrayList<Question> getQuestions() {

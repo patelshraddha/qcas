@@ -9,22 +9,22 @@ package qcas;
 public class Constants {
     
  //Database constants
- public static final String databaseDriver="jdbc:mysql://";
- public static final String databaseUrl="138.197.194.23:3306/qcas";
- public static final String userName="akshay";
- public static final String userPassword="akshayakshay";
+ public static final String DATABASEDRIVER="jdbc:mysql://";
+ public static final String DATABASEURL="138.197.194.23:3306/qcas";
+ public static final String USERNAME="akshay";
+ public static final String USERPASSWORD="akshayakshay";
  
  
  //FXML paths
- public static final String fxmlPath ="/qcas/views/";   
- public static final String loginScreenfxml=fxmlPath+"login.fxml";
- public static final String professorDashboardfxml=fxmlPath+"DashboardProfessor.fxml";
- public static final String studentDashboardfxml=fxmlPath+"DashboardStudent.fxml";
+ public static final String FXMLPATH ="/qcas/views/";   
+ public static final String LOGINSCREENFXML=FXMLPATH+"login.fxml";
+ public static final String PROFESSORDASHBOARDFXML=FXMLPATH+"DashboardProfessor.fxml";
+ public static final String STUDENTDASHBOARDFXML=FXMLPATH+"DashboardStudent.fxml";
  
  
  //identifiers for the profiles
- public static final String professorType="p";
- public static final String studentType="s";
+ public static final String PROFESSORTYPE="p";
+ public static final String STUDENTTYPE="s";
  
  //images and other paths
  public static final String pathToAssets="../assests/";

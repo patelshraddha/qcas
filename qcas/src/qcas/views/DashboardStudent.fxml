@@ -31,7 +31,7 @@
             <Font name="Microsoft JhengHei UI Light" size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="loginBox" layoutX="1148.0" layoutY="23.0" onAction="#logout" prefWidth="150.0" promptText="Name" visibleRowCount="1">
+      <ComboBox fx:id="loginBox" layoutX="1148.0" layoutY="23.0" onAction="#logout" prefWidth="150.0" visibleRowCount="1">
          <effect>
             <InnerShadow color="#c92222" />
          </effect>
@@ -92,12 +92,12 @@
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="122.0" prefHeight="65.0" prefWidth="249.0" text="Bhavya Sharma">
+            <Label fx:id="studentName" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="122.0" prefHeight="65.0" prefWidth="249.0">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="125.0" layoutY="177.0" prefHeight="65.0" prefWidth="249.0" text="studBhavoo@1.com">
+            <Label fx:id="studentEmail" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="125.0" layoutY="177.0" prefHeight="65.0" prefWidth="249.0">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>

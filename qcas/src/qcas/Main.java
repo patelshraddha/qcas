@@ -3,9 +3,11 @@
  */
 package qcas;
 
+import java.io.File;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -17,8 +19,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javafx.scene.Parent;
+import javafx.stage.Window;
+import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
 import qcas.model.UserLoginTableHandler;
+import qcas.operations.questions.Question;
 import qcas.operations.user.User;
 import qcas.views.controllers.DashboardProfessorController;
 import qcas.views.controllers.DashboardStudentController;
@@ -45,7 +50,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            database = new DatabaseHandler(Constants.databaseDriver + Constants.databaseUrl, Constants.userName, Constants.userPassword);
+            database = new DatabaseHandler(Constants.DATABASEDRIVER + Constants.DATABASEURL, Constants.USERNAME, Constants.USERPASSWORD);
 
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,12 +92,12 @@ public class Main extends Application {
     private void gotoProfile() {
         try {
 
-            if (loggedUser.getType().equals(Constants.professorType)) {
+            if (loggedUser.getType().equals(Constants.PROFESSORTYPE)) {
 
-                DashboardProfessorController dashboard = (DashboardProfessorController) replaceSceneContent(Constants.professorDashboardfxml);
+                DashboardProfessorController dashboard = (DashboardProfessorController) replaceSceneContent(Constants.PROFESSORDASHBOARDFXML);
                 dashboard.setApp(this);
-            } else if (loggedUser.getType().equals(Constants.studentType)) {
-                DashboardStudentController dashboard = (DashboardStudentController) replaceSceneContent(Constants.studentDashboardfxml);
+            } else if (loggedUser.getType().equals(Constants.STUDENTTYPE)) {
+                DashboardStudentController dashboard = (DashboardStudentController) replaceSceneContent(Constants.STUDENTDASHBOARDFXML);
                 dashboard.setApp(this);
             }
             //ProfileController profile = (ProfileController) replaceSceneContent("profile.fxml");
@@ -102,9 +107,13 @@ public class Main extends Application {
         }
     }
 
+    public Stage getStage() {
+        return this.stage;
+    }
+
     private void gotoLogin() {
         try {
-            LoginController login = (LoginController) replaceSceneContent(Constants.loginScreenfxml);
+            LoginController login = (LoginController) replaceSceneContent(Constants.LOGINSCREENFXML);
             login.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,6 +135,27 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.sizeToScene();
         return (Initializable) loader.getController();
+    }
+
+    public int uploadFile(File file, String subject) {
+        CSVReader reader = new CSVReader(file, subject);
+        if (reader.ParseCSV()) {
+            ArrayList<Question> questions = reader.getQuestions();
+
+            
+            if (questions.size() == 0) {
+                return 0;
+            } else {
+                //TODO call the database
+                for (Question question : questions) {
+                    System.out.println(question);
+                }
+                //TODO check the return values
+                return questions.size();
+            }
+        } else {
+            return -1;
+        }
     }
 
 }

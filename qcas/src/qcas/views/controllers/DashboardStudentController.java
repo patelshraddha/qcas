@@ -48,6 +48,12 @@ public class DashboardStudentController implements Initializable {
     private Pane quizPane;
     @FXML
     private ComboBox loginBox;
+    @FXML
+    private Label studentName;
+    @FXML
+    private Label studentEmail;
+    
+    
 
 
     /**
@@ -59,7 +65,6 @@ public class DashboardStudentController implements Initializable {
         homeImg.setImage(new Image(getClass().getResourceAsStream(Constants.homeImg)));        
         quizImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
         loginBox.getItems().clear();
-        loginBox.getSelectionModel().select("DE");
         loginBox.getItems().addAll("Log Out");
         homePane.setVisible(true);
         quizPane.setVisible(false);        
@@ -67,6 +72,9 @@ public class DashboardStudentController implements Initializable {
     
     public void setApp(Main application){
         this.application = application;
+        studentName.setText(this.application.getLoggedUser().getFirstName());
+        studentEmail.setText(this.application.getLoggedUser().getEmail());
+        loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
     }
 
     @FXML
