@@ -45,7 +45,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            database = new DatabaseHandler(Constants.databaseDriver + Constants.databaseUrl, Constants.userName, Constants.userPassword);
+            database = new DatabaseHandler(Constants.DATABASEDRIVER + Constants.DATABASEURL, Constants.USERNAME, Constants.USERPASSWORD);
 
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,12 +87,12 @@ public class Main extends Application {
     private void gotoProfile() {
         try {
 
-            if (loggedUser.getType().equals(Constants.professorType)) {
+            if (loggedUser.getType().equals(Constants.PROFESSORTYPE)) {
 
-                DashboardProfessorController dashboard = (DashboardProfessorController) replaceSceneContent(Constants.professorDashboardfxml);
+                DashboardProfessorController dashboard = (DashboardProfessorController) replaceSceneContent(Constants.PROFESSORDASHBOARDFXML);
                 dashboard.setApp(this);
-            } else if (loggedUser.getType().equals(Constants.studentType)) {
-                DashboardStudentController dashboard = (DashboardStudentController) replaceSceneContent(Constants.studentDashboardfxml);
+            } else if (loggedUser.getType().equals(Constants.STUDENTTYPE)) {
+                DashboardStudentController dashboard = (DashboardStudentController) replaceSceneContent(Constants.STUDENTDASHBOARDFXML);
                 dashboard.setApp(this);
             }
             //ProfileController profile = (ProfileController) replaceSceneContent("profile.fxml");
@@ -104,7 +104,7 @@ public class Main extends Application {
 
     private void gotoLogin() {
         try {
-            LoginController login = (LoginController) replaceSceneContent(Constants.loginScreenfxml);
+            LoginController login = (LoginController) replaceSceneContent(Constants.LOGINSCREENFXML);
             login.setApp(this);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
