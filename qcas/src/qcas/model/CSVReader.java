@@ -126,21 +126,21 @@ public class CSVReader {
                 }
                 break;
             case "MA":
-                ArrayList<Integer> answerchoices = new ArrayList<Integer>();
+                int[] answerchoices = new int[4];
                 choices = new String[4];
+                boolean answerexist=false;
                 for (i = 0; i < 4; i++) {
                     String choice = record.get(3 + (i * 2));
                     choices[i] = choice;
 
                     String correct = record.get(4 + (i * 2));
                     if (correct.equals("correct")) {
-                        answerchoices.add(i);
+                        answerchoices[i]=1;
+                        answerexist=true;
                     }
                 }
-                if (answerchoices.size() != 0) {
-                    int[] answerchoicesArray = answerchoices.stream().mapToInt(m -> m).toArray();
-
-                    question = new QuestionMultipleAnswer(type, level, description, subjectCode, answerchoicesArray, choices);
+                if (answerexist) { 
+                    question = new QuestionMultipleAnswer(type, level, description, subjectCode,answerchoices, choices);
                 } else {
                     return null;
                 }
