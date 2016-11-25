@@ -92,6 +92,8 @@ public class DashboardProfessorController implements Initializable {
         professorEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
         //TODO get the subjects of the professor and put it in dropdown
+        this.application.getSubjects();
+        this.application.getAllSubjects();
     }
 
     @FXML

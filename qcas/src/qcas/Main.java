@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.stage.Window;
 import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
+import qcas.model.ProfessorHandler;
 import qcas.model.UserLoginTableHandler;
 import qcas.operations.questions.Question;
 import qcas.operations.user.User;
@@ -159,6 +160,17 @@ public class Main extends Application {
         } else {
             return -1;
         }
+    }
+
+    public void getSubjects() {
+       
+        System.out.println(ProfessorHandler.getSubject(this.database,this.getLoggedUser()));
+        
+    }
+    public void getAllSubjects() {
+       System.out.println("ffef");
+        System.out.println(ProfessorHandler.getAllSubject(this.database));
+        
     }
 
 }
