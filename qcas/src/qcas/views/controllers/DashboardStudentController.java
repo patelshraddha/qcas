@@ -59,9 +59,10 @@ public class DashboardStudentController implements Initializable {
         homeImg.setImage(new Image(getClass().getResourceAsStream(Constants.homeImg)));        
         quizImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
         loginBox.getItems().clear();
-      
+        loginBox.getSelectionModel().select("DE");
         loginBox.getItems().addAll("Log Out");
-        
+        homePane.setVisible(true);
+        quizPane.setVisible(false);        
     } 
     
     public void setApp(Main application){

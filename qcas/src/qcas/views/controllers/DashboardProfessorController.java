@@ -60,6 +60,8 @@ public class DashboardProfessorController implements Initializable {
         uploadImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
         reportImg.setImage(new Image(getClass().getResourceAsStream(Constants.reportImg)));
         homePane.setVisible(true);
+        reportPane.setVisible(false);
+        uploadPane.setVisible(false);
         loginBox.getItems().clear();
         loginBox.getItems().addAll("Log Out");
     }    
