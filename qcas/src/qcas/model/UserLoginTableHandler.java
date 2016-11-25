@@ -52,12 +52,12 @@ public class UserLoginTableHandler {
      * gets user details
      *
      * @param database database from which the details have to be fetched
-     * @param loginid id of the user
+     * @param username
      * @return User details
      */
     public static User getUser(DatabaseHandler database, String username) {
-        boolean verified = false;
-        Statement st;
+
+
 
         try {
 
@@ -71,14 +71,14 @@ public class UserLoginTableHandler {
             // preparedStatement.execute();
             rs = preparedStatement.executeQuery();
             String type;
-            int userKey = 0;
+            int userKey;
             rs.next();
             userKey = rs.getInt(1);
             type = rs.getString(2);
 
-            if (type.equals("p")){
+            if (type.equals(qcas.Constants.PROFESSORTYPE)){
                 insertquestionsquery = "SELECT * FROM Professor WHERE user_key=?";
-            } else if (type.equals("s")){
+            } else if (type.equals(qcas.Constants.STUDENTTYPE)){
                 insertquestionsquery = "SELECT * FROM Student WHERE user_key=?";
             }
             preparedStatement = database.getConnection().prepareStatement(insertquestionsquery);
@@ -88,8 +88,6 @@ public class UserLoginTableHandler {
             rs.next();
             
             return new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),type);
-            
-            //return null;
 
         } catch (SQLException ex) {
             Logger.getLogger(UserLoginTableHandler.class.getName()).log(Level.SEVERE, null, ex);
