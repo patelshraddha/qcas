@@ -85,10 +85,13 @@ public class Main extends Application {
 
     }
 
-    /*void userLogout(){
+    public void userLogout(){
         loggedUser = null;
         gotoLogin();
-    }*/
+    }
+    
+    
+    
     private void gotoProfile() {
         try {
 

@@ -121,7 +121,7 @@ public class DashboardProfessorController implements Initializable {
     @FXML
     private void logout(ActionEvent event) {
         //Logout
-        System.exit(0);
+        this.application.userLogout();
     }
 
     @FXML
