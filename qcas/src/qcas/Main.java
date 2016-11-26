@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -23,6 +24,7 @@ import javafx.stage.Window;
 import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
 import qcas.model.ProfessorHandler;
+import qcas.model.StudentHandler;
 import qcas.model.UserLoginTableHandler;
 import qcas.operations.questions.Question;
 import qcas.operations.user.User;
@@ -171,9 +173,19 @@ public class Main extends Application {
         
     }
     public void getAllSubjects() {
-       System.out.println("ffef");
+       System.out.println("all sub");
         System.out.println(ProfessorHandler.getAllSubject(this.database));
-        
     }
-
+public void getDifficulty() {
+       System.out.println("difficulty");
+        System.out.println(StudentHandler.getSubject(this.database,"OOP"));   
+    }
+public void getQuestions() {
+       System.out.println("Questions");
+       HashMap<String,Integer> hm=new HashMap<String,Integer>();
+       hm.put("H",3);
+       hm.put("M",1);
+       hm.put("L",2);
+        System.out.println(StudentHandler.getQuestions(database,hm));
+    }
 }

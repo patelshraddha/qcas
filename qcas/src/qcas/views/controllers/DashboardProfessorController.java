@@ -94,6 +94,11 @@ public class DashboardProfessorController implements Initializable {
         //TODO get the subjects of the professor and put it in dropdown
         this.application.getSubjects();
         this.application.getAllSubjects();
+        this.application.getDifficulty();
+        
+        
+        
+        this.application.getQuestions();
     }
 
     @FXML
