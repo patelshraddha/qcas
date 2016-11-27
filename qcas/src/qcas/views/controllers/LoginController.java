@@ -81,6 +81,12 @@ public class LoginController implements Initializable {
     }
     
     @FXML
+    public void closeSignup(ActionEvent event) {
+        signUpPane.setVisible(false);
+    }
+    
+    
+    @FXML
     public void closeRegister(ActionEvent event) {
         
         
