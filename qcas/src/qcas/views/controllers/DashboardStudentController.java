@@ -187,10 +187,7 @@ public class DashboardStudentController implements Initializable {
         }
         selectsubjectdropdown.setItems(FXCollections.observableList(subjectNames));
         
-        subjects = (ArrayList<Subject>) list;
-        
-        
-        
+        subjects = (ArrayList<Subject>) list;     
         
         
         ArrayList<Question> questions = new ArrayList<Question>();
@@ -291,7 +288,7 @@ public class DashboardStudentController implements Initializable {
     
     @FXML
     private void startPressed(ActionEvent event) {
-        //TODO check here if a quiz is in process
+        
         ArrayList<Question> questions = new ArrayList<Question>();
 
         Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
