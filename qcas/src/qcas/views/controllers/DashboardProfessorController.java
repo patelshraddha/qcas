@@ -8,17 +8,13 @@ package qcas.views.controllers;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
-import static java.util.Collections.list;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -101,6 +97,7 @@ public class DashboardProfessorController implements Initializable {
         professorName.setText(this.application.getLoggedUser().getFirstName());
         professorEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
+
         List list = this.application.getSubjects();
         List subjectNames = new ArrayList<String>();
         for (Object subject : list) {

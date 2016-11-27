@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -16,12 +17,12 @@ import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import javafx.scene.Parent;
 import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
 import qcas.model.ProfessorHandler;
 import qcas.model.SubjectHandler;
+import qcas.model.StudentHandler;
 import qcas.model.UserLoginTableHandler;
 import qcas.operations.questions.Question;
 import qcas.operations.subject.Subject;
@@ -33,6 +34,8 @@ import qcas.views.controllers.LoginController;
 /**
  * Main Application. This class handles navigation and user session.
  */
+
+
 public class Main extends Application {
 
     private Stage stage;
@@ -147,7 +150,7 @@ public class Main extends Application {
             if (questions.size() == 0) {
                 return 0;
             } else {
-                
+
                 int noOfquestions;
                 noOfquestions = ProfessorHandler.insertQuestions(database, questions);
                 return noOfquestions;
@@ -167,4 +170,17 @@ public class Main extends Application {
         return SubjectHandler.getAllSubjects(this.database);
     }
 
+    public void getDifficulty() {
+        System.out.println("difficulty");
+        System.out.println(StudentHandler.getSubject(this.database, "OOP"));
+    }
+
+    public void getQuestions() {
+        System.out.println("Questions");
+        HashMap<String, Integer> hm = new HashMap<String, Integer>();
+        hm.put("H", 3);
+        hm.put("M", 1);
+        hm.put("L", 2);
+        System.out.println(StudentHandler.getQuestions(database, hm));
+    }
 }
