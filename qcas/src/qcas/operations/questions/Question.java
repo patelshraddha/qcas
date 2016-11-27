@@ -8,7 +8,7 @@ import java.util.Arrays;
  *
  * @author Shraddha Patel
  */
-public class Question {
+public class  Question {
 
     private String id;
     private String type;
@@ -61,6 +61,11 @@ public class Question {
     public String toString()
     {
         return "Type:"+this.type+" Level:"+this.level+" Description:"+this.description+" SubjectCode:"+this.subjectCode+" Answer Choices:"+Arrays.toString(this.choices.toArray());
+    }
+    
+    public boolean evaluate(Question question)
+    {
+        return false;
     }
 
     

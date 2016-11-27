@@ -34,4 +34,10 @@ public class QuestionTF extends Question{
     {
        return super.toString()+" answer:"+ this.getAnswer();
     }
+    
+    
+    @Override
+    public boolean evaluate(Question question) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

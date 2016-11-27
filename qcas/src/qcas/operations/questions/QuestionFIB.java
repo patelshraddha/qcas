@@ -33,4 +33,9 @@ public class QuestionFIB extends Question{
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+    
+    @Override
+    public boolean evaluate(Question question) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -37,4 +37,10 @@ public class QuestionMultipleAnswer extends Question {
     public void setAnswer(int[] answer) {
         this.answer = answer;
     }
+    
+    
+    @Override
+    public boolean evaluate(Question question) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
