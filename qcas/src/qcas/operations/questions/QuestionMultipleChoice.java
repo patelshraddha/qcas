@@ -39,7 +39,14 @@ public class QuestionMultipleChoice extends Question{
 
     @Override
     public boolean evaluate(Question question) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean check=true;
+        if(question.getId().equals(this.getId())&&(question instanceof QuestionMultipleChoice)){
+            if(this.getAnswer()==((QuestionMultipleChoice)question).getAnswer()){
+                check=true;
+            }
+        }
+        //System.out.print(check);
+        return check;
     }
     
     
