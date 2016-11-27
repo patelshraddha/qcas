@@ -41,6 +41,17 @@ public class QuestionMultipleAnswer extends Question {
     
     @Override
     public boolean evaluate(Question question) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean check=true;
+        if(question.getId().equals(this.getId())&&(question instanceof QuestionMultipleAnswer)){
+        for(int i=0;i<this.getAnswer().length;i++){
+            if(!(this.getAnswer()==((QuestionMultipleAnswer)question).getAnswer())){
+                check = false;
+            }
+        }
+        }else{
+            check = false;
+        }
+        //System.out.print(check);
+        return check;
     }
 }

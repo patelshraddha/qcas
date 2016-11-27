@@ -38,6 +38,13 @@ public class QuestionTF extends Question{
     
     @Override
     public boolean evaluate(Question question) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean check=true;
+        if(question.getId().equals(this.getId())&&(question instanceof QuestionTF)){
+            if(this.getAnswer()==((QuestionTF)question).getAnswer()){
+                check=true;
+            }
+        }
+        //System.out.print(check);
+        return check;
     }
 }
