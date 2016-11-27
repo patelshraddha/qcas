@@ -8,13 +8,20 @@ package qcas.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import qcas.operations.questions.Question;
 import qcas.operations.questions.QuestionFIB;
 import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
+import qcas.operations.user.User;
 
 /**
  *
@@ -23,8 +30,53 @@ import qcas.operations.questions.QuestionTF;
 public class ProfessorHandler {
 
 
-    
-    
+    public static ArrayList<String> getSubject(DatabaseHandler database, User user) {
+             ArrayList<String> list = new ArrayList<String>();
+        try {
+            ResultSet rs;
+           
+            //get the user details from the user table
+            String insertquestionsquery = "SELECT subject.subject_name AS subject FROM user_subject_relation INNER JOIN qcas.subject ON user_subject_relation.subject_code = subject.subject_code"
+                    + " WHERE user_subject_relation.user_key = ?";
+            PreparedStatement preparedStatement = database.getConnection().prepareStatement(insertquestionsquery);
+           preparedStatement.setString(1,user.getId());
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                list.add(rs.getString(1));
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLoginTableHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  return list;      
+
+    }
+    public static ArrayList<String> getAllSubject(DatabaseHandler database) {
+             ArrayList<String> list = new ArrayList<String>();
+        try {
+            ResultSet rs;
+           
+            //get the user details from the user table
+            String insertquestionsquery = "SELECT subject_name "
+                    + " FROM `subject`";
+            PreparedStatement preparedStatement = database.getConnection().prepareStatement(insertquestionsquery);
+           //preparedStatement.setString(1,user.getId());
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                list.add(rs.getString(1));
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLoginTableHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  return list;      
+    }
 
     public static int insertQuestions(DatabaseHandler database, ArrayList<qcas.operations.questions.Question> questions) {
 
@@ -86,6 +138,7 @@ public class ProfessorHandler {
                         sql = "Insert into questionBank (question_type, question_level, question_description, subject_code, choice_1) values ("
                                 + "?,?,?,?,?)";
                         ps = database.getConnection().prepareStatement(sql);
+                        //ps.setInt(1, Integer.parseInt(question.getId()));
                         ps.setString(1, question.getType());
                         ps.setString(2, question.getLevel());
                         ps.setString(3, question.getDescription());
@@ -111,7 +164,7 @@ public class ProfessorHandler {
                         }
                         break;
                 }
-                
+                //System.out.println(sql);
                 ps.executeUpdate();
                 n++;
 
@@ -119,7 +172,7 @@ public class ProfessorHandler {
             return n;
         } catch (SQLException ex) {
 
-            Logger.getLogger(ProfessorHandler.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
 
         return 0;

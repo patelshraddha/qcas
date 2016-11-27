@@ -7,11 +7,15 @@ package qcas.views.controllers;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,13 +25,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import qcas.Constants;
 import qcas.Main;
 import qcas.operations.questions.Question;
@@ -35,7 +38,6 @@ import qcas.operations.questions.QuestionFIB;
 import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
-import qcas.operations.user.User;
 
 /**
  * FXML Controller class
@@ -138,14 +140,20 @@ public class DashboardStudentController implements Initializable {
     private TextField fibblank;
     private int[] questionsAttempted;
 
+
+    
+    private Timeline timeline;
+    private int timeSeconds = Constants.STARTTIME;
+    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        clgLogo.setImage(new Image(getClass().getResourceAsStream(Constants.clgLogo)));
-        homeImg.setImage(new Image(getClass().getResourceAsStream(Constants.homeImg)));
-        quizImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
+        clgLogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
+        homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));        
+        quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
         loginBox.getItems().clear();
         loginBox.getItems().addAll("Log Out");
         homePane.setVisible(true);
@@ -175,7 +183,24 @@ public class DashboardStudentController implements Initializable {
     private void startQuiz(ArrayList<Question> answers) {
         quizcreatepane.setVisible(false);
         homePane.setVisible(false);
+        
+        timer.setText(Integer.toString(timeSeconds/60)+":"+Integer.toString(timeSeconds%60));
         quizpane.setVisible(true);
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                timeSeconds--;
+                timer.setText(Integer.toString(timeSeconds/60)+":"+Integer.toString(timeSeconds%60));
+                if(timeSeconds==0){
+                    timeline.stop();
+                    // Quiz stop code goes here
+                    //processSubmit();
+                }
+            }
+        }));
+        timeline.playFromStart();
         presentQuestion = 0;
         quizQuestions = answers;
         previousQuestion.setDisable(true);

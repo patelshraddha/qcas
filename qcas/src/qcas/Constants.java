@@ -16,8 +16,8 @@ public class Constants {
  
  
  //FXML paths
- public static final String FXMLPATH ="/qcas/views/";   
- public static final String LOGINSCREENFXML=FXMLPATH+"login.fxml";
+ public static final String FXMLPATH ="views/";   
+ public static final String LOGINSCREENFXML=FXMLPATH+"Login.fxml";
  public static final String PROFESSORDASHBOARDFXML=FXMLPATH+"DashboardProfessor.fxml";
  public static final String STUDENTDASHBOARDFXML=FXMLPATH+"DashboardStudent.fxml";
  
@@ -27,9 +27,12 @@ public class Constants {
  public static final String STUDENTTYPE="s";
  
  //images and other paths
- public static final String pathToAssets="../assests/";
+ public static final String pathToAssets="views/assests/";
  public static final String clgLogo=pathToAssets+"2000px-Carnegie_Mellon_wordmark.svg.png";
  public static final String homeImg=pathToAssets+"home.jpg";
  public static final String reportImg=pathToAssets+"report.png";
  public static final String clipboardImg=pathToAssets+"clipboard.jpg";
+ 
+ //timer
+ public static final int STARTTIME = 120;
 }
