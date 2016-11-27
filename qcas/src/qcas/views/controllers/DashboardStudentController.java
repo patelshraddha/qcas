@@ -7,11 +7,13 @@ package qcas.views.controllers;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -20,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -38,6 +41,7 @@ import qcas.operations.questions.QuestionFIB;
 import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
+import qcas.operations.subject.Subject;
 
 /**
  * FXML Controller class
@@ -144,6 +148,13 @@ public class DashboardStudentController implements Initializable {
     
     private Timeline timeline;
     private int timeSeconds = Constants.STARTTIME;
+    @FXML
+    private ChoiceBox<?> selectsubjectdropdown;
+    @FXML
+    private ChoiceBox<?> selectdifficulty;
+    @FXML
+    private ChoiceBox<?> selectNumberOfQuestions;
+    private ArrayList<Subject> subjects;
     
 
     /**
@@ -165,6 +176,20 @@ public class DashboardStudentController implements Initializable {
         studentName.setText(this.application.getLoggedUser().getFirstName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
+        
+        List list = this.application.getSubjects();
+        List subjectNames = new ArrayList<String>();
+        for (Object subject : list) {
+            subjectNames.add(((Subject) subject).getSubjectName());
+        }
+        selectsubjectdropdown.setItems(FXCollections.observableList(subjectNames));
+        
+        subjects = (ArrayList<Subject>) list;
+        
+        
+        
+        
+        
         ArrayList<Question> questions = new ArrayList<Question>();
 
         Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
@@ -177,7 +202,7 @@ public class DashboardStudentController implements Initializable {
         questions.add(question2);
         questions.add(question3);
         ArrayList<Question> answers = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
-        startQuiz(answers);
+        //startQuiz(answers);
     }
 
     private void startQuiz(ArrayList<Question> answers) {
@@ -257,6 +282,7 @@ public class DashboardStudentController implements Initializable {
         //TODO check here if a quiz is in progress.
         homePane.setVisible(true);
         quizcreatepane.setVisible(false);
+        
     }
 
     @FXML
@@ -264,6 +290,7 @@ public class DashboardStudentController implements Initializable {
         //TODO check here if a quiz is in process
         homePane.setVisible(false);
         quizcreatepane.setVisible(true);
+        
     }
 
     @FXML
