@@ -25,7 +25,9 @@ import qcas.Constants;
 import qcas.Main;
 import qcas.operations.questions.Question;
 import qcas.operations.questions.QuestionFIB;
+import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
+import qcas.operations.questions.QuestionTF;
 import qcas.operations.user.User;
 
 /**
@@ -101,6 +103,10 @@ public class DashboardStudentController implements Initializable {
     private Pane panefib;
     @FXML
     private ToggleGroup truefalse;
+    @FXML
+    private Label tftrue;
+    @FXML
+    private Label tffalse;
 
     /**
      * Initializes the controller class.
@@ -123,9 +129,9 @@ public class DashboardStudentController implements Initializable {
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
         ArrayList<Question> questions = new ArrayList<Question>();
         Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
-        Question question1 = new QuestionFIB("MC", "H", "Question 2", "OOP", "ahahhaah");
-        Question question2 = new QuestionFIB("FIB", "E", "Question 3", "OOP", "ahahhaah");
-        Question question3 = new QuestionFIB("FIB", "E", "Question 4", "OOP", "ahahhaah");
+        Question question1 = new QuestionMultipleChoice("1", "MC", "E", "ssksk", "OOP", 1, "ma", "mb", "mc", "md");
+        Question question2 = new QuestionMultipleAnswer("2", "MA", "E", "Question 3", "OOP", new int[]{0, 1, 0, 1}, "ma", "mb", "mc", "md");
+        Question question3 = new QuestionTF("TF", "E", "Question 4", "OOP", true);
         questions.add(question);
         questions.add(question1);
         questions.add(question2);
@@ -140,7 +146,7 @@ public class DashboardStudentController implements Initializable {
         presentQuestion = 0;
         quizQuestions = questions;
         previousQuestion.setDisable(true);
-        questionDescription.setText(questions.get(presentQuestion).getDescription());
+        changeQuestion();
     }
 
     @FXML
@@ -178,7 +184,7 @@ public class DashboardStudentController implements Initializable {
                 previousQuestion.setDisable(false);
             }
             changeQuestion();
-            
+
         }
     }
 
@@ -193,12 +199,46 @@ public class DashboardStudentController implements Initializable {
                 nextQuestion.setDisable(false);
             }
             changeQuestion();
-            
+
         }
     }
 
     private void changeQuestion() {
-       questionDescription.setText(quizQuestions.get(presentQuestion).getDescription());
+        Question presentQuestion = quizQuestions.get(this.presentQuestion);
+        questionDescription.setText(presentQuestion.getDescription());
+        this.panefib.setVisible(false);
+        this.gridpaneMA.setVisible(false);
+        this.gridpaneMC.setVisible(false);
+        this.gridpaneTF.setVisible(false);
+        switch (presentQuestion.getType()) {
+            case "FIB":
+                this.panefib.setVisible(true);
+                break;
+            case "MC":
+                this.gridpaneMC.setVisible(true);
+                ArrayList<String> mcchoices = ((QuestionMultipleChoice) presentQuestion).getChoices();
+                this.mcchoice1.setText(mcchoices.get(0));
+                this.mcchoice2.setText(mcchoices.get(1));
+                this.mcchoice3.setText(mcchoices.get(2));
+                this.mcchoice4.setText(mcchoices.get(3));
+                break;
+            case "MA":
+                ArrayList<String> machoices = ((QuestionMultipleAnswer) presentQuestion).getChoices();
+                this.machoice1.setText(machoices.get(0));
+                this.machoice2.setText(machoices.get(1));
+                this.machoice3.setText(machoices.get(2));
+                this.machoice4.setText(machoices.get(3));
+                this.gridpaneMA.setVisible(true);
+                break;
+            case "TF":
+
+                this.gridpaneTF.setVisible(true);
+                this.tftrue.setText("True");
+                this.tffalse.setText("False");
+                break;
+            default:
+                break;
+        }
     }
 
 }

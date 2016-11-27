@@ -312,12 +312,12 @@
                      <toggleGroup>
                         <ToggleGroup fx:id="truefalse" />
                      </toggleGroup></RadioButton>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="True" wrapText="true" GridPane.columnIndex="1">
+                  <Label fx:id="tftrue" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="True" wrapText="true" GridPane.columnIndex="1">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="False" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="tffalse" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="False" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>

@@ -147,11 +147,7 @@ public class Main extends Application {
             if (questions.size() == 0) {
                 return 0;
             } else {
-                //TODO call the database
-                for (Question question : questions) {
-                    System.out.println(question);
-                }
-                //TODO check the return values
+                
                 int noOfquestions;
                 noOfquestions = ProfessorHandler.insertQuestions(database, questions);
                 return noOfquestions;
