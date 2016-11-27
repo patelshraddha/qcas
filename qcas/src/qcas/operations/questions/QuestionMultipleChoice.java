@@ -32,6 +32,10 @@ public class QuestionMultipleChoice extends Question{
     {
        return super.toString()+" answer:"+ this.getChoices().get(answer);
     }
+
+    public void setAnswer(int answer) {
+       this.answer = answer;
+    }
     
     
 }

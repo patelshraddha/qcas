@@ -7,14 +7,21 @@ package qcas.views.controllers;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -107,6 +114,29 @@ public class DashboardStudentController implements Initializable {
     private Label tftrue;
     @FXML
     private Label tffalse;
+    @FXML
+    private RadioButton rbmcchoice1;
+    @FXML
+    private RadioButton rbmcchoice2;
+    @FXML
+    private RadioButton rbmcchoice3;
+    @FXML
+    private RadioButton rbmcchoice4;
+    @FXML
+    private CheckBox cbmachoice1;
+    @FXML
+    private CheckBox cbmachoice2;
+    @FXML
+    private CheckBox cbmachoice3;
+    @FXML
+    private CheckBox cbmachoice4;
+    @FXML
+    private RadioButton rbtftrue;
+    @FXML
+    private RadioButton rbtffalse;
+    @FXML
+    private TextField fibblank;
+    private int[] questionsAttempted;
 
     /**
      * Initializes the controller class.
@@ -128,25 +158,73 @@ public class DashboardStudentController implements Initializable {
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
         ArrayList<Question> questions = new ArrayList<Question>();
+
         Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
         Question question1 = new QuestionMultipleChoice("1", "MC", "E", "ssksk", "OOP", 1, "ma", "mb", "mc", "md");
         Question question2 = new QuestionMultipleAnswer("2", "MA", "E", "Question 3", "OOP", new int[]{0, 1, 0, 1}, "ma", "mb", "mc", "md");
         Question question3 = new QuestionTF("TF", "E", "Question 4", "OOP", true);
         questions.add(question);
+
         questions.add(question1);
         questions.add(question2);
         questions.add(question3);
-        startQuiz(questions);
+        ArrayList<Question> answers = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
+        startQuiz(answers);
     }
 
-    private void startQuiz(ArrayList<Question> questions) {
+    private void startQuiz(ArrayList<Question> answers) {
         quizcreatepane.setVisible(false);
         homePane.setVisible(false);
         quizpane.setVisible(true);
         presentQuestion = 0;
-        quizQuestions = questions;
+        quizQuestions = answers;
         previousQuestion.setDisable(true);
+        questionsAttempted = new int[quizQuestions.size()];
         changeQuestion();
+
+        this.truefalse.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (truefalse.getSelectedToggle() != null) {
+                this.questionsAttempted[this.presentQuestion] = 1;
+                if (truefalse.getSelectedToggle().getUserData().toString().equals("0")) {
+                    ((QuestionTF) quizQuestions.get(presentQuestion)).setAnswer(true);
+                } else {
+                    ((QuestionTF) quizQuestions.get(presentQuestion)).setAnswer(false);
+                }
+            }
+
+        });
+
+        this.singleAnswer.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (singleAnswer.getSelectedToggle() != null) {
+                this.questionsAttempted[this.presentQuestion] = 1;
+                int index = Integer.parseInt(singleAnswer.getSelectedToggle().getUserData().toString());
+                ((QuestionMultipleChoice) quizQuestions.get(presentQuestion)).setAnswer(index);
+
+            }
+        });
+
+        this.fibblank.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.questionsAttempted[this.presentQuestion] = 1;
+            ((QuestionFIB) this.quizQuestions.get(presentQuestion)).setAnswer(newValue);
+        });
+
+        this.cbmachoice1.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            this.questionsAttempted[this.presentQuestion] = 1;
+            maAnswerChanged(0, newValue);
+        });
+        this.cbmachoice2.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            this.questionsAttempted[this.presentQuestion] = 1;
+            maAnswerChanged(1, newValue);
+        });
+        this.cbmachoice3.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            this.questionsAttempted[this.presentQuestion] = 1;
+            maAnswerChanged(2, newValue);
+        });
+        this.cbmachoice4.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            this.questionsAttempted[this.presentQuestion] = 1;
+            maAnswerChanged(3, newValue);
+        });
+
     }
 
     @FXML
@@ -167,10 +245,6 @@ public class DashboardStudentController implements Initializable {
     private void logout(ActionEvent event) {
         //Logout
         this.application.userLogout();
-    }
-
-    @FXML
-    private void fibtextchanged(InputMethodEvent event) {
     }
 
     @FXML
@@ -213,6 +287,10 @@ public class DashboardStudentController implements Initializable {
         switch (presentQuestion.getType()) {
             case "FIB":
                 this.panefib.setVisible(true);
+                String answer = ((QuestionFIB) quizQuestions.get(this.presentQuestion)).getAnswer();
+                if (this.questionsAttempted[this.presentQuestion] != 0) {
+                    this.fibblank.setText(answer);
+                }
                 break;
             case "MC":
                 this.gridpaneMC.setVisible(true);
@@ -221,6 +299,27 @@ public class DashboardStudentController implements Initializable {
                 this.mcchoice2.setText(mcchoices.get(1));
                 this.mcchoice3.setText(mcchoices.get(2));
                 this.mcchoice4.setText(mcchoices.get(3));
+                if (this.questionsAttempted[this.presentQuestion] != 0) {
+                    switch (((QuestionMultipleChoice) presentQuestion).getAnswer()) {
+                        case 0:
+                            this.rbmcchoice1.setSelected(true);
+                            break;
+                        case 1:
+                            this.rbmcchoice2.setSelected(true);
+                            break;
+                        case 2:
+                            this.rbmcchoice3.setSelected(true);
+                            break;
+                        case 3:
+                            this.rbmcchoice4.setSelected(true);
+                            break;
+
+                    }
+                }
+                this.rbmcchoice1.setUserData(0);
+                this.rbmcchoice2.setUserData(1);
+                this.rbmcchoice3.setUserData(2);
+                this.rbmcchoice4.setUserData(3);
                 break;
             case "MA":
                 ArrayList<String> machoices = ((QuestionMultipleAnswer) presentQuestion).getChoices();
@@ -228,17 +327,55 @@ public class DashboardStudentController implements Initializable {
                 this.machoice2.setText(machoices.get(1));
                 this.machoice3.setText(machoices.get(2));
                 this.machoice4.setText(machoices.get(3));
+                int[] answers = ((QuestionMultipleAnswer) presentQuestion).getAnswer();
+                CheckBox[] checkboxes = new CheckBox[]{this.cbmachoice1, this.cbmachoice2, this.cbmachoice3, this.cbmachoice4};
+                int i = 0;
+                if (this.questionsAttempted[this.presentQuestion] != 0) {
+                    
+                    for (CheckBox checkbox : checkboxes) {
+                        if (answers[i] == 0) {
+                            checkbox.setSelected(false);
+                        } else {
+                            checkbox.setSelected(true);
+                        }
+                        i++;
+                    }
+                }
+                else
+                {
+                    ((QuestionMultipleAnswer) presentQuestion).setAnswer(new int[] {0,0,0,0});
+                }
                 this.gridpaneMA.setVisible(true);
                 break;
             case "TF":
-
                 this.gridpaneTF.setVisible(true);
                 this.tftrue.setText("True");
                 this.tffalse.setText("False");
+                this.rbtftrue.setUserData(0);
+                this.rbtffalse.setUserData(1);
+                if (this.questionsAttempted[this.presentQuestion] != 0) {
+                    if (((QuestionTF) presentQuestion).getAnswer()) {
+                        this.rbtftrue.setSelected(true);
+                    } else {
+                        this.rbtffalse.setSelected(true);
+                    }
+                }
                 break;
             default:
                 break;
         }
+    }
+
+    private void maAnswerChanged(int i, boolean change) {
+        int[] answer = ((QuestionMultipleAnswer) this.quizQuestions.get(presentQuestion)).getAnswer();
+        
+        if (change) {
+            answer[i] = 1;
+        } else {
+            answer[i] = 0;
+        }
+       
+        ((QuestionMultipleAnswer) this.quizQuestions.get(presentQuestion)).setAnswer(answer);
     }
 
 }

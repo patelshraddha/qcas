@@ -29,4 +29,8 @@ public class QuestionFIB extends Question{
     {
        return super.toString()+" answer:"+ this.getAnswer();
     }
+    
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 }

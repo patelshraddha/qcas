@@ -207,11 +207,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false">
+                  <RadioButton fx:id="rbmcchoice1" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false">
                      <toggleGroup>
                         <ToggleGroup fx:id="singleAnswer" />
                      </toggleGroup></RadioButton>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="rbmcchoice2" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer" GridPane.rowIndex="1" />
                   <Label fx:id="mcchoice1" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="4" wrapText="true" GridPane.columnIndex="1">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
@@ -222,7 +222,7 @@
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="rbmcchoice3" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer" GridPane.rowIndex="2" />
                   <Label fx:id="mcchoice3" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="9" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
@@ -233,7 +233,7 @@
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer" GridPane.rowIndex="3" />
+                  <RadioButton fx:id="rbmcchoice4" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <Button fx:id="submitTest" layoutX="851.0" layoutY="624.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" text="Submit Test" wrapText="true">
@@ -292,10 +292,10 @@
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <CheckBox blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" />
-                  <CheckBox blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="1" />
-                  <CheckBox blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="2" />
-                  <CheckBox blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="3" />
+                  <CheckBox fx:id="cbmachoice1" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" />
+                  <CheckBox fx:id="cbmachoice2" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="1" />
+                  <CheckBox fx:id="cbmachoice3" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="2" />
+                  <CheckBox fx:id="cbmachoice4" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <GridPane fx:id="gridpaneTF" layoutX="240.0" layoutY="347.0" prefHeight="135.0" prefWidth="325.0" visible="false">
@@ -308,7 +308,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false">
+                  <RadioButton fx:id="rbtftrue" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false">
                      <toggleGroup>
                         <ToggleGroup fx:id="truefalse" />
                      </toggleGroup></RadioButton>
@@ -322,12 +322,12 @@
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$truefalse" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="rbtffalse" blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$truefalse" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Pane fx:id="panefib" layoutX="213.0" layoutY="347.0" onInputMethodTextChanged="#fibtextchanged" prefHeight="200.0" prefWidth="461.0" visible="false">
+            <Pane fx:id="panefib" layoutX="213.0" layoutY="347.0" prefHeight="200.0" prefWidth="461.0" visible="false">
                <children>
-                  <TextField layoutX="191.0" layoutY="71.0" promptText="answer">
+                  <TextField fx:id="fibblank" layoutX="191.0" layoutY="71.0" promptText="answer">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>

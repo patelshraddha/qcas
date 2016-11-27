@@ -22,7 +22,11 @@ public class QuestionTF extends Question{
     
     public boolean getAnswer() {
         return answer;
-    } 
+    }
+    
+    public void setAnswer(boolean answer) {
+        this.answer=answer;
+    }
     
     
     @Override

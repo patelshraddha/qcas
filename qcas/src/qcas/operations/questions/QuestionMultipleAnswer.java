@@ -33,4 +33,8 @@ public class QuestionMultipleAnswer extends Question {
 
         return super.toString() + " answer:" + Arrays.toString(this.getAnswer());
     }
+
+    public void setAnswer(int[] answer) {
+        this.answer = answer;
+    }
 }
