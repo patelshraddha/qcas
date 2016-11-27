@@ -164,7 +164,7 @@ public class ProfessorHandler {
                         }
                         break;
                 }
-                System.out.println(sql);
+                //System.out.println(sql);
                 ps.executeUpdate();
                 n++;
 

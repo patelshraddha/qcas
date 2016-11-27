@@ -61,9 +61,9 @@ public class DashboardStudentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        clgLogo.setImage(new Image(getClass().getResourceAsStream(Constants.clgLogo)));
-        homeImg.setImage(new Image(getClass().getResourceAsStream(Constants.homeImg)));        
-        quizImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
+        clgLogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
+        homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));        
+        quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
         loginBox.getItems().clear();
         loginBox.getItems().addAll("Log Out");
         homePane.setVisible(true);

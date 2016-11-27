@@ -74,10 +74,10 @@ public class DashboardProfessorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        clgLogo.setImage(new Image(getClass().getResourceAsStream(Constants.clgLogo)));
-        homeImg.setImage(new Image(getClass().getResourceAsStream(Constants.homeImg)));
-        uploadImg.setImage(new Image(getClass().getResourceAsStream(Constants.clipboardImg)));
-        reportImg.setImage(new Image(getClass().getResourceAsStream(Constants.reportImg)));
+        clgLogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
+        homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
+        uploadImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
+        reportImg.setImage(new Image(Main.class.getResourceAsStream(Constants.reportImg)));
         homePane.setVisible(true);
 
         reportPane.setVisible(false);
