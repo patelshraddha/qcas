@@ -32,4 +32,7 @@ public class Constants {
  public static final String homeImg=pathToAssets+"home.jpg";
  public static final String reportImg=pathToAssets+"report.png";
  public static final String clipboardImg=pathToAssets+"clipboard.jpg";
+ 
+ //timer
+ public static final int STARTTIME = 120;
 }

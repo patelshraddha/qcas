@@ -8,7 +8,11 @@ package qcas.views.controllers;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import qcas.Constants;
 import qcas.Main;
 import qcas.operations.questions.Question;
@@ -107,7 +112,10 @@ public class DashboardStudentController implements Initializable {
     private Label tftrue;
     @FXML
     private Label tffalse;
-
+    
+    private Timeline timeline;
+    private int timeSeconds = Constants.STARTTIME;
+    
     /**
      * Initializes the controller class.
      */
@@ -142,7 +150,24 @@ public class DashboardStudentController implements Initializable {
     private void startQuiz(ArrayList<Question> questions) {
         quizcreatepane.setVisible(false);
         homePane.setVisible(false);
+        
+        timer.setText(Integer.toString(timeSeconds/60)+":"+Integer.toString(timeSeconds%60));
         quizpane.setVisible(true);
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),new EventHandler(){
+            @Override
+            public void handle(Event event) {
+                timeSeconds--;
+                timer.setText(Integer.toString(timeSeconds/60)+":"+Integer.toString(timeSeconds%60));
+                if(timeSeconds==0){
+                    timeline.stop();
+                    // Quiz stop code goes here
+                    //processSubmit();
+                }
+            }
+        }));
+        timeline.playFromStart();
         presentQuestion = 0;
         quizQuestions = questions;
         previousQuestion.setDisable(true);
