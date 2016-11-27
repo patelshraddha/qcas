@@ -72,7 +72,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;">
+      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
          <effect>
             <DropShadow />
          </effect>
@@ -109,7 +109,7 @@
             </Separator>
          </children>
       </Pane>
-      <Pane fx:id="quizPane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="quizcreatepane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="PLAN QUIZ">
                <font>
@@ -157,7 +157,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <Pane layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="quizpane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="Subject Code: ">
                <font>
@@ -169,7 +169,7 @@
                   <DropShadow />
                </effect>
             </Separator>
-            <Label alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="127.0" layoutY="174.0" prefHeight="173.0" prefWidth="769.0" text="On a scale of 1-9, with 9 being the highest, what would you rate Bhavya's hotness quotient ?" wrapText="true">
+            <Label fx:id="questionDescription" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="127.0" layoutY="174.0" prefHeight="173.0" prefWidth="769.0" text="On a scale of 1-9, with 9 being the highest, what would you rate Bhavya's hotness quotient ?" wrapText="true">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
@@ -184,18 +184,18 @@
                   <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" blendMode="SRC_ATOP" contentDisplay="CENTER" depthTest="ENABLE" layoutX="834.0" layoutY="36.0" prefHeight="76.0" prefWidth="178.0" text="00:00">
+            <Label fx:id="timer" alignment="CENTER" blendMode="SRC_ATOP" contentDisplay="CENTER" depthTest="ENABLE" layoutX="834.0" layoutY="36.0" prefHeight="76.0" prefWidth="178.0" text="00:00">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
             </Label>
-            <ProgressBar layoutX="213.0" layoutY="651.0" prefHeight="23.0" prefWidth="604.0" progress="0.0" />
+            <ProgressBar fx:id="progressbar" layoutX="213.0" layoutY="651.0" prefHeight="23.0" prefWidth="604.0" progress="0.0" />
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="81.0" layoutY="647.0" prefHeight="31.0" prefWidth="214.0" text="Progress:">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
-            <GridPane layoutX="234.0" layoutY="332.0" prefHeight="272.0" prefWidth="578.0" visible="false">
+            <GridPane fx:id="gridpaneMC" layoutX="234.0" layoutY="332.0" prefHeight="272.0" prefWidth="578.0" visible="false">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="313.0" minWidth="10.0" prefWidth="44.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="548.0" minWidth="10.0" prefWidth="534.0" />
@@ -212,23 +212,23 @@
                         <ToggleGroup fx:id="singleAnswer" />
                      </toggleGroup></RadioButton>
                   <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer" GridPane.rowIndex="1" />
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="4" wrapText="true" GridPane.columnIndex="1">
+                  <Label fx:id="mcchoice1" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="4" wrapText="true" GridPane.columnIndex="1">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="5" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="mcchoice2" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="5" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
                   <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer" GridPane.rowIndex="2" />
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="9" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label fx:id="mcchoice3" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="9" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="6" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label fx:id="mcchoice4" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="6" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
@@ -236,7 +236,7 @@
                   <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <Button layoutX="851.0" layoutY="624.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" text="Submit Test" wrapText="true">
+            <Button fx:id="submitTest" layoutX="851.0" layoutY="624.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" text="Submit Test" wrapText="true">
                <font>
                   <Font name="Microsoft JhengHei UI" size="15.0" />
                </font>
@@ -244,7 +244,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="851.0" layoutY="135.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" text="NEXT" wrapText="true">
+            <Button fx:id="nextQuestion" layoutX="851.0" layoutY="135.0" mnemonicParsing="false" onAction="#nextQuestionPressed" prefHeight="47.0" prefWidth="144.0" text="NEXT" wrapText="true">
                <font>
                   <Font name="Microsoft JhengHei UI" size="15.0" />
                </font>
@@ -252,7 +252,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="36.0" layoutY="135.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" text="PREVIOUS" wrapText="true">
+            <Button fx:id="previousQuestion" layoutX="36.0" layoutY="135.0" mnemonicParsing="false" onAction="#previousQuestionPressed" prefHeight="47.0" prefWidth="144.0" text="PREVIOUS" wrapText="true">
                <font>
                   <Font name="Microsoft JhengHei UI" size="15.0" />
                </font>
@@ -260,7 +260,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <GridPane layoutX="234.0" layoutY="323.0" minWidth="-Infinity" prefHeight="305.0" prefWidth="604.0" visible="false">
+            <GridPane fx:id="gridpaneMA" layoutX="234.0" layoutY="323.0" minWidth="-Infinity" prefHeight="305.0" prefWidth="604.0" visible="false">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="51.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="553.0" minWidth="10.0" prefWidth="553.0" />
@@ -272,22 +272,22 @@
                   <RowConstraints maxHeight="145.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="Multiple answer" wrapText="true" GridPane.columnIndex="1">
+                  <Label fx:id="machoice1" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="Multiple answer" wrapText="true" GridPane.columnIndex="1">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="machoice2" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label fx:id="machoice3" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="4" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label fx:id="machoice4" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="4" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
@@ -298,7 +298,7 @@
                   <CheckBox blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="3" />
                </children>
             </GridPane>
-            <GridPane layoutX="240.0" layoutY="347.0" prefHeight="135.0" prefWidth="325.0" visible="false">
+            <GridPane fx:id="gridpaneTF" layoutX="240.0" layoutY="347.0" prefHeight="135.0" prefWidth="325.0" visible="false">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="57.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="268.0" />
@@ -308,21 +308,24 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" />
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="True" wrapText="true" GridPane.columnIndex="1">
+                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="truefalse" />
+                     </toggleGroup></RadioButton>
+                  <Label fx:id="tftrue" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="True" wrapText="true" GridPane.columnIndex="1">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="False" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="tffalse" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="False" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font name="Microsoft YaHei UI Light" size="20.0" />
                      </font>
                   </Label>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="1" />
+                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$truefalse" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Pane layoutX="213.0" layoutY="347.0" prefHeight="200.0" prefWidth="461.0" visible="false">
+            <Pane fx:id="panefib" layoutX="213.0" layoutY="347.0" onInputMethodTextChanged="#fibtextchanged" prefHeight="200.0" prefWidth="461.0" visible="false">
                <children>
                   <TextField layoutX="191.0" layoutY="71.0" promptText="answer">
                      <font>
@@ -353,129 +356,6 @@
                   <DropShadow />
                </effect>
             </Separator>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="231.0" layoutY="392.0" prefHeight="76.0" prefWidth="501.0" text="Question set selected is not available, please re-select." textFill="#bd2031" visible="false">
-               <font>
-                  <Font name="Microsoft YaHei UI Light" size="20.0" />
-               </font>
-            </Label>
-            <GridPane layoutX="234.0" layoutY="332.0" prefHeight="272.0" prefWidth="578.0" visible="false">
-               <children>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="singleAnswer1" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer1" GridPane.rowIndex="1" />
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="4" wrapText="true" GridPane.columnIndex="1">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="5" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer1" GridPane.rowIndex="2" />
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="9" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="6" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" toggleGroup="$singleAnswer1" GridPane.rowIndex="3" />
-               </children>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="313.0" minWidth="10.0" prefWidth="44.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="548.0" minWidth="10.0" prefWidth="534.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-            </GridPane>
-            <GridPane layoutX="234.0" layoutY="323.0" minWidth="-Infinity" prefHeight="305.0" prefWidth="604.0" visible="false">
-               <children>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="Multiple answer" wrapText="true" GridPane.columnIndex="1">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="3" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="4" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <CheckBox blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" />
-                  <CheckBox blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="1" />
-                  <CheckBox blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="2" />
-                  <CheckBox blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="3" />
-               </children>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="51.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="553.0" minWidth="10.0" prefWidth="553.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="83.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="145.0" minHeight="0.0" prefHeight="72.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="145.0" minHeight="0.0" prefHeight="80.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-            </GridPane>
-            <GridPane layoutX="240.0" layoutY="347.0" prefHeight="135.0" prefWidth="325.0" visible="false">
-               <children>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" />
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="True" wrapText="true" GridPane.columnIndex="1">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="173.0" prefWidth="769.0" text="False" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-                  <RadioButton blendMode="SRC_ATOP" depthTest="ENABLE" mnemonicParsing="false" GridPane.rowIndex="1" />
-               </children>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="57.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="268.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-            </GridPane>
-            <Pane layoutX="213.0" layoutY="347.0" prefHeight="200.0" prefWidth="461.0" visible="false">
-               <children>
-                  <TextField layoutX="191.0" layoutY="71.0" promptText="answer">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </TextField>
-                  <Label alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="23.0" layoutY="62.0" prefHeight="59.0" prefWidth="203.0" text="Your answer:" wrapText="true">
-                     <font>
-                        <Font name="Microsoft YaHei UI Light" size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
             <BarChart blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="84.0" layoutY="163.0" legendSide="RIGHT" prefHeight="458.0" prefWidth="809.0" title="Answer Anaysis">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
