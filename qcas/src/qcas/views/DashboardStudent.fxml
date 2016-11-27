@@ -109,7 +109,7 @@
             </Separator>
          </children>
       </Pane>
-      <Pane fx:id="quizcreatepane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;">
+      <Pane fx:id="quizcreatepane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="PLAN QUIZ">
                <font>
@@ -136,29 +136,21 @@
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
-<<<<<<< HEAD
-            <ChoiceBox fx:id="selectsubjectdropdown" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="152.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="selectdifficulty" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="228.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="selectNumberOfQuestions" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="311.0" prefWidth="150.0" />
-            <Button layoutX="44.0" layoutY="400.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="138.0" text="START">
-=======
-            <ChoiceBox blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="152.0" prefWidth="150.0" />
-            <ChoiceBox blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="228.0" prefWidth="150.0" />
-            <ChoiceBox blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="311.0" prefWidth="150.0" />
-            <Button fx:id="startButton" layoutX="44.0" layoutY="400.0" mnemonicParsing="false" onAction="#startPressed" prefHeight="59.0" prefWidth="138.0" text="START">
->>>>>>> origin/master
-               <font>
-                  <Font name="Microsoft YaHei UI" size="20.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
+
+               
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="231.0" layoutY="392.0" prefHeight="76.0" prefWidth="501.0" text="Question set selected is not available, please re-select." textFill="#bd2031" visible="false">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
+            <ComboBox blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="316.0" layoutY="152.0" prefWidth="150.0" />
+            <ComboBox blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="316.0" layoutY="226.0" prefWidth="150.0" />
+            <ComboBox blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="316.0" layoutY="309.0" prefWidth="150.0" />
+            <Button fx:id="start" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="316.0" layoutY="401.0" mnemonicParsing="false" onAction="#startPressed" prefHeight="59.0" prefWidth="150.0" text="Start">
+               <font>
+                  <Font name="Microsoft JhengHei UI" size="22.0" />
+               </font>
+            </Button>
          </children>
          <effect>
             <DropShadow />
