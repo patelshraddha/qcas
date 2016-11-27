@@ -5,9 +5,9 @@ package qcas;
 
 import java.io.File;
 import java.io.InputStream;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -15,16 +15,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javafx.scene.Parent;
-import javafx.stage.Window;
 import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
 import qcas.model.ProfessorHandler;
+import qcas.model.SubjectHandler;
 import qcas.model.UserLoginTableHandler;
 import qcas.operations.questions.Question;
+import qcas.operations.subject.Subject;
 import qcas.operations.user.User;
 import qcas.views.controllers.DashboardProfessorController;
 import qcas.views.controllers.DashboardStudentController;
@@ -86,13 +86,11 @@ public class Main extends Application {
 
     }
 
-    public void userLogout(){
+    public void userLogout() {
         loggedUser = null;
         gotoLogin();
     }
-    
-    
-    
+
     private void gotoProfile() {
         try {
 
@@ -146,7 +144,6 @@ public class Main extends Application {
         if (reader.ParseCSV()) {
             ArrayList<Question> questions = reader.getQuestions();
 
-            
             if (questions.size() == 0) {
                 return 0;
             } else {
@@ -155,25 +152,23 @@ public class Main extends Application {
                     System.out.println(question);
                 }
                 //TODO check the return values
-                int test;
-                test = ProfessorHandler.insertQuestions(database,questions);
-                System.out.println("Upload Successful!!No: "+test+"\n");
-                return questions.size();
+                int noOfquestions;
+                noOfquestions = ProfessorHandler.insertQuestions(database, questions);
+                return noOfquestions;
             }
         } else {
             return -1;
         }
     }
 
-    public void getSubjects() {
-       
-        System.out.println(ProfessorHandler.getSubject(this.database,this.getLoggedUser()));
-        
+    public List<Subject> getSubjects() {
+
+        return SubjectHandler.getSubjectUser(this.database, this.getLoggedUser());
+
     }
-    public void getAllSubjects() {
-       System.out.println("ffef");
-        System.out.println(ProfessorHandler.getAllSubject(this.database));
-        
+
+    public List<Subject> getAllSubjects() {
+        return SubjectHandler.getAllSubjects(this.database);
     }
 
 }

@@ -8,11 +8,17 @@ package qcas.views.controllers;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import static java.util.Collections.list;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -21,6 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import qcas.Constants;
 import qcas.Main;
+import qcas.operations.subject.Subject;
 
 /**
  * FXML Controller class
@@ -60,13 +67,16 @@ public class DashboardProfessorController implements Initializable {
     private Button selectFile;
     @FXML
     private Label selectfilename;
-    
-    private File file=null;
+
+    private File file = null;
     @FXML
     private Button uploadFileButton;
-    private ArrayList<String> subjects;
+    private ArrayList<Subject> subjects;
     @FXML
     private Label fileuploadalert;
+
+    @FXML
+    private ComboBox<?> subjectList;
 
     /**
      * Initializes the controller class.
@@ -91,9 +101,14 @@ public class DashboardProfessorController implements Initializable {
         professorName.setText(this.application.getLoggedUser().getFirstName());
         professorEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
-        //TODO get the subjects of the professor and put it in dropdown
-        this.application.getSubjects();
-        this.application.getAllSubjects();
+        List list = this.application.getSubjects();
+        List subjectNames = new ArrayList<String>();
+        for (Object subject : list) {
+            subjectNames.add(((Subject) subject).getSubjectName());
+        }
+        subjectList.setItems(FXCollections.observableList(subjectNames));
+        subjectList.setPromptText("Select Subject");
+        subjects = (ArrayList<Subject>) list;
     }
 
     @FXML
@@ -139,26 +154,24 @@ public class DashboardProfessorController implements Initializable {
 
     @FXML
     private void uploadFile(ActionEvent event) {
-        if(this.file!=null)
-        {
-            //TODO get selected subject and switch
-            int questions=this.application.uploadFile(this.file,"OOP");
-           switch (questions)
-           {
-               case -1:
-                   this.fileuploadalert.setText("File isn't in a proper format. Please try again.");
-                   break;
-               case 0:
-                   this.fileuploadalert.setText("Questions could not be uploaded.Please try again.");
-                   break;
-               default:
-                   this.fileuploadalert.setText(questions+" questions uploaded to the database.");
-                   break;                   
-           }
-        }
-        else
-        {
-            //TODO alert;
+        if (this.file != null) {
+            Subject selectedSubject = subjects.get(this.subjectList.getSelectionModel().getSelectedIndex());
+            int questions = this.application.uploadFile(this.file, selectedSubject.getSubjectCode());
+            switch (questions) {
+                case -1:
+                    this.fileuploadalert.setText("File isn't in a proper format. Please try again.");
+                    break;
+                case 0:
+                    this.fileuploadalert.setText("Questions could not be uploaded.Please try again.");
+                    break;
+                default:
+                    this.fileuploadalert.setText(questions + " questions uploaded to the database.");
+                    file = null;
+                    this.selectfilename.setText("");
+                    break;
+            }
+        } else {
+            this.fileuploadalert.setText("You haven't selected any file.");
         }
     }
 }
