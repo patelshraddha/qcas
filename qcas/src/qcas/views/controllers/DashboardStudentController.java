@@ -73,6 +73,8 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private Pane quizpane;
     @FXML
+    private Pane resultPane;
+    @FXML
     private Label questionDescription;
     @FXML
     private Label timer;
@@ -157,7 +159,7 @@ public class DashboardStudentController implements Initializable {
         loginBox.getItems().clear();
         loginBox.getItems().addAll("Log Out");
         homePane.setVisible(true);
-        quizcreatepane.setVisible(false);
+        
     }
 
     public void setApp(Main application) {
@@ -165,19 +167,8 @@ public class DashboardStudentController implements Initializable {
         studentName.setText(this.application.getLoggedUser().getFirstName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
-        ArrayList<Question> questions = new ArrayList<Question>();
-
-        Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
-        Question question1 = new QuestionMultipleChoice("1", "MC", "E", "ssksk", "OOP", 1, "ma", "mb", "mc", "md");
-        Question question2 = new QuestionMultipleAnswer("2", "MA", "E", "Question 3", "OOP", new int[]{0, 1, 0, 1}, "ma", "mb", "mc", "md");
-        Question question3 = new QuestionTF("TF", "E", "Question 4", "OOP", true);
-        questions.add(question);
-
-        questions.add(question1);
-        questions.add(question2);
-        questions.add(question3);
-        ArrayList<Question> answers = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
-        startQuiz(answers);
+        
+        
     }
 
     private void startQuiz(ArrayList<Question> answers) {
@@ -255,9 +246,38 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private void homePressed(ActionEvent event) {
         //TODO check here if a quiz is in progress.
-        homePane.setVisible(true);
         quizcreatepane.setVisible(false);
+        quizpane.setVisible(false);
+        homePane.setVisible(true);
+        
     }
+    
+    @FXML
+    private void startPressed(ActionEvent event) {
+        //TODO check here if a quiz is in process
+        ArrayList<Question> questions = new ArrayList<Question>();
+
+        Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
+        Question question1 = new QuestionMultipleChoice("1", "MC", "E", "ssksk", "OOP", 1, "ma", "mb", "mc", "md");
+        Question question2 = new QuestionMultipleAnswer("2", "MA", "E", "Question 3", "OOP", new int[]{0, 1, 0, 1}, "ma", "mb", "mc", "md");
+        Question question3 = new QuestionTF("TF", "E", "Question 4", "OOP", true);
+        questions.add(question);
+
+        questions.add(question1);
+        questions.add(question2);
+        questions.add(question3);
+        ArrayList<Question> answers = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
+        
+        startQuiz(answers);
+    }
+    
+    @FXML
+    private void submitPressed(ActionEvent event) {
+        //TODO check here if a quiz is in process
+        quizpane.setVisible(false);
+        resultPane.setVisible(true);
+    }
+    
 
     @FXML
     private void quizPressed(ActionEvent event) {
