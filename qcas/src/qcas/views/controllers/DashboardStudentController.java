@@ -308,6 +308,8 @@ public class DashboardStudentController implements Initializable {
                 if (timeSeconds == 0) {
                     timeline.stop();
                     // Quiz stop code goes here
+                    quizInProgress=false;
+                    submitQuiz();
                 }
             }
         }));
