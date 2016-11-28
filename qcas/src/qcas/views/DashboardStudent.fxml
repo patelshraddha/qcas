@@ -332,6 +332,26 @@
                   </Label>
                </children>
             </Pane>
+            <Label fx:id="questionDescription1" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="385.0" layoutY="143.0" prefHeight="31.0" prefWidth="91.0" text="Question" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentQuestionNo" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="476.0" layoutY="143.0" prefHeight="31.0" prefWidth="38.0" text="1" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="questionDescription111" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="522.0" layoutY="143.0" prefHeight="31.0" prefWidth="38.0" text="of" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalQuestionNo" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="571.0" layoutY="143.0" prefHeight="31.0" prefWidth="38.0" text="1" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow />

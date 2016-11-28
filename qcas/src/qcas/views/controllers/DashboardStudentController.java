@@ -118,6 +118,10 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private Label machoice4;
     @FXML
+    private Label currentQuestionNo;
+    @FXML
+    private Label totalQuestionNo;
+    @FXML
     private GridPane gridpaneTF;
     @FXML
     private Pane panefib;
@@ -165,6 +169,7 @@ public class DashboardStudentController implements Initializable {
 
     private HashMap<String, Integer> hashcountquestions;
     private boolean quizInProgress;
+    private int currentQuestion; //To hold the count of the question being displayed
 
     /**
      * Initializes the controller class.
@@ -174,8 +179,8 @@ public class DashboardStudentController implements Initializable {
         clgLogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
         homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
         quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
-         homePane.setVisible(true);
-
+        homePane.setVisible(true);
+        currentQuestion = 1;
     }
 
     public void setApp(Main application) {
@@ -289,6 +294,7 @@ public class DashboardStudentController implements Initializable {
         ArrayList<Question> answers = new ArrayList<>(questions); // create a shallow copy of the questions list.
         timer.setText(Integer.toString(timeSeconds / 60) + ":" + Integer.toString(timeSeconds % 60));
         quizpane.setVisible(true);
+        
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
@@ -381,7 +387,9 @@ public class DashboardStudentController implements Initializable {
         String subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
         String difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
         int numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-
+        
+        totalQuestionNo.setText(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
+        
         if (subjectCode != null && difficulty != null && numberOfquestions != 0) {
 
             String level = "";
@@ -494,6 +502,9 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion >= 1) {
                 previousQuestion.setDisable(false);
             }
+            currentQuestion++;
+            currentQuestionNo.setText(Integer.toString(currentQuestion));
+            
             changeQuestion();
 
         }
@@ -509,6 +520,8 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion <= quizAnswers.size() - 2) {
                 nextQuestion.setDisable(false);
             }
+            currentQuestion--;
+            currentQuestionNo.setText(Integer.toString(currentQuestion));
             changeQuestion();
 
         }
