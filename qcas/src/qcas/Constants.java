@@ -33,5 +33,9 @@ public class Constants {
  public static final String reportImg=pathToAssets+"report.png";
  public static final String clipboardImg=pathToAssets+"clipboard.jpg";
  
+ //timer
+ public static final int TIME_PER_QUESTION = 90;
  
+ public static final String[] REPORTTYPES = {"Number of Tests Taken.","Average Student Scores.","Scores by level of difficulty.","Students passing and failing."};
+
 }

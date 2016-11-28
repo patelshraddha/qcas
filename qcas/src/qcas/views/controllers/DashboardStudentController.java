@@ -346,7 +346,7 @@ public class DashboardStudentController implements Initializable {
         String subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
         String difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
         int numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-        
+       
         if (subjectCode != null && difficulty != null && numberOfquestions != 0) {
             
             String level="";
@@ -368,7 +368,7 @@ public class DashboardStudentController implements Initializable {
                     break;
             }
             questions = this.application.getQuestions(level,subjectCode,numberOfquestions);
-            
+            this.timeSeconds = Constants.TIME_PER_QUESTION * questions.size();
             startQuiz(questions);
         }
 

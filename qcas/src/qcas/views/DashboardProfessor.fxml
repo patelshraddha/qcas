@@ -192,8 +192,8 @@
             </Separator>
             <HBox layoutX="17.0" layoutY="132.0" prefHeight="41.0" prefWidth="995.0" spacing="120.0">
                <children>
-                  <ComboBox prefWidth="150.0" promptText="Subject Code" />
-                  <ComboBox prefHeight="31.0" prefWidth="454.0" promptText="Report Type" />
+                  <ComboBox fx:id="subjectType" prefWidth="150.0" promptText="Subject Code" />
+                  <ComboBox fx:id="reportType" prefHeight="31.0" prefWidth="454.0" promptText="Report Type" />
                   <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Generate">
                      <font>
                         <Font name="Microsoft JhengHei UI Light" size="15.0" />
