@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import qcas.Constants;
 import qcas.Main;
+import qcas.model.SubjectHandler;
 import qcas.operations.subject.Subject;
 
 /**
@@ -72,7 +73,11 @@ public class DashboardProfessorController implements Initializable {
     private Label fileuploadalert;
 
     @FXML
-    private ComboBox<?> subjectList;
+    private ComboBox subjectList;
+    @FXML
+    private ComboBox reportType;
+    @FXML
+    private ComboBox subjectType;
 
     /**
      * Initializes the controller class.
@@ -85,7 +90,7 @@ public class DashboardProfessorController implements Initializable {
         uploadImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
         reportImg.setImage(new Image(Main.class.getResourceAsStream(Constants.reportImg)));
         homePane.setVisible(true);
-
+        
         reportPane.setVisible(false);
         uploadPane.setVisible(false);
         loginBox.getItems().clear();
@@ -106,6 +111,17 @@ public class DashboardProfessorController implements Initializable {
         subjectList.setItems(FXCollections.observableList(subjectNames));
         subjectList.setPromptText("Select Subject");
         subjects = (ArrayList<Subject>) list;
+        
+        subjectType.getItems().clear();
+        List list2 = this.application.getAllSubjects();
+        //List subjectNames = new ArrayList<>();
+        for (Object subject : list2) {
+            subjectType.getItems().addAll(((Subject)subject).getSubjectName());
+        }
+        reportType.getItems().clear();
+        for(String s: Constants.REPORTTYPES){
+            reportType.getItems().addAll(s);
+        }
     }
 
     @FXML

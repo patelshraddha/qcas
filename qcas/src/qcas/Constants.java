@@ -35,4 +35,6 @@ public class Constants {
  
  //timer
  public static final int STARTTIME = 120;
+ 
+ public static final String[] REPORTTYPES = {"Number of Tests Taken.","Average Student Scores.","Scores by level of difficulty.","Students passing and failing."};
 }
