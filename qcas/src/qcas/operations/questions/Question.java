@@ -76,6 +76,12 @@ public class  Question {
     public Question getQuestion(String id,String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
         return null;
     }
+    
+    @Override
+    public Question clone()
+    {
+        return new Question(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode());
+    }
 
     
 
