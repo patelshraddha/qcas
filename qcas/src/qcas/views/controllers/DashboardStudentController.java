@@ -17,12 +17,14 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -94,6 +96,8 @@ public class DashboardStudentController implements Initializable {
     private Button nextQuestion;
     @FXML
     private Button previousQuestion;
+    @FXML
+    private PieChart pieChart;
     private int presentQuestion;
     private ArrayList<Question> quizAnswers;
     private ArrayList<Question> quizQuestions;
@@ -667,6 +671,8 @@ public class DashboardStudentController implements Initializable {
             System.out.println("Total:" + totalMap.get(obj)+ " Correct:"+correctMap.get(obj));
         quizpane.setVisible(false);
         resultPane.setVisible(true);
+        
+        
     }
 
 }
