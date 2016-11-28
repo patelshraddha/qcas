@@ -177,4 +177,59 @@ public class ProfessorHandler {
 
         return 0;
     }
+    
+    
+    public static ArrayList<Integer> getTestsTaken(DatabaseHandler database, int subjectCode) {
+        ArrayList<Integer> testCount = new ArrayList<Integer>();
+        
+        try {
+            ResultSet rs;
+           
+            //get tests taken in the past month
+            String query = "SELECT count(*) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) and subject_code = ?";     //past month
+            PreparedStatement preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                testCount.add(rs.getInt(1));
+
+            }
+            
+            //get tests taken in the past month
+            query = "SELECT count(*) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 4 MONTH) and subject_code = ?";     //past quarter
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                testCount.add(rs.getInt(1));
+
+            }
+            
+            //get tests taken in the past month
+            query = "SELECT count(*) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 1 YEAR) and subject_code = ?";     //past Year
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                testCount.add(rs.getInt(1));
+
+            }
+            
+            
+            
+        }
+        catch (SQLException ex) {
+
+            System.out.println(ex);
+        }
+
+        return testCount;
+        
+    }
 }

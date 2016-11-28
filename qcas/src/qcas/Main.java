@@ -172,6 +172,10 @@ public class Main extends Application {
     public HashMap<String, Integer> getQuestionsCountDifficulty(String subjectCode) {
         return StudentHandler.getCountQuestions(this.database, subjectCode);
     }
+    
+    public ArrayList<Integer> getTestsTaken(int subjectCode){
+        return ProfessorHandler.getTestsTaken(database, subjectCode);
+    }
 
     public ArrayList<Question> getQuestions(String level, String subjectCode, int... counts) {
 

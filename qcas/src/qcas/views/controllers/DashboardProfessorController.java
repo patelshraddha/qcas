@@ -78,6 +78,8 @@ public class DashboardProfessorController implements Initializable {
     private ComboBox reportType;
     @FXML
     private ComboBox subjectType;
+    @FXML
+    private Button generate;
 
     /**
      * Initializes the controller class.
@@ -111,13 +113,10 @@ public class DashboardProfessorController implements Initializable {
         subjectList.setItems(FXCollections.observableList(subjectNames));
         subjectList.setPromptText("Select Subject");
         subjects = (ArrayList<Subject>) list;
+       
+        subjectType.setItems(FXCollections.observableList(subjectNames));
+        subjectType.setPromptText("Select Subject");
         
-        subjectType.getItems().clear();
-        List list2 = this.application.getAllSubjects();
-        //List subjectNames = new ArrayList<>();
-        for (Object subject : list2) {
-            subjectType.getItems().addAll(((Subject)subject).getSubjectName());
-        }
         reportType.getItems().clear();
         for(String s: Constants.REPORTTYPES){
             reportType.getItems().addAll(s);
@@ -186,5 +185,13 @@ public class DashboardProfessorController implements Initializable {
         } else {
             this.fileuploadalert.setText("You haven't selected any file.");
         }
+    }
+
+    @FXML
+    private void generateReport(ActionEvent event) {
+        
+        Subject selectedSubject = subjects.get(this.subjectType.getSelectionModel().getSelectedIndex());
+        
+        
     }
 }
