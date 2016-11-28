@@ -7,6 +7,7 @@ package qcas.views.controllers;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -172,7 +173,6 @@ public class DashboardStudentController implements Initializable {
     private Label questionDescription1;
     @FXML
     private Label questionDescription111;
-   
 
     /**
      * Initializes the controller class.
@@ -183,7 +183,7 @@ public class DashboardStudentController implements Initializable {
         homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
         quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
         homePane.setVisible(true);
-        
+
     }
 
     public void setApp(Main application) {
@@ -191,17 +191,14 @@ public class DashboardStudentController implements Initializable {
         loginBox.getItems().clear();
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
         loginBox.getItems().addAll("Log Out");
-        
-       
-        studentName.setText(this.application.getLoggedUser().getFirstName()+" "+this.application.getLoggedUser().getLastName());
+
+        studentName.setText(this.application.getLoggedUser().getFirstName() + " " + this.application.getLoggedUser().getLastName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("Log Out"))
-            {
+            if (newValue.equals("Log Out")) {
                 this.logout();
             }
         });
-        
 
         hashcountquestions = new HashMap<String, Integer>();
         List list = this.application.getSubjects();
@@ -228,7 +225,6 @@ public class DashboardStudentController implements Initializable {
         selectsubjectdropdown.getSelectionModel().select(0);
         reassignDifficulty();
         reassignQuestionCount("Easy");
-        
 
     }
 
@@ -294,10 +290,13 @@ public class DashboardStudentController implements Initializable {
         this.quizInProgress = true;
         quizcreatepane.setVisible(false);
         homePane.setVisible(false);
-        ArrayList<Question> answers = new ArrayList<>(questions); // create a shallow copy of the questions list.
+        ArrayList<Question> answers = new ArrayList<>();// = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
+        for (Question question : questions) {
+            answers.add(question.clone());
+        }
         timer.setText(Integer.toString(timeSeconds / 60) + ":" + Integer.toString(timeSeconds % 60));
         quizpane.setVisible(true);
-        
+
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
@@ -308,7 +307,7 @@ public class DashboardStudentController implements Initializable {
                 if (timeSeconds == 0) {
                     timeline.stop();
                     // Quiz stop code goes here
-                    quizInProgress=false;
+                    quizInProgress = false;
                     submitQuiz();
                 }
             }
@@ -391,9 +390,9 @@ public class DashboardStudentController implements Initializable {
         String subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
         String difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
         int numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-        
+
         totalQuestionNo.setText(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-        
+
         if (subjectCode != null && difficulty != null && numberOfquestions != 0) {
 
             String level = "";
@@ -480,9 +479,8 @@ public class DashboardStudentController implements Initializable {
 
     }
 
-    
     private void logout() {
-        
+
         if (this.quizInProgress) {
             boolean submit = generateQuizInProgressAlert("Quiz in Progress. Are you sure you want to logout?");
             if (submit) {
@@ -506,9 +504,7 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion >= 1) {
                 previousQuestion.setDisable(false);
             }
-            
-           
-            
+
             changeQuestion();
 
         }
@@ -524,8 +520,7 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion <= quizAnswers.size() - 2) {
                 nextQuestion.setDisable(false);
             }
-            
-            
+
             changeQuestion();
 
         }
@@ -533,7 +528,7 @@ public class DashboardStudentController implements Initializable {
 
     private void changeQuestion() {
         Question presentQuestion = quizAnswers.get(this.presentQuestion);
-        currentQuestionNo.setText(Integer.toString(this.presentQuestion+1));
+        currentQuestionNo.setText(Integer.toString(this.presentQuestion + 1));
         questionDescription.setText(presentQuestion.getDescription());
         this.panefib.setVisible(false);
         this.gridpaneMA.setVisible(false);
@@ -545,9 +540,7 @@ public class DashboardStudentController implements Initializable {
                 String answer = ((QuestionFIB) quizAnswers.get(this.presentQuestion)).getAnswer();
                 if (this.questionsAttempted[this.presentQuestion] != 0) {
                     this.fibblank.setText(answer);
-                }
-                else
-                {
+                } else {
                     this.fibblank.setText("");
                 }
                 break;
@@ -574,9 +567,7 @@ public class DashboardStudentController implements Initializable {
                             break;
 
                     }
-                }
-                else
-                {
+                } else {
                     this.rbmcchoice1.setSelected(false);
                     this.rbmcchoice2.setSelected(false);
                     this.rbmcchoice3.setSelected(false);
@@ -608,7 +599,7 @@ public class DashboardStudentController implements Initializable {
                     }
                 } else {
                     ((QuestionMultipleAnswer) presentQuestion).setAnswer(new int[]{0, 0, 0, 0});
-                     for (CheckBox checkbox : checkboxes) {
+                    for (CheckBox checkbox : checkboxes) {
                         checkbox.setSelected(false);
                     }
                 }
@@ -626,9 +617,7 @@ public class DashboardStudentController implements Initializable {
                     } else {
                         this.rbtffalse.setSelected(true);
                     }
-                }
-                else
-                {
+                } else {
                     this.rbtftrue.setSelected(false);
                     this.rbtffalse.setSelected(false);
                 }
@@ -652,10 +641,14 @@ public class DashboardStudentController implements Initializable {
 
     private void submitQuiz() {
         //TODO evaluation code goes here
-        boolean check;
+        boolean check = false;
         Iterator it = quizAnswers.iterator();
+        int i = 0;
         for (Question quizQuestion : quizQuestions) {
-            check = quizQuestion.evaluate((Question) it.next());
+            if (questionsAttempted[i] != 0) {
+                check = quizQuestion.evaluate((Question) it.next());
+            }
+            i++;
             System.out.println(check);
         }
         quizpane.setVisible(false);

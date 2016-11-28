@@ -47,7 +47,7 @@ public class QuestionMultipleChoice extends Question{
 
     @Override
     public boolean evaluate(Question question) {
-        boolean check=true;
+        boolean check=false;
         if(question.getId().equals(this.getId())&&(question instanceof QuestionMultipleChoice)){
             if(this.getAnswer()==((QuestionMultipleChoice)question).getAnswer()){
                 check=true;
@@ -77,7 +77,7 @@ public class QuestionMultipleChoice extends Question{
     @Override
     public Question clone()
     {
-        return new QuestionMultipleChoice(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),answer);
+        return new QuestionMultipleChoice(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),-1,this.getChoices().get(0),this.getChoices().get(1),this.getChoices().get(2),this.getChoices().get(3));
     }
     
 }

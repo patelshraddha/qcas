@@ -61,7 +61,7 @@ public class QuestionFIB extends Question{
     @Override
     public Question clone()
     {
-        return new QuestionFIB(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),answer);
+        return new QuestionFIB(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),null);
     }
     
     

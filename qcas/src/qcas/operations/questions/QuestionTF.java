@@ -46,7 +46,7 @@ public class QuestionTF extends Question{
     
     @Override
     public boolean evaluate(Question question) {
-        boolean check=true;
+        boolean check=false;
         if(question.getId().equals(this.getId())&&(question instanceof QuestionTF)){
             if(this.getAnswer()==((QuestionTF)question).getAnswer()){
                 check=true;
@@ -72,7 +72,7 @@ public class QuestionTF extends Question{
     @Override
     public Question clone()
     {
-        return new QuestionTF(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),answer);
+        return new QuestionTF(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),false);
     }
     
 }

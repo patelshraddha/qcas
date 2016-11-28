@@ -52,7 +52,7 @@ public class QuestionMultipleAnswer extends Question {
         boolean check=true;
         if(question.getId().equals(this.getId())&&(question instanceof QuestionMultipleAnswer)){
         for(int i=0;i<this.getAnswer().length;i++){
-            if(!(this.getAnswer()==((QuestionMultipleAnswer)question).getAnswer())){
+            if(!(this.getAnswer()[i]==((QuestionMultipleAnswer)question).getAnswer()[i])){
                 check = false;
             }
         }
@@ -83,7 +83,7 @@ public class QuestionMultipleAnswer extends Question {
     @Override
     public Question clone()
     {
-        return new QuestionMultipleAnswer(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),answer);
+        return new QuestionMultipleAnswer(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),new int[]{0,0,0,0},this.getChoices().get(0),this.getChoices().get(1),this.getChoices().get(2),this.getChoices().get(3));
     }
     
 }
