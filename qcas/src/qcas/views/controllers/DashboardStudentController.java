@@ -87,8 +87,6 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private Label timer;
     @FXML
-    private ProgressBar progressbar;
-    @FXML
     private Button submitTest;
     @FXML
     private Button nextQuestion;
@@ -169,7 +167,11 @@ public class DashboardStudentController implements Initializable {
 
     private HashMap<String, Integer> hashcountquestions;
     private boolean quizInProgress;
-    private int currentQuestion; //To hold the count of the question being displayed
+    @FXML
+    private Label questionDescription1;
+    @FXML
+    private Label questionDescription111;
+   
 
     /**
      * Initializes the controller class.
@@ -180,7 +182,7 @@ public class DashboardStudentController implements Initializable {
         homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
         quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
         homePane.setVisible(true);
-        currentQuestion = 1;
+        
     }
 
     public void setApp(Main application) {
@@ -502,8 +504,8 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion >= 1) {
                 previousQuestion.setDisable(false);
             }
-            currentQuestion++;
-            currentQuestionNo.setText(Integer.toString(currentQuestion));
+            
+           
             
             changeQuestion();
 
@@ -520,8 +522,8 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion <= quizAnswers.size() - 2) {
                 nextQuestion.setDisable(false);
             }
-            currentQuestion--;
-            currentQuestionNo.setText(Integer.toString(currentQuestion));
+            
+            
             changeQuestion();
 
         }
@@ -529,6 +531,7 @@ public class DashboardStudentController implements Initializable {
 
     private void changeQuestion() {
         Question presentQuestion = quizAnswers.get(this.presentQuestion);
+        currentQuestionNo.setText(Integer.toString(this.presentQuestion+1));
         questionDescription.setText(presentQuestion.getDescription());
         this.panefib.setVisible(false);
         this.gridpaneMA.setVisible(false);
