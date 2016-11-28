@@ -99,7 +99,7 @@ public class DashboardProfessorController implements Initializable {
 
     public void setApp(Main application) {
         this.application = application;
-        professorName.setText(this.application.getLoggedUser().getFirstName());
+        professorName.setText(this.application.getLoggedUser().getFirstName()+" "+this.application.getLoggedUser().getLastName());
         professorEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
 
@@ -111,13 +111,8 @@ public class DashboardProfessorController implements Initializable {
         subjectList.setItems(FXCollections.observableList(subjectNames));
         subjectList.setPromptText("Select Subject");
         subjects = (ArrayList<Subject>) list;
-        
-        subjectType.getItems().clear();
-        List list2 = this.application.getAllSubjects();
-        //List subjectNames = new ArrayList<>();
-        for (Object subject : list2) {
-            subjectType.getItems().addAll(((Subject)subject).getSubjectName());
-        }
+        subjectType.setItems(FXCollections.observableList(subjectNames));
+        subjectType.setPromptText("Select Subject");
         reportType.getItems().clear();
         for(String s: Constants.REPORTTYPES){
             reportType.getItems().addAll(s);
