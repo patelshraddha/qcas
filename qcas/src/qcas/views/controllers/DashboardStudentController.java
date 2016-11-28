@@ -8,6 +8,7 @@ package qcas.views.controllers;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -185,7 +186,7 @@ public class DashboardStudentController implements Initializable {
         loginBox.getItems().addAll("Log Out");
         
        
-        studentName.setText(this.application.getLoggedUser().getFirstName());
+        studentName.setText(this.application.getLoggedUser().getFirstName()+" "+this.application.getLoggedUser().getLastName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("Log Out"))
@@ -299,7 +300,6 @@ public class DashboardStudentController implements Initializable {
                 if (timeSeconds == 0) {
                     timeline.stop();
                     // Quiz stop code goes here
-                    //processSubmit();
                 }
             }
         }));
@@ -615,7 +615,12 @@ public class DashboardStudentController implements Initializable {
 
     private void submitQuiz() {
         //TODO evaluation code goes here
-        
+        boolean check;
+        Iterator it = quizAnswers.iterator();
+        for (Question quizQuestion : quizQuestions) {
+            check = quizQuestion.evaluate((Question) it.next());
+            System.out.println(check);
+        }
         quizpane.setVisible(false);
         resultPane.setVisible(true);
     }
