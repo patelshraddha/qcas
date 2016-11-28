@@ -644,13 +644,27 @@ public class DashboardStudentController implements Initializable {
         boolean check = false;
         Iterator it = quizAnswers.iterator();
         int i = 0;
+
+        HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
+        HashMap<String, Integer> correctMap = new HashMap<String, Integer>();
+        totalMap.put("E", 0);
+        totalMap.put("M", 0);
+        totalMap.put("H", 0);
+        correctMap.put("E", 0);
+        correctMap.put("M", 0);
+        correctMap.put("H", 0);
+
         for (Question quizQuestion : quizQuestions) {
+            totalMap.put(quizQuestion.getLevel(), totalMap.get(quizQuestion.getLevel()) + 1);
             if (questionsAttempted[i] != 0) {
-                check = quizQuestion.evaluate((Question) it.next());
+                if (quizQuestion.evaluate((Question) it.next())) {
+                    correctMap.put(quizQuestion.getLevel(), correctMap.get(quizQuestion.getLevel()) + 1);
+                }
             }
             i++;
-            System.out.println(check);
         }
+        for(Object obj: totalMap.keySet())
+            System.out.println("Total:" + totalMap.get(obj)+ " Correct:"+correctMap.get(obj));
         quizpane.setVisible(false);
         resultPane.setVisible(true);
     }
