@@ -149,7 +149,7 @@ public class CSVReader {
                 boolean choice;
                 if (record.get(3).equals("true")) {
                     choice = true;
-                } else if (record.get(4).equals("false")) {
+                } else if (record.get(3).equals("false")) {
                     choice = false;
                 } else {
                     return null;

@@ -1,0 +1,54 @@
+FIB,E,The inventor of Java was -----------,James Gosling
+FIB,M,The output of the Java compiler is known as-----------,Byte code
+FIB,E,The .org part of a domain name stands for------------,Organization
+FIB,M,The _______ statement is used to include another Java package in a Java source file,Import
+FIB,H,A subclass can call a constructor method defined by its super class by use of the ------------------- keyword,Super
+FIB,H,URL stands for -------------------,Uniform Resource Locator
+FIB,M,----------------- is the protocol used to transmit hyper text over the Internet,HTTP
+FIB,H,In Java, the AWT classes are contained  in the--------- package,Java.awt
+FIB,H,----------------- command is used as the Java interpreter,Java
+FIB,H,Java supports ------------------- programming,Multi threaded
+FIB,M,It is possible to throw an exception explicitly using the ----------statement,Throw
+FIB,E,The ---------- package provides classes for networking in Java,Java.net
+FIB,M,The output of the Java compiler is executed by the ----------,JVM
+FIB,E,----------------- is the java compiler,javac
+FIB,H,Java uses ----------------- to represent characters,Unicode
+FIB,H,In JavaScript ----------------- method is used to interact with the user,Prompt
+FIB,H,---------- Qualifier declares a class variable that is to be shared among all instances,Static
+FIB,M,------------------- is a reference to the current object on which the method was invoked,This
+FIB,M,----------------- tag is used to create a hyper link,Anchor
+FIB,H,----------------- are used for posting and reading messages or articles over the internet,Newsgroup
+TF,E,The sweet shop Honeydukes is located in Hogsmeade,true
+TF,H,Angelina Johnson put her name in the Goblet of Fire,true
+TF,E,Gryffindor won the Quidditch Cup in Harry Potter's second year at Hogwarts,false
+TF,E,Dumbledore's favorite flavor of jam is strawberry,false
+TF,M,One of Gilderoy Lockhart's books was called Holidays with Hags,true
+TF,H,Walden Macnair was supposed to execute Buckbeak,true
+TF,M,Rita Skeeter's Animagus is a ladybug,false
+TF,H,Harry was supposed to save Hermione Granger in the Triwizard Tournament,false
+TF,H,Aidan Lynch was the Seeker for Ireland at the first Quidditch World Cup Harry Potter attended,true
+TF,M,Ron Weasley, if given the choice, would prefer to possess the Elder Wand over the other two Deathly Hallows,true
+TF,E,Bellatrix Lestrange killed Neville Longbottom's parents,false
+TF,H,The headquarters of the Order of the Phoenix in Harry Potter's fifth year at Hogwarts is Number Twelve Grimmauld Place,true
+TF,E,Draco Malfoy eventually marries and has a daughter named Scorpia,false
+TF,H,Dennis Creevey was Petrified by the basilisk,false
+TF,H,A centaur named Bane took over teaching Divination when Professor Trelawney was sacked,false
+TF,E,Java is an OOP Language,true
+MC,H,Which is true about an anonymous inner class?,It can extend exactly one class and implement exactly one interface,incorrect,It can extend exactly one class and can implement multiple interfaces,incorrect,It can extend exactly one class or implement exactly one interface,correct,It can implement multiple interfaces regardless of whether it also extends a class,incorrect
+MC,M,class Boo {Boo(String s) { }Boo() { }}class Bar extends Boo {Bar() { }Bar(String s) {super(s);}void zoo() {// insert code here}},which one create an anonymous inner class from within class Bar?,Boo f = new Boo(24) { };,incorrect,Boo f = new Bar() { };,correct,Bar f = new Boo(String s) { };,incorrect,Boo f = new Boo.Bar(String s){ };,incorrect
+MC,E,Which is true about a method-local inner class?,It must be marked final,incorrect,It can be marked abstract,correct,It can be marked public,incorrect,It can be marked static,incorrect
+MC,M,Which statement is true about a static nested class?,You must have a reference to an instance of the enclosing class in order to instantiate it,incorrect,It does not have access to nonstatic members of the enclosing class,correct,It's variables and methods must be static,incorrect,It must extend the enclosing class,incorrect
+MC,H,Which constructs an anonymous inner class instance?Runnable r = new Runnable() { };,incorrect,Runnable r = new Runnable(public void run() { });,incorrect,Runnable r = new Runnable { public void run(){}};,incorrect,System.out.println(new Runnable() {public void run() { }});,correct
+MC,E,Suppose that you would like to create an instance of a new Map that has an iteration order that is the same as the iteration order of an existing instance of a Map. Which concrete implementation of the Map interface should be used for the new instance?,TreeMap,incorrect,HashMap,incorrect,LinkedHashMap,correct,The answer depends on the implementation of the existing instance.,incorrect
+MC,M,Which class does not override the equals() and hashCode() methods, inheriting them directly from class Object?,java.lang.String,incorrect,java.lang.Double,incorrect,java.lang.StringBuffer,correct,java.lang.Character,incorrect
+MC,H,Which collection class allows you to grow or shrink its size and provides indexed access to its elements, but whose methods are not synchronized?,java.util.HashSet,incorrect,java.util.LinkedHashSet,incorrect,java.util.List,incorrect,java.util.ArrayList,correct
+MC,E,You need to store elements in a collection that guarantees that no duplicates are stored and all elements can be accessed in natural order. Which interface provides that capability?,java.util.Map,incorrect,java.util.Set,correct,java.util.List,incorrect,java.util.Collection,incorrect
+MC,E,Which interface does java.util.Hashtable implement?,Java.util.Map,correct,Java.util.List,incorrect,Java.util.HashTable,incorrect,Java.util.Collection,incorrect
+MC,M,What i is printed? public class Test { public static void main(String[] args) { int j = 0; int i = ++j + j * 5; System.out.println(""What is i? "" + i);}},6,correct,3,incorrect,1,incorrect,5,incorrect
+MA,H,What Java datatypes are 16 bits? ,int,incorrect,short,correct,double,incorrect,char,correct
+MA,E,Who were the Marauders amongst these?,James Potter,correct,Sirius Black,correct,Albus Dumbledore,incorrect,Arthur Weasley,incorrect
+MA,M,Who were Albus Dumbledore's siblings?,Gellert,incorrect,Ariana,correct,Gilbert,incorrect,Aberforth,correct
+MA,H,Which amongst these are unforgivable curses?,Crucio,correct,Imperio,correct,Avada Kedavra,correct,Rictumsempra,incorrect
+MA,E,Who amongst these belong to the Weasley family?,Hazy,incorrect,Fred,correct,Bill,correct,Ginny,correct
+MA,M,Which of these objects were used as Horcrux by Voldemort?,Ring,correct,Diadem,correct,Sword,incorrect,Pen,incorrect
+MA,E,Which amongst these are Deathly Hallows?,Invisibility Cloak,correct,Tom Riddle's Diary,incorrect,Helga Hufflepuff's cup,incorrect,Elder Want,correct
