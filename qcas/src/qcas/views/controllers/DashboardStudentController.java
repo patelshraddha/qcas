@@ -544,6 +544,10 @@ public class DashboardStudentController implements Initializable {
                 if (this.questionsAttempted[this.presentQuestion] != 0) {
                     this.fibblank.setText(answer);
                 }
+                else
+                {
+                    this.fibblank.setText("");
+                }
                 break;
             case "MC":
                 this.gridpaneMC.setVisible(true);
@@ -568,6 +572,13 @@ public class DashboardStudentController implements Initializable {
                             break;
 
                     }
+                }
+                else
+                {
+                    this.rbmcchoice1.setSelected(false);
+                    this.rbmcchoice2.setSelected(false);
+                    this.rbmcchoice3.setSelected(false);
+                    this.rbmcchoice4.setSelected(false);
                 }
                 this.rbmcchoice1.setUserData(0);
                 this.rbmcchoice2.setUserData(1);
@@ -595,6 +606,9 @@ public class DashboardStudentController implements Initializable {
                     }
                 } else {
                     ((QuestionMultipleAnswer) presentQuestion).setAnswer(new int[]{0, 0, 0, 0});
+                     for (CheckBox checkbox : checkboxes) {
+                        checkbox.setSelected(false);
+                    }
                 }
                 this.gridpaneMA.setVisible(true);
                 break;
@@ -610,6 +624,11 @@ public class DashboardStudentController implements Initializable {
                     } else {
                         this.rbtffalse.setSelected(true);
                     }
+                }
+                else
+                {
+                    this.rbtftrue.setSelected(false);
+                    this.rbtffalse.setSelected(false);
                 }
                 break;
             default:
