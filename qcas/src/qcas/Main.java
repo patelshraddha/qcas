@@ -174,13 +174,19 @@ public class Main extends Application {
         return StudentHandler.getCountQuestions(this.database,subjectCode);
     }
 
-    public void getQuestions() {
-        System.out.println("Questions");
+    public ArrayList<Question> getQuestions(String level,String subjectCode,int... counts)
+    {
+        
         HashMap<String, Integer> hm = new HashMap<String, Integer>();
-        hm.put("H", 3);
-        hm.put("M", 1);
-        hm.put("L", 2);
-        System.out.println(StudentHandler.getQuestions(database, hm));
+        hm.put("H", 0);
+        hm.put("M", 0);
+        hm.put("E", 0);
+        if(!level.equals("Mixed"))
+            hm.put(level,counts[0]);
+       
+        ArrayList<Question> questions = StudentHandler.getQuestions(database,subjectCode,hm);
+        
+        return questions;
     }
     
     

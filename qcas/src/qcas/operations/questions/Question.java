@@ -17,6 +17,12 @@ public class  Question {
     private String subjectCode;
     private ArrayList<String> choices = new ArrayList<String>();
 
+    public Question()
+    {
+        
+    }
+    
+    
     public Question(String id, String type, String level, String description, String subjectCode, String[] choices) {
 
         this(type, level, description, subjectCode, choices);

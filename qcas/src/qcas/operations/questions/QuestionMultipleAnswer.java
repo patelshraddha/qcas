@@ -11,6 +11,14 @@ import java.util.Arrays;
 public class QuestionMultipleAnswer extends Question {
 
     private int[] answer;
+    
+    /**
+     * Blank constructor for some operations
+     */
+    public QuestionMultipleAnswer()
+    {
+       
+    }
 
     public QuestionMultipleAnswer(String id, String type, String level, String description, String subjectCode, int answer[], String... choices) {
         super(id, type, level, description, subjectCode, choices);

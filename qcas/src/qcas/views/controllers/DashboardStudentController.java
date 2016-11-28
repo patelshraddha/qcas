@@ -90,6 +90,7 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private Button previousQuestion;
     private int presentQuestion;
+    private ArrayList<Question> quizAnswers;
     private ArrayList<Question> quizQuestions;
     @FXML
     private GridPane gridpaneMC;
@@ -146,7 +147,7 @@ public class DashboardStudentController implements Initializable {
     private int[] questionsAttempted;
 
     private Timeline timeline;
-    private int timeSeconds = Constants.STARTTIME;
+    private int timeSeconds;
     @FXML
     private ComboBox<?> selectsubjectdropdown;
     private ArrayList<Subject> subjects;
@@ -186,7 +187,7 @@ public class DashboardStudentController implements Initializable {
             subjectNames.add(((Subject) subject).getSubjectName());
         }
         selectsubjectdropdown.setItems(FXCollections.observableList(subjectNames));
-        
+
         subjects = (ArrayList<Subject>) list;
         List difficultyLevelList = new ArrayList<String>();
         difficultyLevelList.add("Easy");
@@ -206,13 +207,12 @@ public class DashboardStudentController implements Initializable {
         reassignQuestionCount("Easy");
 
     }
-    
-    private void reassignDifficulty()
-    {
-            this.difficultyselectdropdown.getSelectionModel().select(0);
-            String subjectCode = subjects.get(this.selectsubjectdropdown.getSelectionModel().getSelectedIndex()).getSubjectCode();
-            hashcountquestions = this.application.getQuestionsCountDifficulty(subjectCode);
-            reassignQuestionCount("Easy");
+
+    private void reassignDifficulty() {
+        this.difficultyselectdropdown.getSelectionModel().select(0);
+        String subjectCode = subjects.get(this.selectsubjectdropdown.getSelectionModel().getSelectedIndex()).getSubjectCode();
+        hashcountquestions = this.application.getQuestionsCountDifficulty(subjectCode);
+        reassignQuestionCount("Easy");
     }
 
     private void reassignQuestionCount(Object newValue) {
@@ -260,21 +260,7 @@ public class DashboardStudentController implements Initializable {
     private void startQuiz(ArrayList<Question> questions) {
         quizcreatepane.setVisible(false);
         homePane.setVisible(false);
-        questions = new ArrayList<Question>();
-
-        Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
-        Question question1 = new QuestionMultipleChoice("1", "MC", "E", "ssksk", "OOP", 1, "ma", "mb", "mc", "md");
-        Question question2 = new QuestionMultipleAnswer("2", "MA", "E", "Question 3", "OOP", new int[]{0, 1, 0, 1}, "ma", "mb", "mc", "md");
-        Question question3 = new QuestionTF("TF", "E", "Question 4", "OOP", true);
-        questions.add(question);
-
-        questions.add(question1);
-        questions.add(question2);
-        questions.add(question3);
         ArrayList<Question> answers = new ArrayList<>(questions); // create a shallow copy of the questions list.
-   
-        
-
         timer.setText(Integer.toString(timeSeconds / 60) + ":" + Integer.toString(timeSeconds % 60));
         quizpane.setVisible(true);
         timeline = new Timeline();
@@ -293,18 +279,19 @@ public class DashboardStudentController implements Initializable {
         }));
         timeline.playFromStart();
         presentQuestion = 0;
-        quizQuestions = answers;
+        quizQuestions = questions;
+        quizAnswers = answers;
         previousQuestion.setDisable(true);
-        questionsAttempted = new int[quizQuestions.size()];
+        questionsAttempted = new int[quizAnswers.size()];
         changeQuestion();
 
         this.truefalse.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (truefalse.getSelectedToggle() != null) {
                 this.questionsAttempted[this.presentQuestion] = 1;
                 if (truefalse.getSelectedToggle().getUserData().toString().equals("0")) {
-                    ((QuestionTF) quizQuestions.get(presentQuestion)).setAnswer(true);
+                    ((QuestionTF) quizAnswers.get(presentQuestion)).setAnswer(true);
                 } else {
-                    ((QuestionTF) quizQuestions.get(presentQuestion)).setAnswer(false);
+                    ((QuestionTF) quizAnswers.get(presentQuestion)).setAnswer(false);
                 }
             }
 
@@ -314,14 +301,14 @@ public class DashboardStudentController implements Initializable {
             if (singleAnswer.getSelectedToggle() != null) {
                 this.questionsAttempted[this.presentQuestion] = 1;
                 int index = Integer.parseInt(singleAnswer.getSelectedToggle().getUserData().toString());
-                ((QuestionMultipleChoice) quizQuestions.get(presentQuestion)).setAnswer(index);
+                ((QuestionMultipleChoice) quizAnswers.get(presentQuestion)).setAnswer(index);
 
             }
         });
 
         this.fibblank.textProperty().addListener((observable, oldValue, newValue) -> {
             this.questionsAttempted[this.presentQuestion] = 1;
-            ((QuestionFIB) this.quizQuestions.get(presentQuestion)).setAnswer(newValue);
+            ((QuestionFIB) this.quizAnswers.get(presentQuestion)).setAnswer(newValue);
         });
 
         this.cbmachoice1.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -355,19 +342,36 @@ public class DashboardStudentController implements Initializable {
     private void startPressed(ActionEvent event) {
 
         ArrayList<Question> questions = new ArrayList<Question>();
+        int subjectCodeIndex = selectsubjectdropdown.getSelectionModel().getSelectedIndex();
+        String subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
+        String difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
+        int numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
+        
+        if (subjectCode != null && difficulty != null && numberOfquestions != 0) {
+            
+            String level="";
+            switch(difficulty)
+            {
+                case "Easy":
+                    level="E";
+                    break;
+                case "Medium":
+                    level="M";
+                    break;
+                case "Hard":
+                    level="H";
+                    break;
+                case "Mixed":
+                    level="Mixed";
+                    break;
+                default:
+                    break;
+            }
+            questions = this.application.getQuestions(level,subjectCode,numberOfquestions);
+            
+            startQuiz(questions);
+        }
 
-        Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
-        Question question1 = new QuestionMultipleChoice("1", "MC", "E", "ssksk", "OOP", 1, "ma", "mb", "mc", "md");
-        Question question2 = new QuestionMultipleAnswer("2", "MA", "E", "Question 3", "OOP", new int[]{0, 1, 0, 1}, "ma", "mb", "mc", "md");
-        Question question3 = new QuestionTF("TF", "E", "Question 4", "OOP", true);
-        questions.add(question);
-
-        questions.add(question1);
-        questions.add(question2);
-        questions.add(question3);
-        ArrayList<Question> answers = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
-
-        startQuiz(answers);
     }
 
     @FXML
@@ -393,9 +397,9 @@ public class DashboardStudentController implements Initializable {
 
     @FXML
     private void nextQuestionPressed(ActionEvent event) {
-        if (presentQuestion <= quizQuestions.size() - 1) {
+        if (presentQuestion <= quizAnswers.size() - 1) {
             presentQuestion = presentQuestion + 1;
-            if (presentQuestion == quizQuestions.size() - 1) {
+            if (presentQuestion == quizAnswers.size() - 1) {
                 nextQuestion.setDisable(true);
             }
             if (presentQuestion >= 1) {
@@ -413,7 +417,7 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion == 0) {
                 previousQuestion.setDisable(true);
             }
-            if (presentQuestion <= quizQuestions.size() - 2) {
+            if (presentQuestion <= quizAnswers.size() - 2) {
                 nextQuestion.setDisable(false);
             }
             changeQuestion();
@@ -422,7 +426,7 @@ public class DashboardStudentController implements Initializable {
     }
 
     private void changeQuestion() {
-        Question presentQuestion = quizQuestions.get(this.presentQuestion);
+        Question presentQuestion = quizAnswers.get(this.presentQuestion);
         questionDescription.setText(presentQuestion.getDescription());
         this.panefib.setVisible(false);
         this.gridpaneMA.setVisible(false);
@@ -431,7 +435,7 @@ public class DashboardStudentController implements Initializable {
         switch (presentQuestion.getType()) {
             case "FIB":
                 this.panefib.setVisible(true);
-                String answer = ((QuestionFIB) quizQuestions.get(this.presentQuestion)).getAnswer();
+                String answer = ((QuestionFIB) quizAnswers.get(this.presentQuestion)).getAnswer();
                 if (this.questionsAttempted[this.presentQuestion] != 0) {
                     this.fibblank.setText(answer);
                 }
@@ -509,7 +513,7 @@ public class DashboardStudentController implements Initializable {
     }
 
     private void maAnswerChanged(int i, boolean change) {
-        int[] answer = ((QuestionMultipleAnswer) this.quizQuestions.get(presentQuestion)).getAnswer();
+        int[] answer = ((QuestionMultipleAnswer) this.quizAnswers.get(presentQuestion)).getAnswer();
 
         if (change) {
             answer[i] = 1;
@@ -517,7 +521,7 @@ public class DashboardStudentController implements Initializable {
             answer[i] = 0;
         }
 
-        ((QuestionMultipleAnswer) this.quizQuestions.get(presentQuestion)).setAnswer(answer);
+        ((QuestionMultipleAnswer) this.quizAnswers.get(presentQuestion)).setAnswer(answer);
     }
 
 }

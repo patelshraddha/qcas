@@ -11,7 +11,15 @@ public class QuestionFIB extends Question{
     
     public QuestionFIB(String id, String type, String level, String description, String subjectCode,String answer) {
         super(id, type, level, description, subjectCode,new String[0]);
-        this.answer=answer;        
+        this.answer=answer;  
+    }
+    
+    /**
+     * Blank constructor for some operations
+     */
+    public QuestionFIB()
+    {
+       
     }
 
     public QuestionFIB(String type, String level, String description, String subjectCode,String answer) {
@@ -38,9 +46,8 @@ public class QuestionFIB extends Question{
     public boolean evaluate(Question question) {
         boolean check=false;
         if(question.getId().equals(this.getId())&&(question instanceof QuestionFIB)){
-            check = this.getAnswer().equals(((QuestionFIB)question).getAnswer());
+            check = this.getAnswer().equalsIgnoreCase(((QuestionFIB)question).getAnswer());
         }
-        //System.out.print(check);
         return check;
     }
     

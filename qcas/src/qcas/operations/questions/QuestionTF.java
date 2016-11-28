@@ -9,6 +9,14 @@ package qcas.operations.questions;
 public class QuestionTF extends Question{
     private boolean answer;
     
+    /**
+     * Blank constructor for some operations
+     */
+    public QuestionTF()
+    {
+       
+    }
+    
     public QuestionTF(String id, String type, String level, String description, String subjectCode,boolean answer) {
         super(id, type, level, description, subjectCode,new String[0]);
         this.answer=answer;        

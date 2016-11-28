@@ -12,6 +12,14 @@ public class QuestionMultipleChoice extends Question{
     
     private int answer;
     
+    /**
+     * Blank constructor for some operations
+     */
+    public QuestionMultipleChoice()
+    {
+       
+    }
+    
     public QuestionMultipleChoice(String id, String type, String level, String description, String subjectCode,int answer,String... choices) {
         super(id, type, level, description, subjectCode,choices);
         this.answer=answer;        
