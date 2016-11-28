@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -34,8 +35,6 @@ import qcas.views.controllers.LoginController;
 /**
  * Main Application. This class handles navigation and user session.
  */
-
-
 public class Main extends Application {
 
     private Stage stage;
@@ -170,30 +169,66 @@ public class Main extends Application {
         return SubjectHandler.getAllSubjects(this.database);
     }
 
-    public HashMap<String,Integer> getQuestionsCountDifficulty(String subjectCode) {        
-        return StudentHandler.getCountQuestions(this.database,subjectCode);
+    public HashMap<String, Integer> getQuestionsCountDifficulty(String subjectCode) {
+        return StudentHandler.getCountQuestions(this.database, subjectCode);
     }
 
-    public ArrayList<Question> getQuestions(String level,String subjectCode,int... counts)
-    {
-        
+    public ArrayList<Question> getQuestions(String level, String subjectCode, int... counts) {
+
         HashMap<String, Integer> hm = new HashMap<String, Integer>();
         hm.put("H", 0);
         hm.put("M", 0);
         hm.put("E", 0);
-        if(!level.equals("Mixed"))
-            hm.put(level,counts[0]);
-       
-        ArrayList<Question> questions = StudentHandler.getQuestions(database,subjectCode,hm);
-        
+        if (level.equals("Mixed")) {           
+            hm.put("H", counts[3]);
+            hm.put("M", counts[2]);
+            hm.put("E", counts[1]);
+            hm = calculateCount(hm,counts[0]); //counts[0] total number of questions to be fetched.
+        } else {
+            hm.put(level, counts[0]);
+        }
+
+        ArrayList<Question> questions = StudentHandler.getQuestions(database, subjectCode, hm);
+
         return questions;
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+    public static HashMap<String, Integer> calculateCount(HashMap<String, Integer> map, int max) {
+
+        HashMap<String, Integer> countMap = new HashMap<String, Integer>();
+        countMap.put("E", 0);
+        countMap.put("M", 0);
+        countMap.put("H", 0);
+
+        HashMap<String, Double> probMap = new HashMap<String, Double>();
+        probMap.put("E", 0.45);
+        probMap.put("M", 0.35);
+        probMap.put("H", 0.2);
+
+        RandomCollection<String> x = new RandomCollection<String>();
+        for (Iterator<String> it = map.keySet().iterator(); it.hasNext();) {
+            String p = it.next();
+            x.add(probMap.get(p), p);
+        }
+
+        for (int i = 0; i < max; i++) {
+            String ch = x.next();
+            countMap.put(ch, countMap.get(ch) + 1);
+
+            int count = map.get(ch);
+            if (count - 1 != 0) {
+                map.put(ch, count - 1);
+            } else {
+                map.remove(ch);
+                x.remove();
+                for (Iterator<String> it = map.keySet().iterator(); it.hasNext();) {
+                    String p = it.next();
+                    x.add(probMap.get(p), p);
+                }
+            }
+
+        }
+        return countMap;
+    }
+
 }

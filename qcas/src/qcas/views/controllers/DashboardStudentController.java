@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
@@ -20,7 +21,11 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -159,6 +164,7 @@ public class DashboardStudentController implements Initializable {
     private ComboBox<?> numberquestionsselectdropdown;
 
     private HashMap<String, Integer> hashcountquestions;
+    private boolean quizInProgress;
 
     /**
      * Initializes the controller class.
@@ -168,17 +174,26 @@ public class DashboardStudentController implements Initializable {
         clgLogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
         homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
         quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
-        loginBox.getItems().clear();
-        loginBox.getItems().addAll("Log Out");
-        homePane.setVisible(true);
+         homePane.setVisible(true);
 
     }
 
     public void setApp(Main application) {
         this.application = application;
+        loginBox.getItems().clear();
+        loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
+        loginBox.getItems().addAll("Log Out");
+        
+       
         studentName.setText(this.application.getLoggedUser().getFirstName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
-        loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
+        loginBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.equals("Log Out"))
+            {
+                this.logout();
+            }
+        });
+        
 
         hashcountquestions = new HashMap<String, Integer>();
         List list = this.application.getSubjects();
@@ -205,6 +220,7 @@ public class DashboardStudentController implements Initializable {
         selectsubjectdropdown.getSelectionModel().select(0);
         reassignDifficulty();
         reassignQuestionCount("Easy");
+        
 
     }
 
@@ -235,6 +251,15 @@ public class DashboardStudentController implements Initializable {
                 }
                 break;
             case "Mixed":
+                if (hashcountquestions.containsKey("H")) {
+                    count = hashcountquestions.get("H");
+                }
+                if (hashcountquestions.containsKey("E")) {
+                    count += hashcountquestions.get("E");
+                }
+                if (hashcountquestions.containsKey("M")) {
+                    count += hashcountquestions.get("M");
+                }
                 break;
             default:
                 break;
@@ -258,6 +283,7 @@ public class DashboardStudentController implements Initializable {
     }
 
     private void startQuiz(ArrayList<Question> questions) {
+        this.quizInProgress = true;
         quizcreatepane.setVisible(false);
         homePane.setVisible(false);
         ArrayList<Question> answers = new ArrayList<>(questions); // create a shallow copy of the questions list.
@@ -332,10 +358,19 @@ public class DashboardStudentController implements Initializable {
 
     @FXML
     private void homePressed(ActionEvent event) {
-        //TODO check here if a quiz is in progress.
-        quizcreatepane.setVisible(false);
-        quizpane.setVisible(false);
-        homePane.setVisible(true);
+
+        if (this.quizInProgress) {
+            boolean submit = generateQuizInProgressAlert("Quiz in Progress. Do you want to go to profile?");
+            if (submit) {
+                submitQuiz();
+            }
+        } else {
+            quizcreatepane.setVisible(false);
+            quizpane.setVisible(false);
+            homePane.setVisible(true);
+            resultPane.setVisible(false);
+        }
+
     }
 
     @FXML
@@ -346,53 +381,107 @@ public class DashboardStudentController implements Initializable {
         String subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
         String difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
         int numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-       
+
         if (subjectCode != null && difficulty != null && numberOfquestions != 0) {
-            
-            String level="";
-            switch(difficulty)
-            {
+
+            String level = "";
+            switch (difficulty) {
                 case "Easy":
-                    level="E";
+                    level = "E";
                     break;
                 case "Medium":
-                    level="M";
+                    level = "M";
                     break;
                 case "Hard":
-                    level="H";
+                    level = "H";
                     break;
                 case "Mixed":
-                    level="Mixed";
+                    level = "Mixed";
                     break;
                 default:
                     break;
             }
-            questions = this.application.getQuestions(level,subjectCode,numberOfquestions);
+            if (!level.equals("Mixed")) {
+                questions = this.application.getQuestions(level, subjectCode, numberOfquestions);
+            } else {
+                questions = this.application.getQuestions(level, subjectCode, numberOfquestions, hashcountquestions.get("E"), hashcountquestions.get("M"), hashcountquestions.get("H"));
+            }
             this.timeSeconds = Constants.TIME_PER_QUESTION * questions.size();
             startQuiz(questions);
         }
 
     }
 
+    private boolean generateQuizInProgressAlert(String message) {
+        boolean submitQuiz = false;
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Quiz in progress...");
+        alert.setHeaderText("Quiz is in progress.");
+
+        alert.setContentText(message + " By doing so, the quiz will be submitted first.");
+        ButtonType buttonTypeOne = new ButtonType("Yes,Submit");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne) {
+            // ... user chose OK
+            submitQuiz = true;
+            this.quizInProgress = false;
+        } else {
+            // ... user chose CANCEL or closed the dialog
+
+        }
+        return submitQuiz;
+    }
+
     @FXML
     private void submitPressed(ActionEvent event) {
         //TODO check here if a quiz is in process
-        quizpane.setVisible(false);
-        resultPane.setVisible(true);
+        if (this.quizInProgress) {
+            boolean submit = generateQuizInProgressAlert("Your time has not finished.");
+            if (submit) {
+                submitQuiz();
+
+            }
+
+        } else {
+            quizpane.setVisible(false);
+            resultPane.setVisible(true);
+        }
+
     }
 
     @FXML
     private void quizPressed(ActionEvent event) {
-        //TODO check here if a quiz is in process
-        homePane.setVisible(false);
-        quizcreatepane.setVisible(true);
+        if (this.quizInProgress) {
+            boolean submit = generateQuizInProgressAlert("Quiz in Progress. Do you want to create another quiz?");
+            if (submit) {
+                submitQuiz();
+            }
+        } else {
+            quizcreatepane.setVisible(true);
+            quizpane.setVisible(false);
+            homePane.setVisible(false);
+            resultPane.setVisible(false);
+        }
 
     }
 
-    @FXML
-    private void logout(ActionEvent event) {
-        //Logout
-        this.application.userLogout();
+    
+    private void logout() {
+        
+        if (this.quizInProgress) {
+            boolean submit = generateQuizInProgressAlert("Quiz in Progress. Are you sure you want to logout?");
+            if (submit) {
+                submitQuiz();
+            }
+            loginBox.getSelectionModel().clearSelection();
+            loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
+        } else {
+            this.application.userLogout();
+        }
+
     }
 
     @FXML
@@ -522,6 +611,13 @@ public class DashboardStudentController implements Initializable {
         }
 
         ((QuestionMultipleAnswer) this.quizAnswers.get(presentQuestion)).setAnswer(answer);
+    }
+
+    private void submitQuiz() {
+        //TODO evaluation code goes here
+        
+        quizpane.setVisible(false);
+        resultPane.setVisible(true);
     }
 
 }
