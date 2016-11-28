@@ -67,7 +67,7 @@ public class StudentHandler {
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
 
-                questions.add(getQuestion(rs.getString("question_type"), rs.getString("question_level"), rs.getString("question_description"), rs.getString("subject_code"), rs.getString("choice_1"), rs.getString("valid_1"), rs.getString("choice_2"), rs.getString("valid_2"), rs.getString("choice_3"), rs.getString("valid_3"), rs.getString("choice_4"), rs.getString("valid_4")));
+                questions.add(getQuestion(rs.getString("id"),rs.getString("question_type"), rs.getString("question_level"), rs.getString("question_description"), rs.getString("subject_code"), rs.getString("choice_1"), rs.getString("valid_1"), rs.getString("choice_2"), rs.getString("valid_2"), rs.getString("choice_3"), rs.getString("valid_3"), rs.getString("choice_4"), rs.getString("valid_4")));
             }
 
             String insertquestionsquery2 = "SELECT * FROM `questionBank`"
@@ -80,7 +80,7 @@ public class StudentHandler {
             rs = preparedStatement2.executeQuery();
             while (rs.next()) {
 
-                questions.add(getQuestion(rs.getString("question_type"), rs.getString("question_level"), rs.getString("question_description"), rs.getString("subject_code"), rs.getString("choice_1"), rs.getString("valid_1"), rs.getString("choice_2"), rs.getString("valid_2"), rs.getString("choice_3"), rs.getString("valid_3"), rs.getString("choice_4"), rs.getString("valid_4")));
+                questions.add(getQuestion(rs.getString("id"),rs.getString("question_type"), rs.getString("question_level"), rs.getString("question_description"), rs.getString("subject_code"), rs.getString("choice_1"), rs.getString("valid_1"), rs.getString("choice_2"), rs.getString("valid_2"), rs.getString("choice_3"), rs.getString("valid_3"), rs.getString("choice_4"), rs.getString("valid_4")));
             }
 
             String insertquestionsquery3 = "SELECT * FROM `questionBank`"
@@ -93,7 +93,7 @@ public class StudentHandler {
             rs = preparedStatement3.executeQuery();
             while (rs.next()) {
 
-                questions.add(getQuestion(rs.getString("question_type"), rs.getString("question_level"), rs.getString("question_description"), rs.getString("subject_code"), rs.getString("choice_1"), rs.getString("valid_1"), rs.getString("choice_2"), rs.getString("valid_2"), rs.getString("choice_3"), rs.getString("valid_3"), rs.getString("choice_4"), rs.getString("valid_4")));
+                questions.add(getQuestion(rs.getString("id"),rs.getString("question_type"), rs.getString("question_level"), rs.getString("question_description"), rs.getString("subject_code"), rs.getString("choice_1"), rs.getString("valid_1"), rs.getString("choice_2"), rs.getString("valid_2"), rs.getString("choice_3"), rs.getString("valid_3"), rs.getString("choice_4"), rs.getString("valid_4")));
             }
 
         } catch (SQLException ex) {
@@ -102,20 +102,20 @@ public class StudentHandler {
         return questions;
     }
 
-    private static Question getQuestion(String questionType, String questionLevel, String questionDescription, String subjectCode, String choice1, String valid1, String choice2, String valid2, String choice3, String valid3, String choice4, String valid4) {
+    private static Question getQuestion(String id,String questionType, String questionLevel, String questionDescription, String subjectCode, String choice1, String valid1, String choice2, String valid2, String choice3, String valid3, String choice4, String valid4) {
         Question question = new Question();
         switch (questionType) {
             case "FIB":
-                question = (new QuestionFIB()).getQuestion(questionType, questionLevel, questionDescription, subjectCode, choice1, valid1, choice2, valid2, choice3, valid3, choice4, valid4);
+                question = (new QuestionFIB()).getQuestion(id,questionType, questionLevel, questionDescription, subjectCode, choice1, valid1, choice2, valid2, choice3, valid3, choice4, valid4);
                 break;
             case "TF":
-                question = (new QuestionTF()).getQuestion(questionType, questionLevel, questionDescription, subjectCode, choice1, valid1, choice2, valid2, choice3, valid3, choice4, valid4);
+                question = (new QuestionTF()).getQuestion(id,questionType, questionLevel, questionDescription, subjectCode, choice1, valid1, choice2, valid2, choice3, valid3, choice4, valid4);
                 break;
             case "MA":
-                question = (new QuestionMultipleAnswer()).getQuestion(questionType, questionLevel, questionDescription, subjectCode, choice1, valid1, choice2, valid2, choice3, valid3, choice4, valid4);
+                question = (new QuestionMultipleAnswer()).getQuestion(id, questionType, questionLevel, questionDescription, subjectCode, choice1, valid1, choice2, valid2, choice3, valid3, choice4, valid4);
                 break;
             case "MC":
-                question = (new QuestionMultipleChoice()).getQuestion(questionType, questionLevel, questionDescription, subjectCode, choice1, valid1, choice2, valid2, choice3, valid3, choice4, valid4);
+                question = (new QuestionMultipleChoice()).getQuestion(id,questionType, questionLevel, questionDescription, subjectCode, choice1, valid1, choice2, valid2, choice3, valid3, choice4, valid4);
                 break;
             default:
                 break;

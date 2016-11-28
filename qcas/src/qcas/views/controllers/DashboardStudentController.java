@@ -88,8 +88,6 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private Label timer;
     @FXML
-    private ProgressBar progressbar;
-    @FXML
     private Button submitTest;
     @FXML
     private Button nextQuestion;
@@ -118,6 +116,10 @@ public class DashboardStudentController implements Initializable {
     private Label machoice3;
     @FXML
     private Label machoice4;
+    @FXML
+    private Label currentQuestionNo;
+    @FXML
+    private Label totalQuestionNo;
     @FXML
     private GridPane gridpaneTF;
     @FXML
@@ -166,6 +168,11 @@ public class DashboardStudentController implements Initializable {
 
     private HashMap<String, Integer> hashcountquestions;
     private boolean quizInProgress;
+    @FXML
+    private Label questionDescription1;
+    @FXML
+    private Label questionDescription111;
+   
 
     /**
      * Initializes the controller class.
@@ -175,8 +182,8 @@ public class DashboardStudentController implements Initializable {
         clgLogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
         homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
         quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
-         homePane.setVisible(true);
-
+        homePane.setVisible(true);
+        
     }
 
     public void setApp(Main application) {
@@ -290,6 +297,7 @@ public class DashboardStudentController implements Initializable {
         ArrayList<Question> answers = new ArrayList<>(questions); // create a shallow copy of the questions list.
         timer.setText(Integer.toString(timeSeconds / 60) + ":" + Integer.toString(timeSeconds % 60));
         quizpane.setVisible(true);
+        
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
@@ -381,7 +389,9 @@ public class DashboardStudentController implements Initializable {
         String subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
         String difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
         int numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-
+        
+        totalQuestionNo.setText(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
+        
         if (subjectCode != null && difficulty != null && numberOfquestions != 0) {
 
             String level = "";
@@ -494,6 +504,9 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion >= 1) {
                 previousQuestion.setDisable(false);
             }
+            
+           
+            
             changeQuestion();
 
         }
@@ -509,6 +522,8 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion <= quizAnswers.size() - 2) {
                 nextQuestion.setDisable(false);
             }
+            
+            
             changeQuestion();
 
         }
@@ -516,6 +531,7 @@ public class DashboardStudentController implements Initializable {
 
     private void changeQuestion() {
         Question presentQuestion = quizAnswers.get(this.presentQuestion);
+        currentQuestionNo.setText(Integer.toString(this.presentQuestion+1));
         questionDescription.setText(presentQuestion.getDescription());
         this.panefib.setVisible(false);
         this.gridpaneMA.setVisible(false);
@@ -527,6 +543,10 @@ public class DashboardStudentController implements Initializable {
                 String answer = ((QuestionFIB) quizAnswers.get(this.presentQuestion)).getAnswer();
                 if (this.questionsAttempted[this.presentQuestion] != 0) {
                     this.fibblank.setText(answer);
+                }
+                else
+                {
+                    this.fibblank.setText("");
                 }
                 break;
             case "MC":
@@ -552,6 +572,13 @@ public class DashboardStudentController implements Initializable {
                             break;
 
                     }
+                }
+                else
+                {
+                    this.rbmcchoice1.setSelected(false);
+                    this.rbmcchoice2.setSelected(false);
+                    this.rbmcchoice3.setSelected(false);
+                    this.rbmcchoice4.setSelected(false);
                 }
                 this.rbmcchoice1.setUserData(0);
                 this.rbmcchoice2.setUserData(1);
@@ -579,6 +606,9 @@ public class DashboardStudentController implements Initializable {
                     }
                 } else {
                     ((QuestionMultipleAnswer) presentQuestion).setAnswer(new int[]{0, 0, 0, 0});
+                     for (CheckBox checkbox : checkboxes) {
+                        checkbox.setSelected(false);
+                    }
                 }
                 this.gridpaneMA.setVisible(true);
                 break;
@@ -594,6 +624,11 @@ public class DashboardStudentController implements Initializable {
                     } else {
                         this.rbtffalse.setSelected(true);
                     }
+                }
+                else
+                {
+                    this.rbtftrue.setSelected(false);
+                    this.rbtffalse.setSelected(false);
                 }
                 break;
             default:

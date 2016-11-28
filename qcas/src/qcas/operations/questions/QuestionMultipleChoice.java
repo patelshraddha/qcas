@@ -58,7 +58,7 @@ public class QuestionMultipleChoice extends Question{
     }
     
     @Override
-    public Question getQuestion(String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
+    public Question getQuestion(String id,String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
         Question question;
         int answer =0;
         if(valid1.equals("1"))
@@ -69,7 +69,7 @@ public class QuestionMultipleChoice extends Question{
             answer=2;
         else
             answer=3;
-        question = new QuestionMultipleChoice(questionType,questionLevel, questionDescription, subjectCode, answer,new String[]{choice1,choice2,choice3,choice4});
+        question = new QuestionMultipleChoice(id,questionType,questionLevel, questionDescription, subjectCode, answer,new String[]{choice1,choice2,choice3,choice4});
         return question;
     }
     

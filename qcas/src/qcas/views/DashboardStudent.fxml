@@ -188,12 +188,6 @@
                   <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
             </Label>
-            <ProgressBar fx:id="progressbar" layoutX="155.0" layoutY="651.0" prefHeight="23.0" prefWidth="604.0" progress="0.0" />
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="81.0" layoutY="647.0" prefHeight="31.0" prefWidth="214.0" text="Progress:">
-               <font>
-                  <Font name="Microsoft YaHei UI Light" size="20.0" />
-               </font>
-            </Label>
             <GridPane fx:id="gridpaneMC" layoutX="234.0" layoutY="332.0" prefHeight="272.0" prefWidth="578.0" visible="false">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="313.0" minWidth="10.0" prefWidth="44.0" />
@@ -338,6 +332,26 @@
                   </Label>
                </children>
             </Pane>
+            <Label fx:id="questionDescription1" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="385.0" layoutY="143.0" prefHeight="31.0" prefWidth="91.0" text="Question" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentQuestionNo" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="476.0" layoutY="143.0" prefHeight="31.0" prefWidth="38.0" text="1" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="questionDescription111" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="522.0" layoutY="143.0" prefHeight="31.0" prefWidth="38.0" text="of" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalQuestionNo" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="571.0" layoutY="143.0" prefHeight="31.0" prefWidth="38.0" text="1" wrapText="true">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow />
