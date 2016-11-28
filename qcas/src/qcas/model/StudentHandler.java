@@ -7,26 +7,17 @@ package qcas.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import qcas.operations.questions.Question;
-import qcas.operations.questions.QuestionFIB;
-import qcas.operations.questions.QuestionMultipleAnswer;
-import qcas.operations.questions.QuestionMultipleChoice;
-import qcas.operations.questions.QuestionTF;
-import qcas.operations.user.User;
 /**
  *
  * @author Dell
  */
 public class StudentHandler {
-    public static HashMap<String,Integer> getSubject(DatabaseHandler database, String subjectCode) {
+    public static HashMap<String,Integer> getCountQuestions(DatabaseHandler database, String subjectCode) {
              HashMap<String,Integer> hmap = new HashMap<String,Integer>();
         try {
             ResultSet rs;
@@ -37,12 +28,13 @@ public class StudentHandler {
                     +"GROUP BY question_level";
             PreparedStatement preparedStatement = database.getConnection().prepareStatement(insertquestionsquery);
            preparedStatement.setString(1,subjectCode);
+           
             //preparedStatement.execute();
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                   hmap.put(rs.getString(1), Integer.parseInt(rs.getString(2)));
                 
-
+                   hmap.put(rs.getString(1), Integer.parseInt(rs.getString(2)));
+                 
             }
 
         } catch (SQLException ex) {
@@ -96,6 +88,7 @@ public class StudentHandler {
         }
   return questions;      
     }
+        
         
     
         

@@ -217,6 +217,10 @@
                   <Font name="Microsoft JhengHei" size="18.0" />
                </font>
             </Label>
+            <Button fx:id="close" layoutX="555.0" layoutY="15.0" mnemonicParsing="false" onAction="#closeSignup" prefHeight="31.0" prefWidth="28.0" style="-fx-background-color: RED;" text="X">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </Pane>
    </children>

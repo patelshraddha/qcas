@@ -67,6 +67,9 @@ public class  Question {
     {
         return false;
     }
+    public Question getQuestion(String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
+        return null;
+    }
 
     
 

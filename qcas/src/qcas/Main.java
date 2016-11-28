@@ -170,9 +170,8 @@ public class Main extends Application {
         return SubjectHandler.getAllSubjects(this.database);
     }
 
-    public void getDifficulty() {
-        System.out.println("difficulty");
-        System.out.println(StudentHandler.getSubject(this.database, "OOP"));
+    public HashMap<String,Integer> getQuestionsCountDifficulty(String subjectCode) {        
+        return StudentHandler.getCountQuestions(this.database,subjectCode);
     }
 
     public void getQuestions() {

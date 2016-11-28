@@ -43,4 +43,14 @@ public class QuestionFIB extends Question{
         //System.out.print(check);
         return check;
     }
+    
+    @Override
+    public Question getQuestion(String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
+        Question question;
+        question = new QuestionFIB(questionType,questionLevel, questionDescription, subjectCode,choice1);
+        return question;
+    }
+    
+    
+    
 }

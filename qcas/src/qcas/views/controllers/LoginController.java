@@ -46,6 +46,7 @@ public class LoginController implements Initializable {
     @FXML
     private Pane signUpPane;
     @FXML
+    
     private Button registerButton;
     @FXML
     private Button signUp;
@@ -77,6 +78,19 @@ public class LoginController implements Initializable {
     public void processSignUp(ActionEvent event) {
         signUpPane.setVisible(true);
         
+    }
+    
+    @FXML
+    public void closeSignup(ActionEvent event) {
+        signUpPane.setVisible(false);
+    }
+    
+    
+    @FXML
+    public void closeRegister(ActionEvent event) {
+        
+        
+        signUpPane.setVisible(false);
     }
     
     @FXML

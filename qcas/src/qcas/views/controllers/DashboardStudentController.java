@@ -7,11 +7,13 @@ package qcas.views.controllers;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
-
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -38,6 +40,7 @@ import qcas.operations.questions.QuestionFIB;
 import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
+import qcas.operations.subject.Subject;
 
 /**
  * FXML Controller class
@@ -142,11 +145,19 @@ public class DashboardStudentController implements Initializable {
     private TextField fibblank;
     private int[] questionsAttempted;
 
-
-    
     private Timeline timeline;
     private int timeSeconds = Constants.STARTTIME;
-    
+    @FXML
+    private ComboBox<?> selectsubjectdropdown;
+    private ArrayList<Subject> subjects;
+    @FXML
+    private Button start;
+    @FXML
+    private ComboBox<?> difficultyselectdropdown;
+    @FXML
+    private ComboBox<?> numberquestionsselectdropdown;
+
+    private HashMap<String, Integer> hashcountquestions;
 
     /**
      * Initializes the controller class.
@@ -154,12 +165,12 @@ public class DashboardStudentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         clgLogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
-        homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));        
+        homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
         quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
         loginBox.getItems().clear();
         loginBox.getItems().addAll("Log Out");
         homePane.setVisible(true);
-        
+
     }
 
     public void setApp(Main application) {
@@ -167,24 +178,113 @@ public class DashboardStudentController implements Initializable {
         studentName.setText(this.application.getLoggedUser().getFirstName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
+
+        hashcountquestions = new HashMap<String, Integer>();
+        List list = this.application.getSubjects();
+        List subjectNames = new ArrayList<String>();
+        for (Object subject : list) {
+            subjectNames.add(((Subject) subject).getSubjectName());
+        }
+        selectsubjectdropdown.setItems(FXCollections.observableList(subjectNames));
         
-        
+        subjects = (ArrayList<Subject>) list;
+        List difficultyLevelList = new ArrayList<String>();
+        difficultyLevelList.add("Easy");
+        difficultyLevelList.add("Medium");
+        difficultyLevelList.add("Hard");
+        difficultyLevelList.add("Mixed");
+        difficultyselectdropdown.setItems(FXCollections.observableList(difficultyLevelList));
+        selectsubjectdropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            reassignDifficulty();
+        });
+
+        difficultyselectdropdown.valueProperty().addListener((observable, oldValue, newValue) -> {
+            reassignQuestionCount(newValue);
+        });
+        selectsubjectdropdown.getSelectionModel().select(0);
+        reassignDifficulty();
+        reassignQuestionCount("Easy");
+
+    }
+    
+    private void reassignDifficulty()
+    {
+            this.difficultyselectdropdown.getSelectionModel().select(0);
+            String subjectCode = subjects.get(this.selectsubjectdropdown.getSelectionModel().getSelectedIndex()).getSubjectCode();
+            hashcountquestions = this.application.getQuestionsCountDifficulty(subjectCode);
+            reassignQuestionCount("Easy");
     }
 
-    private void startQuiz(ArrayList<Question> answers) {
+    private void reassignQuestionCount(Object newValue) {
+        List questionCountList = new ArrayList<String>();
+        int count = 0;
+        switch ((String) newValue) {
+            case "Easy":
+                if (hashcountquestions.containsKey("E")) {
+                    count = hashcountquestions.get("E");
+                }
+                break;
+            case "Medium":
+                if (hashcountquestions.containsKey("M")) {
+                    count = hashcountquestions.get("M");
+                }
+                break;
+            case "Hard":
+                if (hashcountquestions.containsKey("H")) {
+                    count = hashcountquestions.get("H");
+                }
+                break;
+            case "Mixed":
+                break;
+            default:
+                break;
+        }
+        numberquestionsselectdropdown.getItems().clear();
+        if (count < 5) {
+            this.start.setDisable(true);
+            numberquestionsselectdropdown.setItems(FXCollections.observableList(questionCountList));
+        } else {
+            this.start.setDisable(false);
+            int i = 5;
+            int x = 1;
+            while (i <= count) {
+                questionCountList.add(i);
+                x++;
+                i = 5 * x;
+            }
+            numberquestionsselectdropdown.setItems(FXCollections.observableList(questionCountList));
+        }
+        numberquestionsselectdropdown.getSelectionModel().select(0);
+    }
+
+    private void startQuiz(ArrayList<Question> questions) {
         quizcreatepane.setVisible(false);
         homePane.setVisible(false);
+        questions = new ArrayList<Question>();
+
+        Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
+        Question question1 = new QuestionMultipleChoice("1", "MC", "E", "ssksk", "OOP", 1, "ma", "mb", "mc", "md");
+        Question question2 = new QuestionMultipleAnswer("2", "MA", "E", "Question 3", "OOP", new int[]{0, 1, 0, 1}, "ma", "mb", "mc", "md");
+        Question question3 = new QuestionTF("TF", "E", "Question 4", "OOP", true);
+        questions.add(question);
+
+        questions.add(question1);
+        questions.add(question2);
+        questions.add(question3);
+        ArrayList<Question> answers = new ArrayList<>(questions); // create a shallow copy of the questions list.
+   
         
-        timer.setText(Integer.toString(timeSeconds/60)+":"+Integer.toString(timeSeconds%60));
+
+        timer.setText(Integer.toString(timeSeconds / 60) + ":" + Integer.toString(timeSeconds % 60));
         quizpane.setVisible(true);
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1),new EventHandler(){
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
             @Override
             public void handle(Event event) {
                 timeSeconds--;
-                timer.setText(Integer.toString(timeSeconds/60)+":"+Integer.toString(timeSeconds%60));
-                if(timeSeconds==0){
+                timer.setText(Integer.toString(timeSeconds / 60) + ":" + Integer.toString(timeSeconds % 60));
+                if (timeSeconds == 0) {
                     timeline.stop();
                     // Quiz stop code goes here
                     //processSubmit();
@@ -249,12 +349,11 @@ public class DashboardStudentController implements Initializable {
         quizcreatepane.setVisible(false);
         quizpane.setVisible(false);
         homePane.setVisible(true);
-        
     }
-    
+
     @FXML
     private void startPressed(ActionEvent event) {
-        //TODO check here if a quiz is in process
+
         ArrayList<Question> questions = new ArrayList<Question>();
 
         Question question = new QuestionFIB("FIB", "E", "Question 1", "OOP", "ahahhaah");
@@ -267,23 +366,23 @@ public class DashboardStudentController implements Initializable {
         questions.add(question2);
         questions.add(question3);
         ArrayList<Question> answers = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
-        
+
         startQuiz(answers);
     }
-    
+
     @FXML
     private void submitPressed(ActionEvent event) {
         //TODO check here if a quiz is in process
         quizpane.setVisible(false);
         resultPane.setVisible(true);
     }
-    
 
     @FXML
     private void quizPressed(ActionEvent event) {
         //TODO check here if a quiz is in process
         homePane.setVisible(false);
         quizcreatepane.setVisible(true);
+
     }
 
     @FXML
@@ -376,7 +475,7 @@ public class DashboardStudentController implements Initializable {
                 CheckBox[] checkboxes = new CheckBox[]{this.cbmachoice1, this.cbmachoice2, this.cbmachoice3, this.cbmachoice4};
                 int i = 0;
                 if (this.questionsAttempted[this.presentQuestion] != 0) {
-                    
+
                     for (CheckBox checkbox : checkboxes) {
                         if (answers[i] == 0) {
                             checkbox.setSelected(false);
@@ -385,10 +484,8 @@ public class DashboardStudentController implements Initializable {
                         }
                         i++;
                     }
-                }
-                else
-                {
-                    ((QuestionMultipleAnswer) presentQuestion).setAnswer(new int[] {0,0,0,0});
+                } else {
+                    ((QuestionMultipleAnswer) presentQuestion).setAnswer(new int[]{0, 0, 0, 0});
                 }
                 this.gridpaneMA.setVisible(true);
                 break;
@@ -413,13 +510,13 @@ public class DashboardStudentController implements Initializable {
 
     private void maAnswerChanged(int i, boolean change) {
         int[] answer = ((QuestionMultipleAnswer) this.quizQuestions.get(presentQuestion)).getAnswer();
-        
+
         if (change) {
             answer[i] = 1;
         } else {
             answer[i] = 0;
         }
-       
+
         ((QuestionMultipleAnswer) this.quizQuestions.get(presentQuestion)).setAnswer(answer);
     }
 

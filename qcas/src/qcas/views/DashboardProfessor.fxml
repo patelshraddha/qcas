@@ -167,9 +167,9 @@
                   <Font name="Microsoft YaHei UI Light" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="fileuploadalert" layoutX="117.0" layoutY="404.0" prefHeight="24.0" prefWidth="268.0" text="File not uploaded.">
+            <Label fx:id="fileuploadalert" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="117.0" layoutY="404.0" prefHeight="89.0" prefWidth="789.0" text="File not uploaded." textFill="#bf0c0c">
                <font>
-                  <Font size="29.0" />
+                  <Font name="Microsoft JhengHei UI" size="19.0" />
                </font>
             </Label>
             <ComboBox fx:id="subjectList" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="362.0" layoutY="161.0" prefWidth="150.0" />

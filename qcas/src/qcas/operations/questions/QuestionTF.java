@@ -47,4 +47,18 @@ public class QuestionTF extends Question{
         //System.out.print(check);
         return check;
     }
+    
+    
+    @Override
+    public Question getQuestion(String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
+        Question question;
+        boolean answer=false;
+        if(choice1.equals("true"))
+            answer=true;
+        else
+            answer=false;
+        question = new QuestionTF(questionType,questionLevel, questionDescription, subjectCode,answer);
+        return question;
+    }
+    
 }
