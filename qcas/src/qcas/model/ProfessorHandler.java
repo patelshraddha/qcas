@@ -232,4 +232,55 @@ public class ProfessorHandler {
         return testCount;
         
     }
+    
+    public static ArrayList<Double> getAverageScores(DatabaseHandler database, int subjectCode){
+        ArrayList<Double> averageScores = new ArrayList<Double>();
+        
+        try {
+            ResultSet rs;
+           
+            //get avg scores in the past month
+            String query = "SELECT AVG(score) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) and subject_code = ?";     //past month
+            PreparedStatement preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                averageScores.add(rs.getDouble(1));
+
+            }
+            
+            //get avg scores in the past quarter
+            query = "SELECT AVG(score) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 4 MONTH) and subject_code = ?";     //past quarter
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                averageScores.add(rs.getDouble(1));
+
+            }
+            
+            //get average scores in the past year
+            query = "SELECT AVG(score) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 1 YEAR) and subject_code = ?";     //past Year
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                averageScores.add(rs.getDouble(1));
+
+            }
+             
+        }
+        catch (SQLException ex) {
+
+            System.out.println(ex);
+        }
+
+        return averageScores;
+    }
 }

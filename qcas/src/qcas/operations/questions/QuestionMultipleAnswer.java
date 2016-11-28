@@ -64,7 +64,7 @@ public class QuestionMultipleAnswer extends Question {
     }
     
     @Override
-    public Question getQuestion(String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
+    public Question getQuestion(String id,String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
         Question question;
         int[] answer = new int[]{0,0,0,0};        
         if(valid1.equals("1"))
@@ -75,7 +75,7 @@ public class QuestionMultipleAnswer extends Question {
             answer[2]=1;
         if (valid4.equals("1"))
             answer[3]=1;
-        question = new QuestionMultipleAnswer(questionType,questionLevel, questionDescription, subjectCode,answer,new String[]{choice1,choice2,choice3,choice4});
+        question = new QuestionMultipleAnswer(id,questionType,questionLevel, questionDescription, subjectCode,answer,new String[]{choice1,choice2,choice3,choice4});
         return question;
     }
     

@@ -201,13 +201,21 @@
                   </Button>
                </children>
             </HBox>
-            <BarChart blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Tests Taken">
+            <BarChart fx:id="testsTakenChart" alternativeRowFillVisible="false" barGap="50.0" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Tests Taken" visible="false">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <CategoryAxis animated="false" label="Time Period" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis fx:id="yAxis" label="Number of Tests" side="LEFT" upperBound="10.0" />
               </yAxis>
+            </BarChart>
+            <BarChart fx:id="testsTakenChart1" alternativeRowFillVisible="false" barGap="50.0" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Average Scores " visible="false">
+               <xAxis>
+                  <CategoryAxis animated="false" label="Time Period" side="BOTTOM" fx:id="xAxis1" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis fx:id="yAxis1" label="Scores" side="LEFT" upperBound="10.0" />
+               </yAxis>
             </BarChart>
          </children>
          <effect>

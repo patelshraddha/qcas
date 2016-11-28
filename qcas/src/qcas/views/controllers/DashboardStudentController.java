@@ -8,6 +8,7 @@ package qcas.views.controllers;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -88,8 +89,6 @@ public class DashboardStudentController implements Initializable {
     private Label questionDescription;
     @FXML
     private Label timer;
-    @FXML
-    private ProgressBar progressbar;
     @FXML
     private Button submitTest;
     @FXML
@@ -173,7 +172,11 @@ public class DashboardStudentController implements Initializable {
 
     private HashMap<String, Integer> hashcountquestions;
     private boolean quizInProgress;
-    private int currentQuestion; //To hold the count of the question being displayed
+    @FXML
+    private Label questionDescription1;
+    @FXML
+    private Label questionDescription111;
+   
 
     /**
      * Initializes the controller class.
@@ -184,7 +187,7 @@ public class DashboardStudentController implements Initializable {
         homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
         quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
         homePane.setVisible(true);
-        currentQuestion = 1;
+        
     }
 
     public void setApp(Main application) {
@@ -194,7 +197,7 @@ public class DashboardStudentController implements Initializable {
         loginBox.getItems().addAll("Log Out");
         
        
-        studentName.setText(this.application.getLoggedUser().getFirstName());
+        studentName.setText(this.application.getLoggedUser().getFirstName()+" "+this.application.getLoggedUser().getLastName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue.equals("Log Out"))
@@ -309,7 +312,8 @@ public class DashboardStudentController implements Initializable {
                 if (timeSeconds == 0) {
                     timeline.stop();
                     // Quiz stop code goes here
-                    //processSubmit();
+                    quizInProgress=false;
+                    submitQuiz();
                 }
             }
         }));
@@ -506,8 +510,8 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion >= 1) {
                 previousQuestion.setDisable(false);
             }
-            currentQuestion++;
-            currentQuestionNo.setText(Integer.toString(currentQuestion));
+            
+           
             
             changeQuestion();
 
@@ -524,8 +528,8 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion <= quizAnswers.size() - 2) {
                 nextQuestion.setDisable(false);
             }
-            currentQuestion--;
-            currentQuestionNo.setText(Integer.toString(currentQuestion));
+            
+            
             changeQuestion();
 
         }
@@ -533,6 +537,7 @@ public class DashboardStudentController implements Initializable {
 
     private void changeQuestion() {
         Question presentQuestion = quizAnswers.get(this.presentQuestion);
+        currentQuestionNo.setText(Integer.toString(this.presentQuestion+1));
         questionDescription.setText(presentQuestion.getDescription());
         this.panefib.setVisible(false);
         this.gridpaneMA.setVisible(false);
@@ -544,6 +549,10 @@ public class DashboardStudentController implements Initializable {
                 String answer = ((QuestionFIB) quizAnswers.get(this.presentQuestion)).getAnswer();
                 if (this.questionsAttempted[this.presentQuestion] != 0) {
                     this.fibblank.setText(answer);
+                }
+                else
+                {
+                    this.fibblank.setText("");
                 }
                 break;
             case "MC":
@@ -569,6 +578,13 @@ public class DashboardStudentController implements Initializable {
                             break;
 
                     }
+                }
+                else
+                {
+                    this.rbmcchoice1.setSelected(false);
+                    this.rbmcchoice2.setSelected(false);
+                    this.rbmcchoice3.setSelected(false);
+                    this.rbmcchoice4.setSelected(false);
                 }
                 this.rbmcchoice1.setUserData(0);
                 this.rbmcchoice2.setUserData(1);
@@ -596,6 +612,9 @@ public class DashboardStudentController implements Initializable {
                     }
                 } else {
                     ((QuestionMultipleAnswer) presentQuestion).setAnswer(new int[]{0, 0, 0, 0});
+                     for (CheckBox checkbox : checkboxes) {
+                        checkbox.setSelected(false);
+                    }
                 }
                 this.gridpaneMA.setVisible(true);
                 break;
@@ -611,6 +630,11 @@ public class DashboardStudentController implements Initializable {
                     } else {
                         this.rbtffalse.setSelected(true);
                     }
+                }
+                else
+                {
+                    this.rbtftrue.setSelected(false);
+                    this.rbtffalse.setSelected(false);
                 }
                 break;
             default:
@@ -632,22 +656,16 @@ public class DashboardStudentController implements Initializable {
 
     private void submitQuiz() {
         //TODO evaluation code goes here
-        
+        boolean check;
+        Iterator it = quizAnswers.iterator();
+        for (Question quizQuestion : quizQuestions) {
+            check = quizQuestion.evaluate((Question) it.next());
+            System.out.println(check);
+        }
         quizpane.setVisible(false);
         resultPane.setVisible(true);
-        /*
-        ObservableList<PieChart.Data> pieChartData = 
-                FXCollections.observableArrayList(
-                    new PieChart.Data("Sunday", 30),
-                    new PieChart.Data("Monday", 45),
-                    new PieChart.Data("Tuesday", 70),
-                    new PieChart.Data("Wednesday", 97),
-                    new PieChart.Data("Thursday", 100),
-                    new PieChart.Data("Friday", 80),
-                    new PieChart.Data("Saturday", 10));
-         
-        pieChart.setTitle("Weekly Record");
-        pieChart.setData(pieChartData);     */
+        
+        
     }
 
 }
