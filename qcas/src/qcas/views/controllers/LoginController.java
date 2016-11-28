@@ -60,6 +60,8 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         clglogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
+        
+        loginButton.setDefaultButton(true);
     }
 
     @FXML

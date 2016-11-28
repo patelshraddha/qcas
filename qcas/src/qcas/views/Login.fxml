@@ -190,8 +190,14 @@
                         <Font name="Microsoft JhengHei UI Light" size="15.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="142.0" text="Potions" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="142.0" text="Charms" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="142.0" text="Potions" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Microsoft JhengHei UI Light" size="15.0" />
+                     </font></CheckBox>
+                  <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="142.0" text="Charms" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <font>
+                        <Font name="Microsoft JhengHei UI Light" size="15.0" />
+                     </font></CheckBox>
                </children>
             </GridPane>
             <Button fx:id="registerButton" layoutX="230.0" layoutY="513.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="59.0" prefWidth="138.0" text="Register">
