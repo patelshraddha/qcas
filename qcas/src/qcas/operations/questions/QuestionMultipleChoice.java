@@ -73,4 +73,11 @@ public class QuestionMultipleChoice extends Question{
         return question;
     }
     
+    
+    @Override
+    public Question clone()
+    {
+        return new QuestionMultipleChoice(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),answer);
+    }
+    
 }

@@ -80,4 +80,10 @@ public class QuestionMultipleAnswer extends Question {
     }
     
     
+    @Override
+    public Question clone()
+    {
+        return new QuestionMultipleAnswer(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),answer);
+    }
+    
 }

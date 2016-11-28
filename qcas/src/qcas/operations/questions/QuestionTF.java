@@ -69,4 +69,10 @@ public class QuestionTF extends Question{
         return question;
     }
     
+    @Override
+    public Question clone()
+    {
+        return new QuestionTF(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),answer);
+    }
+    
 }
