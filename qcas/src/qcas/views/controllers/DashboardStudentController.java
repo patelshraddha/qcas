@@ -195,7 +195,10 @@ public class DashboardStudentController implements Initializable {
     private Label questionDescription111;
     @FXML
     private BarChart<String, Integer> reportBarChart;
-
+    
+    private String subjectCode;
+    private String difficulty;
+    private int numberOfquestions;
     /**
      * Initializes the controller class.
      */
@@ -409,9 +412,9 @@ public class DashboardStudentController implements Initializable {
 
         ArrayList<Question> questions = new ArrayList<Question>();
         int subjectCodeIndex = selectsubjectdropdown.getSelectionModel().getSelectedIndex();
-        String subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
-        String difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
-        int numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
+        subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
+        difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
+        numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
 
         totalQuestionNo.setText(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
 
@@ -714,7 +717,7 @@ public class DashboardStudentController implements Initializable {
         saveAsPng(reportBarChart, "chart.png");
         quizpane.setVisible(false);
         resultPane.setVisible(true);
-
+        this.application.insertAnswers(quizAnswers, subjectCode, numberOfquestions, difficulty);
     }
 
     public void saveAsPng(BarChart chart, String path) {

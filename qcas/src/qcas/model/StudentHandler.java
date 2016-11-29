@@ -17,6 +17,8 @@ import qcas.operations.questions.QuestionFIB;
 import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
+import qcas.operations.user.User;
+import sun.security.krb5.internal.rcache.AuthList;
 
 /**
  *
@@ -123,5 +125,26 @@ public class StudentHandler {
 
         return question;
     }
-
+    
+    public static int insertSelection(DatabaseHandler database, User user, ArrayList<Question> quizAnswers, String subjectCode, int noQuestions, String difficulty){
+        String insertSelectionQuery = "Insert into exam (user_key, subject_code, exam_date, difficulty_level, question_count, score, result, grade) values (?,?,?,?,?,?,?)";
+        ResultSet rs;
+        int noChange=0;
+        try {
+            
+            PreparedStatement ps = database.getConnection().prepareStatement(insertSelectionQuery);
+            ps.setInt(1, Integer.parseInt(user.getUserKey()));
+            ps.setInt(2, Integer.parseInt(subjectCode));
+            ps.setString(3, difficulty);
+            ps.setInt(4,noQuestions);
+            ps.setInt(5, 0);
+            ps.setInt(6, 0);
+            ps.setString(7, "");
+            rs = ps.executeQuery();
+            noChange = rs.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return noChange;
+    }
 }
