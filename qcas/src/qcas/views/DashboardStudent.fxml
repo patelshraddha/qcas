@@ -369,9 +369,9 @@
                   <DropShadow />
                </effect>
             </Separator>
-            <BarChart fx:id="reportBarChart" animated="false" layoutX="195.0" layoutY="214.0" legendVisible="false" prefHeight="325.0" prefWidth="540.0">
+            <BarChart fx:id="reportBarChart" animated="false" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" legendVisible="false" prefHeight="450.0" prefWidth="789.0" title="Result">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <CategoryAxis label="Answers" side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis label="Number Of Questions" side="LEFT" />
