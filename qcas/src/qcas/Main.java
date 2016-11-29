@@ -13,12 +13,14 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+import javafx.scene.control.MenuItem;
 import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
 import qcas.model.ProfessorHandler;
@@ -31,7 +33,7 @@ import qcas.operations.user.User;
 import qcas.views.controllers.DashboardProfessorController;
 import qcas.views.controllers.DashboardStudentController;
 import qcas.views.controllers.LoginController;
-
+import qcas.model.UserRegisterTableHandler;
 /**
  * Main Application. This class handles navigation and user session.
  */
@@ -80,6 +82,7 @@ public class Main extends Application {
     public boolean userLogging(String userId, String password) {
         if (UserLoginTableHandler.verifyLogin(this.database, userId, password)) {
             loggedUser = UserLoginTableHandler.getUser(database, userId);
+            System.out.println(loggedUser);
             gotoProfile();
             return true;
         } else {
@@ -87,7 +90,17 @@ public class Main extends Application {
         }
 
     }
-
+      public boolean userRegistering(String userName, String password,String firstName, String secondName,String emailID,ArrayList<String> subjectMenuList) {
+	        if (!UserRegisterTableHandler.isUsernamePresent(this.database, userName)) {
+	            String userId=UserRegisterTableHandler.saveUser(database, userName, password, firstName, secondName, emailID,subjectMenuList);
+	            loggedUser = UserLoginTableHandler.getUser(database, userId);
+                    //System.out.println(loggedUser);
+                    gotoProfile();
+	            return true;
+	        }
+	        else{return false;}
+	    }
+	    
     public void userLogout() {
         loggedUser = null;
         gotoLogin();
@@ -247,5 +260,7 @@ public class Main extends Application {
         }
         return countMap;
     }
+
+
 
 }
