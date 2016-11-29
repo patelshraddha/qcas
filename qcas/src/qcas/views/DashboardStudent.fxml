@@ -150,6 +150,9 @@
                <font>
                   <Font name="Microsoft JhengHei UI" size="22.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
          <effect>
@@ -384,6 +387,31 @@
                </font>
             </Label>
             <Label fx:id="scoreLabel" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="181.0" layoutY="137.0" prefHeight="76.0" prefWidth="122.0">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="44.0" layoutY="199.0" prefHeight="76.0" prefWidth="122.0" text="Result:">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="passLabel" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="181.0" layoutY="199.0" prefHeight="76.0" prefWidth="122.0" text="Pass" textFill="#06e419" visible="false">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="failLabel" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="181.0" layoutY="199.0" prefHeight="76.0" prefWidth="122.0" text="Fail" textFill="#e30707" visible="false">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="44.0" layoutY="271.0" prefHeight="76.0" prefWidth="133.0" text="Grade:">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="gradeLabel" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="181.0" layoutY="271.0" prefHeight="76.0" prefWidth="122.0">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>

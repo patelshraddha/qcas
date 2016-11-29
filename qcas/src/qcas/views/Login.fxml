@@ -126,8 +126,6 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label alignment="CENTER" prefHeight="118.0" prefWidth="305.0" text="Enter username:">
@@ -219,6 +217,11 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
+            <Label fx:id="signUpError" alignment="CENTER" layoutX="158.0" layoutY="575.0" prefHeight="60.0" prefWidth="301.0" text="Please complete all fields" textFill="#e10909" visible="false">
+               <font>
+                  <Font name="Microsoft JhengHei UI Light" size="18.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>
