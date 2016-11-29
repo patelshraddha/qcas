@@ -239,6 +239,7 @@ public class DashboardProfessorController implements Initializable {
     private void makeTestsTakenChart(ArrayList<Integer> testsCount) {
         testsTakenChart1.setVisible(false);
         
+        testsTakenChart.getData().clear();
         
         testsTakenChart.setVisible(true);
         System.out.println(testsCount.get(0));
@@ -251,7 +252,7 @@ public class DashboardProfessorController implements Initializable {
         series1.getData().add(new XYChart.Data("Past Month", testsCount.get(0))); 
         series1.getData().add(new XYChart.Data("Past Quarter", testsCount.get(1))); 
         series1.getData().add(new XYChart.Data("Past Year", testsCount.get(2))); 
-        testsTakenChart.getData().clear();
+        
         testsTakenChart.getData().addAll(series1);
        
         
@@ -260,6 +261,7 @@ public class DashboardProfessorController implements Initializable {
     private void makeAvgScoresChart(ArrayList<Double> avgScores) {
         testsTakenChart.setVisible(false);
         
+        testsTakenChart1.getData().clear();
         testsTakenChart1.setVisible(true);
         System.out.println(avgScores.get(0));
         System.out.println(avgScores.get(1));
@@ -271,7 +273,7 @@ public class DashboardProfessorController implements Initializable {
         series1.getData().add(new XYChart.Data("Past Month", avgScores.get(0))); 
         series1.getData().add(new XYChart.Data("Past Quarter", avgScores.get(1))); 
         series1.getData().add(new XYChart.Data("Past Year", avgScores.get(2))); 
-        testsTakenChart1.getData().clear();
+        
         testsTakenChart1.getData().addAll(series1);
         
     }
