@@ -242,9 +242,7 @@ public class DashboardProfessorController implements Initializable {
         testsTakenChart.getData().clear();
         
         testsTakenChart.setVisible(true);
-        System.out.println(testsCount.get(0));
-        System.out.println(testsCount.get(1));
-        System.out.println(testsCount.get(2));
+        
        
         XYChart.Series series1 = new XYChart.Series<>();
         
@@ -263,12 +261,9 @@ public class DashboardProfessorController implements Initializable {
         
         testsTakenChart1.getData().clear();
         testsTakenChart1.setVisible(true);
-        System.out.println(avgScores.get(0));
-        System.out.println(avgScores.get(1));
-        System.out.println(avgScores.get(2));
-       
-        XYChart.Series series1 = new XYChart.Series<>();
         
+        XYChart.Series series1 = new XYChart.Series<>();
+       
    
         series1.getData().add(new XYChart.Data("Past Month", avgScores.get(0))); 
         series1.getData().add(new XYChart.Data("Past Quarter", avgScores.get(1))); 

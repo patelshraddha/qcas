@@ -369,7 +369,14 @@
                   <DropShadow />
                </effect>
             </Separator>
-            <PieChart fx:id="pieChart" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="58.0" layoutY="154.0" prefHeight="504.0" prefWidth="921.0" title="Answer Analysis" />
+            <BarChart fx:id="reportBarChart" animated="false" layoutX="195.0" layoutY="214.0" legendVisible="false" prefHeight="325.0" prefWidth="540.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis label="Number Of Questions" side="LEFT" />
+              </yAxis>
+            </BarChart>
          </children>
          <effect>
             <DropShadow />
