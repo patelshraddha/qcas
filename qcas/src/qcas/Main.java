@@ -262,6 +262,12 @@ public class Main extends Application {
         }
         return countMap;
     }
+    
+    public int insertAnswers(ArrayList<Question> quizAnswers, String subjectCode, int noQuestions, String diff, int correctQuestions, int isCorrect){
+        return StudentHandler.insertSelection(database, getLoggedUser(), quizAnswers, subjectCode, noQuestions, diff, correctQuestions, isCorrect);
+    }
+
+
 
 
 

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import qcas.operations.questions.Question;
@@ -17,6 +18,8 @@ import qcas.operations.questions.QuestionFIB;
 import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
+import qcas.operations.user.User;
+import sun.security.krb5.internal.rcache.AuthList;
 
 /**
  *
@@ -123,5 +126,99 @@ public class StudentHandler {
 
         return question;
     }
-
+    
+    public static int insertSelection(DatabaseHandler database, User user, ArrayList<Question> quizAnswers, String subjectCode, int noQuestions, String difficulty, int correctQuestions, int isCorrect){
+        String insertSelectionQuery = "Insert into exam (user_key, subject_code, exam_date, difficulty_level, question_count, score, result, grade) values (?,?,?,?,?,?,?,?)";
+        ResultSet rs;
+        long timeNow = System.currentTimeMillis();
+        java.sql.Timestamp timestamp = new java.sql.Timestamp(timeNow);
+        int noChange=0;
+        try {
+            
+            PreparedStatement ps = database.getConnection().prepareStatement(insertSelectionQuery);
+            ps.setInt(1, Integer.parseInt(user.getUserKey()));
+            ps.setInt(2, Integer.parseInt(subjectCode));
+            ps.setTimestamp(3, timestamp);
+            ps.setString(4, difficulty);
+            ps.setInt(5,noQuestions);
+            ps.setInt(6, correctQuestions);
+            //Pass/Fail and Grade Logic here
+            double percent = (correctQuestions/noQuestions)*100;
+            if(percent>=60){
+                ps.setInt(7, 1);
+            }else{
+                ps.setInt(7, 0);
+            }
+            String grade = null;
+            if(percent<60&&percent>=0){
+                grade="F";
+            }else if(percent>=60&&percent<70){
+                grade="C";
+            }else if(percent>=70&&percent<80){
+                grade="B";
+            }else if(percent>=80&&percent<90){
+                grade="B+";
+            }else if(percent>=90&&percent<100){
+                grade="A";
+            }else if(percent==100){
+                grade="A+";
+            }
+            ps.setString(8, grade);
+            ps.executeUpdate();
+            insertSelectionQuery = "SELECT exam_key FROM exam WHERE user_key = ? AND exam_date=?";
+            ps = database.getConnection().prepareStatement(insertSelectionQuery);
+            ps.setInt(1, Integer.parseInt(user.getUserKey()));
+            ps.setTimestamp(2, timestamp);
+            rs = ps.executeQuery();
+            rs.next();
+            int exam_key = rs.getInt(1);
+            for(Question quizQuestion: quizAnswers){        
+                insertSelectionQuery = "INSERT INTO ExamLog(exam_key, question_key, select_1, select_2, select_3, select_4, correct) VALUES (?,?,?,?,?,?,?)";
+                ps = database.getConnection().prepareStatement(insertSelectionQuery);
+                ps.setInt(1, exam_key);
+                ps.setInt(2, Integer.parseInt(quizQuestion.getId()));
+                if((quizQuestion instanceof QuestionMultipleAnswer)){
+                    int[] ans = ((QuestionMultipleAnswer)quizQuestion).getAnswer();
+                    ps.setString(3, Integer.toString(ans[0]));
+                    ps.setInt(4, ans[1]);
+                    ps.setInt(5, ans[2]);
+                    ps.setInt(6, ans[3]);
+                }else if ((quizQuestion instanceof QuestionMultipleChoice)) {
+                    int ans = ((QuestionMultipleChoice)quizQuestion).getAnswer();
+                    ps.setString(3, "0");
+                    ps.setInt(4, 0);
+                    ps.setInt(5, 0);
+                    ps.setInt(6, 0);
+                    switch(ans){
+                        case 1: ps.setString(3, "1");
+                           break;
+                        case 2:case 3:case 4: ps.setString(ans, "1");
+                        break;
+                    }
+                }else if((quizQuestion instanceof QuestionTF)){
+                    boolean temp = ((QuestionTF)quizQuestion).getAnswer();
+                    if(temp){
+                        ps.setString(3, "True");
+                    }else{
+                        ps.setString(3, "False");
+                    }
+                    ps.setInt(4, 0);
+                    ps.setInt(5, 0);
+                    ps.setInt(6, 0);
+                }else if((quizQuestion instanceof QuestionFIB)){
+                    String temp = ((QuestionFIB) quizQuestion).getAnswer();
+                    ps.setString(3, temp);
+                    ps.setInt(4, 0);
+                    ps.setInt(5, 0);
+                    ps.setInt(6, 0);
+                }
+                ps.setInt(7, isCorrect);
+                ps.executeUpdate();
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return noChange;
+    }
 }
