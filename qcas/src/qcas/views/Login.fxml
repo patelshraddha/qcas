@@ -106,7 +106,7 @@
             <DropShadow />
          </effect>
       </VBox>
-      <Pane fx:id="signUpPane" layoutX="172.0" layoutY="4.0" prefHeight="648.0" prefWidth="604.0" style="-fx-background-color: WHITE; -fx-border-width: 2px; -fx-border-color: BLACK;" visible="false">
+      <Pane fx:id="signUpPane" layoutX="172.0" layoutY="4.0" prefHeight="648.0" prefWidth="604.0" style="-fx-background-color: WHITE; -fx-border-width: 2px; -fx-border-color: BLACK;">
          <children>
             <Label layoutX="211.0" layoutY="9.0" prefHeight="47.0" prefWidth="175.0" text="REGISTER NEW USER">
                <font>
@@ -185,11 +185,7 @@
                         <Font name="Microsoft JhengHei UI Light" size="18.0" />
                      </font>
                   </Label>
-                  <MenuButton fx:id="selectMenuSubject" mnemonicParsing="false" prefHeight="37.0" prefWidth="256.0" text="Select Subject" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                    <items>
-                        <CheckMenuItem fx:id="checkMenuSubject" mnemonicParsing="false" text="Unspecified Action" />
-                    </items>
-                  </MenuButton>
+                  <MenuButton fx:id="selectMenuSubject" mnemonicParsing="false" prefHeight="37.0" prefWidth="256.0" text="Select Subject" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
             <Button fx:id="registerButton" layoutX="230.0" layoutY="513.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="59.0" prefWidth="138.0" text="Register">

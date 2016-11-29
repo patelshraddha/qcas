@@ -79,6 +79,6 @@ public class User {
         return "User{" + "id=" + id + ", userKey=" + userKey + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", timeStamp=" + timeStamp + ", type=" + type + '}';
     }
 
-
+public static void checkUsername() {}
     
 }

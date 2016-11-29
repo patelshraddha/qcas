@@ -98,7 +98,9 @@ public class Main extends Application {
                     gotoProfile();
 	            return true;
 	        }
-	        else{return false;}
+	        else{
+                    
+                    return false;}
 	    }
 	    
     public void userLogout() {

@@ -83,7 +83,8 @@ public class LoginController implements Initializable {
     private MenuItem menuItem1;
     @FXML
     private CheckMenuItem checkMenuSubject;
-
+    
+    
     public void setApp(Main application) {
         this.application = application;
     }
@@ -141,12 +142,6 @@ public class LoginController implements Initializable {
         signUpPane.setVisible(false);
        // menuItem1.is
         ObservableList<MenuItem> subjects = selectMenuSubject.getItems();
-        
-//                boolean subjects1 = selectMenuSubject.getItems().get(2).iss();
-//                        boolean subjects2 = selectMenuSubject.getItems().get(3).isDisable();
-
-//        System.out.println(subjects1);
-//                System.out.println(subjects2);
 
         
         ArrayList<String> sub = new ArrayList<>();
@@ -160,9 +155,12 @@ public class LoginController implements Initializable {
                 sub.add(s);
                 }
             }
-        
-        application.userRegistering(registerUsername.getText(), registerPassword.getText(), registerFirstName.getText(), registerLastName.getText(), registerEmail.getText(),sub);
       
+        boolean flag=application.userRegistering(registerUsername.getText(), registerPassword.getText(), registerFirstName.getText(), registerLastName.getText(), registerEmail.getText(),sub);
+      if(!flag){
+          invalidLabel.setText("Opps..! You already have a account.\n Use your existing account details.");
+      invalidLabel.setVisible(true);
+      }
     }
     
     @FXML
