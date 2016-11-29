@@ -344,7 +344,7 @@ public class DashboardStudentController implements Initializable {
                 timeSeconds--;
                 timer.setText(Integer.toString(timeSeconds / 60) + ":" + Integer.toString(timeSeconds % 60));
                 if (timeSeconds == 0) {
-                    timeline.stop();
+                    
                     // Quiz stop code goes here
                     quizInProgress = false;
                     submitQuiz();
@@ -353,9 +353,11 @@ public class DashboardStudentController implements Initializable {
         }));
         timeline.playFromStart();
         presentQuestion = 0;
+        
         quizQuestions = questions;
         quizAnswers = answers;
         previousQuestion.setDisable(true);
+        nextQuestion.setDisable(false);
         questionsAttempted = new int[quizAnswers.size()];
         changeQuestion();
 
@@ -681,6 +683,8 @@ public class DashboardStudentController implements Initializable {
     private void submitQuiz() {
         //TODO evaluation code goes here
         boolean check = false;
+        timeline.stop();
+        presentQuestion=-1;
         Iterator it = quizAnswers.iterator();
         int i = 0;
         ArrayList<String> grade = new ArrayList<String>();
