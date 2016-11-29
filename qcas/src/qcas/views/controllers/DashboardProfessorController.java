@@ -318,6 +318,7 @@ public class DashboardProfessorController implements Initializable {
     private void makeResultsChart(ArrayList<Integer> resultCount) {
          testsTakenChart1.setVisible(false);
          testsTakenChart2.setVisible(false);
+         testsTakenChart.setVisible(false);
          
          testsTakenChart3.getData().clear();
          testsTakenChart3.setVisible(true);

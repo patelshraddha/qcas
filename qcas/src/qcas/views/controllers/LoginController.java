@@ -82,9 +82,8 @@ public class LoginController implements Initializable {
     private MenuButton selectMenuSubject;
     private MenuItem menuItem1;
     @FXML
-    private CheckMenuItem checkMenuSubject;
-    
-    
+    private Label signUpError;
+
     public void setApp(Main application) {
         this.application = application;
     }
@@ -138,7 +137,11 @@ public class LoginController implements Initializable {
     
     @FXML
     public void registerUser(ActionEvent event) {
-        
+        if(registerUsername.getText().isEmpty() || registerPassword.getText().isEmpty() || registerFirstName.getText().isEmpty() || registerLastName.getText().isEmpty() || registerEmail.getText().isEmpty()){
+           signUpError.setVisible(true);
+        }
+        else
+        {
         signUpPane.setVisible(false);
        // menuItem1.is
         ObservableList<MenuItem> subjects = selectMenuSubject.getItems();
@@ -163,12 +166,16 @@ public class LoginController implements Initializable {
       }
     }
     
-    @FXML
-    public void exitApplication(ActionEvent event)
-    {
-        System.exit(0);
-    }
-    
+//    @FXML
+//    public void exitApplication(ActionEvent event)
+//    {
+//        System.exit(0);
+//    }
+//    
             
+    }
 
+    @FXML
+    private void exitApplication(ActionEvent event) {
+    }
 }

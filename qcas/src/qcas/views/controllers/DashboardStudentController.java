@@ -75,6 +75,7 @@ import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
 import qcas.operations.subject.Subject;
+import qcas.operations.user.User;
 
 /**
  * FXML Controller class
@@ -212,6 +213,12 @@ public class DashboardStudentController implements Initializable {
     private String subjectCode;
     private String difficulty;
     private int numberOfquestions;
+    @FXML
+    private Label passLabel;
+    @FXML
+    private Label failLabel;
+    @FXML
+    private Label gradeLabel;
     /**
      * Initializes the controller class.
      */
@@ -233,9 +240,12 @@ public class DashboardStudentController implements Initializable {
         studentName.setText(this.application.getLoggedUser().getFirstName() + " " + this.application.getLoggedUser().getLastName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals("Log Out")) {
-                this.logout();
+            if (newValue != null) {
+                if (newValue.equals("Log Out")) {
+                    this.logout();
+                }
             }
+
         });
 
         hashcountquestions = new HashMap<String, Integer>();
@@ -681,8 +691,8 @@ public class DashboardStudentController implements Initializable {
         boolean check = false;
         Iterator it = quizAnswers.iterator();
         int i = 0;
-
-        int totalQuestions =0;
+        ArrayList<String> grade = new ArrayList<String>();
+        int totalQuestions = 0;
         int correctQuestions = 0;
         int correct=0;
         
@@ -694,7 +704,11 @@ public class DashboardStudentController implements Initializable {
         correctMap.put("E", 0);
         correctMap.put("M", 0);
         correctMap.put("H", 0);
-
+        
+        passLabel.setVisible(false);
+        failLabel.setVisible(false);
+        gradeLabel.setText("");
+        
         for (Question quizQuestion : quizQuestions) {
             totalMap.put(quizQuestion.getLevel(), totalMap.get(quizQuestion.getLevel()) + 1);
             if (questionsAttempted[i] != 0) {
@@ -732,49 +746,58 @@ public class DashboardStudentController implements Initializable {
             }
         }
         saveAsPng(reportBarChart, "chart.png"); */
-        
-        
-        
-        for(int k : totalMap.values()){
+
+        for (int k : totalMap.values()) {
             totalQuestions += k;
         }
-        
-        for(int m : correctMap.values()){
+
+        for (int m : correctMap.values()) {
             correctQuestions += m;
         }
-        
+
         System.out.println(correctQuestions);
-        System.out.println(totalQuestions-correctQuestions);
-        
-        
+        System.out.println(totalQuestions - correctQuestions);
+
         String score = Integer.toString(correctQuestions);
         score = score + "/" + Integer.toString(totalQuestions);
+        
         this.application.insertAnswers(quizAnswers, subjectCode, numberOfquestions, difficulty, correctQuestions, correct);     
         quizpane.setVisible(false);
         resultPane.setVisible(true);
-          
+        
+        grade = getGrade(numberOfquestions,correctQuestions);
+        
+        
+        
+        
         scoreLabel.setText(score);
+        if(grade.get(0).equals("1")){
+            passLabel.setVisible(true);
+        }
+        else
+        {
+            failLabel.setVisible(true);
+        }
+        gradeLabel.setText(grade.get(1));
         
         ObservableList<PieChart.Data> resultChart = FXCollections.observableArrayList();
-        resultChart.addAll(new PieChart.Data("Correct Answers",correctQuestions),
-        new PieChart.Data("Incorrect Answers",totalQuestions-correctQuestions));
-        
+        resultChart.addAll(new PieChart.Data("Correct Answers", correctQuestions),
+                new PieChart.Data("Incorrect Answers", totalQuestions - correctQuestions));
+
         pieResults.setData(resultChart);
         pieResults.setLegendSide(Side.BOTTOM);
         pieResults.setLabelsVisible(true);
         pieResults.setStartAngle(90);
-        
-        
+
         pieResults.setVisible(true);
          saveAsPng(pieResults, "chart.png");
          
-        
     }
 
     public void saveAsPng(PieChart chart, String path) {
         WritableImage image = chart.snapshot(new SnapshotParameters(), null);
         File file = new File(path);
-        
+
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream("sample4.pdf"));
@@ -786,33 +809,41 @@ public class DashboardStudentController implements Initializable {
             graph = com.itextpdf.text.Image.getInstance(byteOutput.toByteArray());
 
             document.open();
+User user = this.application.getLoggedUser();
 
-Paragraph title1 = new Paragraph("Chapter 1", 
+
+Paragraph title1 = new Paragraph(user.getFirstName()+" "+user.getLastName(), 
  
    FontFactory.getFont(FontFactory.HELVETICA, 
     
    18, Font.BOLDITALIC, new CMYKColor(0, 255, 255,17)));
     
-Chapter chapter1 = new Chapter(title1, 1);
-       
-chapter1.setNumberDepth(0);
+Chapter chapter1 = new Chapter(title1,1);
+//       
+//chapter1.setNumberDepth(0);
+//
+//Paragraph title11 = new Paragraph("Email: "+user.getEmail()+"\n"+"Grades: "+getGrade(10, 9), 
+// 
+//       FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, 
+//    
+//       new CMYKColor(0, 255, 255,17)));
+    
+//Section section1 = chapter1.addSection(title11);
+ 
+//Paragraph someSectionText = new Paragraph("Email: "+user.getEmail()+"\n"+"Grades: "+getGrade(10, 9));
+ 
+//section1.add(someSectionText);
+ 
+//someSectionText = new Paragraph("Following is a 3 X 2 table.");
+ 
+//section1.add(someSectionText);
+document.add(chapter1);
+document.add(new Paragraph("Email: "+user.getEmail()+"\n"+"Grades: "+getGrade(10, 9), 
+ 
+FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD, new CMYKColor(0, 255, 0, 0))));
 
-Paragraph title11 = new Paragraph("This is Section 1 in Chapter 1", 
- 
-       FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, 
-    
-       new CMYKColor(0, 255, 255,17)));
-    
-Section section1 = chapter1.addSection(title11);
- 
-Paragraph someSectionText = new Paragraph("This text comes as part of section 1 of chapter 1.");
- 
-section1.add(someSectionText);
- 
-someSectionText = new Paragraph("Following is a 3 X 2 table.");
- 
-section1.add(someSectionText);
-document.add(chapter1);document.close();
+
+
             
             document.add(graph);
             document.close();
@@ -824,6 +855,35 @@ document.add(chapter1);document.close();
             Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private ArrayList<String> getGrade(int numberOfquestions, int correctQuestions) {
+        
+        ArrayList<String> grade = new ArrayList<String>();
+        
+        double percent = (correctQuestions/numberOfquestions)*100;
+            if(percent>=60){
+                grade.add("1");
+            }else{
+                grade.add("0");
+            }
+            
+            
+            if(percent<60&&percent>=0){
+                grade.add("F");
+            }else if(percent>=60&&percent<70){
+                grade.add("C");
+            }else if(percent>=70&&percent<80){
+                grade.add("B");
+            }else if(percent>=80&&percent<90){
+                grade.add("B+");
+            }else if(percent>=90&&percent<100){
+                grade.add("A");
+            }else if(percent==100){
+                grade.add("A+");
+            }
+            
+            return grade;
     }
 
 }
