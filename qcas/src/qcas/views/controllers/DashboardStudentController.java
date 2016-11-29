@@ -196,6 +196,11 @@ public class DashboardStudentController implements Initializable {
     private Label questionDescription111;
     @FXML
     private BarChart<String, Integer> reportBarChart;
+    @FXML
+    private PieChart pieResults;
+    @FXML
+    private Label scoreLabel;
+
     
     private String subjectCode;
     private String difficulty;
@@ -672,7 +677,7 @@ public class DashboardStudentController implements Initializable {
 
         int totalQuestions =0;
         int correctQuestions = 0;
-        
+        int correct=0;
         
         HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
         HashMap<String, Integer> correctMap = new HashMap<String, Integer>();
@@ -688,6 +693,7 @@ public class DashboardStudentController implements Initializable {
             if (questionsAttempted[i] != 0) {
                 if (quizQuestion.evaluate((Question) it.next())) {
                     correctMap.put(quizQuestion.getLevel(), correctMap.get(quizQuestion.getLevel()) + 1);
+                    correct = 1;
                 }
             }
             i++;
@@ -736,11 +742,10 @@ public class DashboardStudentController implements Initializable {
         
         String score = Integer.toString(correctQuestions);
         score = score + "/" + Integer.toString(totalQuestions);
-             
+        this.application.insertAnswers(quizAnswers, subjectCode, numberOfquestions, difficulty, correctQuestions, correct);     
         quizpane.setVisible(false);
         resultPane.setVisible(true);
-        this.application.insertAnswers(quizAnswers, subjectCode, numberOfquestions, difficulty);
-        
+          
         scoreLabel.setText(score);
         
         ObservableList<PieChart.Data> resultChart = FXCollections.observableArrayList();
