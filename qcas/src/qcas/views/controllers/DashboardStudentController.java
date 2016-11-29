@@ -36,6 +36,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
@@ -195,6 +196,10 @@ public class DashboardStudentController implements Initializable {
     private Label questionDescription111;
     @FXML
     private BarChart<String, Integer> reportBarChart;
+    @FXML
+    private PieChart pieResults;
+    @FXML
+    private Label scoreLabel;
 
     /**
      * Initializes the controller class.
@@ -667,6 +672,10 @@ public class DashboardStudentController implements Initializable {
         Iterator it = quizAnswers.iterator();
         int i = 0;
 
+        int totalQuestions =0;
+        int correctQuestions = 0;
+        
+        
         HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
         HashMap<String, Integer> correctMap = new HashMap<String, Integer>();
         totalMap.put("E", 0);
@@ -685,7 +694,7 @@ public class DashboardStudentController implements Initializable {
             }
             i++;
         }
-
+        /*
         List<XYChart.Series> allSeries = new ArrayList<XYChart.Series>();
         reportBarChart.getData().clear();
 
@@ -711,10 +720,43 @@ public class DashboardStudentController implements Initializable {
                 reportBarChart.getData().addAll(series);
             }
         }
-        saveAsPng(reportBarChart, "chart.png");
+        saveAsPng(reportBarChart, "chart.png"); */
+        
+        
+        
+        for(int k : totalMap.values()){
+            totalQuestions += k;
+        }
+        
+        for(int m : correctMap.values()){
+            correctQuestions += m;
+        }
+        
+        System.out.println(correctQuestions);
+        System.out.println(totalQuestions-correctQuestions);
+        
+        
+        String score = Integer.toString(correctQuestions);
+        score = score + "/" + Integer.toString(totalQuestions);
+             
         quizpane.setVisible(false);
         resultPane.setVisible(true);
-
+        
+        scoreLabel.setText(score);
+        
+        ObservableList<PieChart.Data> resultChart = FXCollections.observableArrayList();
+        resultChart.addAll(new PieChart.Data("Correct Answers",correctQuestions),
+        new PieChart.Data("Incorrect Answers",totalQuestions-correctQuestions));
+        
+        pieResults.setData(resultChart);
+        pieResults.setLegendSide(Side.BOTTOM);
+        pieResults.setLabelsVisible(true);
+        pieResults.setStartAngle(90);
+        
+        
+        pieResults.setVisible(true);
+        
+        
     }
 
     public void saveAsPng(BarChart chart, String path) {
