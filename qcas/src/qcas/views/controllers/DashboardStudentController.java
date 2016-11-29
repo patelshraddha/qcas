@@ -87,8 +87,6 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private Label timer;
     @FXML
-    private ProgressBar progressbar;
-    @FXML
     private Button submitTest;
     @FXML
     private Button nextQuestion;
@@ -170,6 +168,10 @@ public class DashboardStudentController implements Initializable {
     private HashMap<String, Integer> hashcountquestions;
     private boolean quizInProgress;
     private int currentQuestion; //To hold the count of the question being displayed
+    @FXML
+    private Label questionDescription1;
+    @FXML
+    private Label questionDescription111;
 
     /**
      * Initializes the controller class.
@@ -225,8 +227,6 @@ public class DashboardStudentController implements Initializable {
         selectsubjectdropdown.getSelectionModel().select(0);
         reassignDifficulty();
         reassignQuestionCount("Easy");
-        
-
     }
 
     private void reassignDifficulty() {
