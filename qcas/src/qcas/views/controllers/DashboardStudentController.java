@@ -46,6 +46,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -352,7 +353,7 @@ public class DashboardStudentController implements Initializable {
                 timeSeconds--;
                 timer.setText(Integer.toString(timeSeconds / 60) + ":" + Integer.toString(timeSeconds % 60));
                 if (timeSeconds == 0) {
-                    timeline.stop();
+                    
                     // Quiz stop code goes here
                     quizInProgress = false;
                     submitQuiz();
@@ -361,9 +362,11 @@ public class DashboardStudentController implements Initializable {
         }));
         timeline.playFromStart();
         presentQuestion = 0;
+        
         quizQuestions = questions;
         quizAnswers = answers;
         previousQuestion.setDisable(true);
+        nextQuestion.setDisable(false);
         questionsAttempted = new int[quizAnswers.size()];
         changeQuestion();
 
@@ -689,12 +692,14 @@ public class DashboardStudentController implements Initializable {
     private void submitQuiz() {
         //TODO evaluation code goes here
         boolean check = false;
+        timeline.stop();
+        presentQuestion=-1;
         Iterator it = quizAnswers.iterator();
         int i = 0;
         ArrayList<String> grade = new ArrayList<String>();
         int totalQuestions = 0;
         int correctQuestions = 0;
-        int correct=0;
+        int[] correct = new int[numberOfquestions];
         
         HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
         HashMap<String, Integer> correctMap = new HashMap<String, Integer>();
@@ -714,7 +719,7 @@ public class DashboardStudentController implements Initializable {
             if (questionsAttempted[i] != 0) {
                 if (quizQuestion.evaluate((Question) it.next())) {
                     correctMap.put(quizQuestion.getLevel(), correctMap.get(quizQuestion.getLevel()) + 1);
-                    correct = 1;
+                    correct[i] = 1;
                 }
             }
             i++;
@@ -790,8 +795,9 @@ public class DashboardStudentController implements Initializable {
         pieResults.setStartAngle(90);
 
         pieResults.setVisible(true);
-         saveAsPng(pieResults, "chart.png");
-         
+        saveAsPng(pieResults, "chart.png"); 
+        
+
     }
 
     public void saveAsPng(PieChart chart, String path) {

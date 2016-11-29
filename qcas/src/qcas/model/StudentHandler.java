@@ -127,7 +127,7 @@ public class StudentHandler {
         return question;
     }
     
-    public static int insertSelection(DatabaseHandler database, User user, ArrayList<Question> quizAnswers, String subjectCode, int noQuestions, String difficulty, int correctQuestions, int isCorrect){
+    public static int insertSelection(DatabaseHandler database, User user, ArrayList<Question> quizAnswers, String subjectCode, int noQuestions, String difficulty, int correctQuestions, int[] isCorrect){
         String insertSelectionQuery = "Insert into exam (user_key, subject_code, exam_date, difficulty_level, question_count, score, result, grade) values (?,?,?,?,?,?,?,?)";
         ResultSet rs;
         long timeNow = System.currentTimeMillis();
@@ -172,6 +172,7 @@ public class StudentHandler {
             rs = ps.executeQuery();
             rs.next();
             int exam_key = rs.getInt(1);
+            int i=0;
             for(Question quizQuestion: quizAnswers){        
                 insertSelectionQuery = "INSERT INTO ExamLog(exam_key, question_key, select_1, select_2, select_3, select_4, correct) VALUES (?,?,?,?,?,?,?)";
                 ps = database.getConnection().prepareStatement(insertSelectionQuery);
@@ -212,8 +213,9 @@ public class StudentHandler {
                     ps.setInt(5, 0);
                     ps.setInt(6, 0);
                 }
-                ps.setInt(7, isCorrect);
+                ps.setInt(7, isCorrect[i]);
                 ps.executeUpdate();
+                i++;
             }
             
         } catch (SQLException ex) {
