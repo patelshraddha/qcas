@@ -201,7 +201,7 @@
                   </Button>
                </children>
             </HBox>
-            <BarChart fx:id="testsTakenChart" alternativeRowFillVisible="false" barGap="50.0" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Tests Taken" visible="false">
+            <BarChart fx:id="testsTakenChart" alternativeRowFillVisible="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Tests Taken" visible="false">
               <xAxis>
                 <CategoryAxis animated="false" label="Time Period" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
@@ -209,12 +209,28 @@
                 <NumberAxis fx:id="yAxis" label="Number of Tests" side="LEFT" upperBound="10.0" />
               </yAxis>
             </BarChart>
-            <BarChart fx:id="testsTakenChart1" alternativeRowFillVisible="false" barGap="50.0" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Average Scores " visible="false">
+            <BarChart fx:id="testsTakenChart1" alternativeRowFillVisible="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Average Scores " visible="false">
                <xAxis>
                   <CategoryAxis animated="false" label="Time Period" side="BOTTOM" fx:id="xAxis1" />
                </xAxis>
                <yAxis>
                   <NumberAxis fx:id="yAxis1" label="Scores" side="LEFT" upperBound="10.0" />
+               </yAxis>
+            </BarChart>
+            <BarChart fx:id="testsTakenChart2" alternativeRowFillVisible="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Scores by levels of difficulty" visible="false">
+               <xAxis>
+                  <CategoryAxis animated="false" label="Difficulty Level" side="BOTTOM" fx:id="xAxis2" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis fx:id="yAxis2" label="Scores" side="LEFT" upperBound="10.0" />
+               </yAxis>
+            </BarChart>
+            <BarChart fx:id="testsTakenChart3" alternativeRowFillVisible="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Pass or Fail Results" visible="false">
+               <xAxis>
+                  <CategoryAxis animated="false" label="Time" side="BOTTOM" fx:id="xAxis3" />
+               </xAxis>
+               <yAxis>
+                  <NumberAxis fx:id="yAxis3" label="Number of students" side="LEFT" upperBound="10.0" />
                </yAxis>
             </BarChart>
          </children>

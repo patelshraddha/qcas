@@ -185,19 +185,11 @@
                         <Font name="Microsoft JhengHei UI Light" size="18.0" />
                      </font>
                   </Label>
-                  <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="264.0" text="Defence Against the Dark Arts" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="Microsoft JhengHei UI Light" size="15.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="142.0" text="Potions" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                     <font>
-                        <Font name="Microsoft JhengHei UI Light" size="15.0" />
-                     </font></CheckBox>
-                  <CheckBox contentDisplay="CENTER" mnemonicParsing="false" prefHeight="60.0" prefWidth="142.0" text="Charms" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                     <font>
-                        <Font name="Microsoft JhengHei UI Light" size="15.0" />
-                     </font></CheckBox>
+                  <MenuButton fx:id="selectMenuSubject" mnemonicParsing="false" prefHeight="37.0" prefWidth="256.0" text="Select Subject" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                    <items>
+                        <CheckMenuItem fx:id="checkMenuSubject" mnemonicParsing="false" text="Unspecified Action" />
+                    </items>
+                  </MenuButton>
                </children>
             </GridPane>
             <Button fx:id="registerButton" layoutX="230.0" layoutY="513.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="59.0" prefWidth="138.0" text="Register">

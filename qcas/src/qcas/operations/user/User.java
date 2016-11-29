@@ -74,6 +74,11 @@ public class User {
         this.timeStamp = timeStamp;
     }
 
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", userKey=" + userKey + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", timeStamp=" + timeStamp + ", type=" + type + '}';
+    }
+
 
     
 }
