@@ -369,7 +369,7 @@
                   <DropShadow />
                </effect>
             </Separator>
-            <BarChart fx:id="reportBarChart" animated="false" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" legendVisible="false" prefHeight="450.0" prefWidth="789.0" title="Result">
+            <BarChart fx:id="reportBarChart" animated="false" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" legendVisible="false" prefHeight="450.0" prefWidth="789.0" title="Result" visible="false">
               <xAxis>
                 <CategoryAxis label="Answers" side="BOTTOM" />
               </xAxis>
@@ -377,6 +377,17 @@
                 <NumberAxis label="Number Of Questions" side="LEFT" />
               </yAxis>
             </BarChart>
+            <PieChart fx:id="pieResults" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="277.0" layoutY="159.0" prefHeight="505.0" prefWidth="717.0" title="Result" />
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="44.0" layoutY="137.0" prefHeight="76.0" prefWidth="122.0" text="Your score:">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="scoreLabel" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="181.0" layoutY="137.0" prefHeight="76.0" prefWidth="122.0">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow />

@@ -269,6 +269,7 @@ public class DashboardProfessorController implements Initializable {
         series1.getData().add(new XYChart.Data("Past Month", testsCount.get(0))); 
         series1.getData().add(new XYChart.Data("Past Quarter", testsCount.get(1))); 
         series1.getData().add(new XYChart.Data("Past Year", testsCount.get(2))); 
+        series1.setName("Number of tests");
         
         testsTakenChart.getData().addAll(series1);
        
@@ -288,6 +289,7 @@ public class DashboardProfessorController implements Initializable {
         series1.getData().add(new XYChart.Data("Past Month", avgScores.get(0))); 
         series1.getData().add(new XYChart.Data("Past Quarter", avgScores.get(1))); 
         series1.getData().add(new XYChart.Data("Past Year", avgScores.get(2))); 
+        series1.setName("Average Scores");
         
         testsTakenChart1.getData().addAll(series1);
         
@@ -307,6 +309,7 @@ public class DashboardProfessorController implements Initializable {
         series1.getData().add(new XYChart.Data("Easy", avgLevelScores.get(0))); 
         series1.getData().add(new XYChart.Data("Medium", avgLevelScores.get(1))); 
         series1.getData().add(new XYChart.Data("Hard", avgLevelScores.get(2))); 
+        series1.setName("Average Scores");
         
         testsTakenChart2.getData().addAll(series1);
         
