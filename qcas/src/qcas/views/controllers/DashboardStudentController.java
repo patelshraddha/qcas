@@ -39,6 +39,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -677,7 +678,7 @@ public class DashboardStudentController implements Initializable {
 
         int totalQuestions =0;
         int correctQuestions = 0;
-        int correct=0;
+        int[] correct = new int[numberOfquestions];
         
         HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
         HashMap<String, Integer> correctMap = new HashMap<String, Integer>();
@@ -693,7 +694,7 @@ public class DashboardStudentController implements Initializable {
             if (questionsAttempted[i] != 0) {
                 if (quizQuestion.evaluate((Question) it.next())) {
                     correctMap.put(quizQuestion.getLevel(), correctMap.get(quizQuestion.getLevel()) + 1);
-                    correct = 1;
+                    correct[i] = 1;
                 }
             }
             i++;
@@ -759,11 +760,11 @@ public class DashboardStudentController implements Initializable {
         
         
         pieResults.setVisible(true);
-        
+        saveAsPng(pieResults, "chart.png"); 
         
     }
 
-    public void saveAsPng(BarChart chart, String path) {
+    public void saveAsPng(PieChart chart, String path) {
         WritableImage image = chart.snapshot(new SnapshotParameters(), null);
         File file = new File(path);
         

@@ -289,9 +289,9 @@ public class ProfessorHandler {
         
         try {
             ResultSet rs;
-           
+            
             //get avg scores E
-            String query = "SELECT AVG(score) FROM exam where difficulty_level = 'E' and subject_code = ?";     
+            String query = "SELECT AVG(score) FROM exam where difficulty_level = 'Easy' and subject_code = ?";     
             PreparedStatement preparedStatement = database.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,subjectCode);
             //preparedStatement.execute();
@@ -303,7 +303,7 @@ public class ProfessorHandler {
             }
             
             //get avg scores M
-            query = "SELECT AVG(score) FROM exam where difficulty_level = 'M' and subject_code = ?";     
+            query = "SELECT AVG(score) FROM exam where difficulty_level = 'Medium' and subject_code = ?";     
             preparedStatement = database.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,subjectCode);
             //preparedStatement.execute();
@@ -315,7 +315,19 @@ public class ProfessorHandler {
             }
             
             //get average scores H
-            query = "SELECT AVG(score) FROM exam where difficulty_level = 'H' and subject_code = ?";     //past Year
+            query = "SELECT AVG(score) FROM exam where difficulty_level = 'Hard' and subject_code = ?";     //past Year
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                averageScores.add(rs.getDouble(1));
+
+            }
+            
+            //get average scores Mixed
+            query = "SELECT AVG(score) FROM exam where difficulty_level = 'Mixed' and subject_code = ?";     //past Year
             preparedStatement = database.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,subjectCode);
             //preparedStatement.execute();
