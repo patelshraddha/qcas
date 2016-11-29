@@ -201,6 +201,10 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private Label scoreLabel;
 
+    
+    private String subjectCode;
+    private String difficulty;
+    private int numberOfquestions;
     /**
      * Initializes the controller class.
      */
@@ -416,9 +420,9 @@ public class DashboardStudentController implements Initializable {
 
         ArrayList<Question> questions = new ArrayList<Question>();
         int subjectCodeIndex = selectsubjectdropdown.getSelectionModel().getSelectedIndex();
-        String subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
-        String difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
-        int numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
+        subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
+        difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
+        numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
 
         totalQuestionNo.setText(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
 
@@ -676,7 +680,8 @@ public class DashboardStudentController implements Initializable {
 
         int totalQuestions = 0;
         int correctQuestions = 0;
-
+        int correct=0;
+        
         HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
         HashMap<String, Integer> correctMap = new HashMap<String, Integer>();
         totalMap.put("E", 0);
@@ -691,6 +696,7 @@ public class DashboardStudentController implements Initializable {
             if (questionsAttempted[i] != 0) {
                 if (quizQuestion.evaluate((Question) it.next())) {
                     correctMap.put(quizQuestion.getLevel(), correctMap.get(quizQuestion.getLevel()) + 1);
+                    correct = 1;
                 }
             }
             i++;
@@ -736,10 +742,10 @@ public class DashboardStudentController implements Initializable {
 
         String score = Integer.toString(correctQuestions);
         score = score + "/" + Integer.toString(totalQuestions);
-
+        this.application.insertAnswers(quizAnswers, subjectCode, numberOfquestions, difficulty, correctQuestions, correct);     
         quizpane.setVisible(false);
         resultPane.setVisible(true);
-
+          
         scoreLabel.setText(score);
 
         ObservableList<PieChart.Data> resultChart = FXCollections.observableArrayList();
