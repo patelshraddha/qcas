@@ -29,7 +29,7 @@ public class SubjectHandler {
             String insertquestionsquery = "SELECT subject.subject_code,subject.subject_name AS subject FROM user_subject_relation INNER JOIN qcas.subject ON user_subject_relation.subject_code = subject.subject_code"
                     + " WHERE user_subject_relation.user_key = ?";
             PreparedStatement preparedStatement = database.getConnection().prepareStatement(insertquestionsquery);
-            preparedStatement.setString(1, user.getId());
+            preparedStatement.setString(1, user.getUserKey());
             //preparedStatement.execute();
             rs = preparedStatement.executeQuery();
             while (rs.next()) {

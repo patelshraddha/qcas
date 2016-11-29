@@ -28,8 +28,8 @@ public class UserRegisterTableHandler {
             
             ResultSet rs;
             
-            String insertuserquery = "INSERT INTO `USERLOGIN` (`login_id`, `password`,`type`)"
-                    +" VALUES(?,?,'s')";
+            String insertuserquery = "INSERT INTO `USERLOGIN` (`login_id`, `password`,`status_locked`,`type`)"
+                    +" VALUES(?,?,'0','s')";
             PreparedStatement preparedStatement = database.getConnection().prepareStatement(insertuserquery);
             preparedStatement.setString(1, userName);
             preparedStatement.setString(2, password);
