@@ -222,9 +222,12 @@ public class DashboardStudentController implements Initializable {
         studentName.setText(this.application.getLoggedUser().getFirstName() + " " + this.application.getLoggedUser().getLastName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals("Log Out")) {
-                this.logout();
+            if (newValue != null) {
+                if (newValue.equals("Log Out")) {
+                    this.logout();
+                }
             }
+
         });
 
         hashcountquestions = new HashMap<String, Integer>();
@@ -671,10 +674,9 @@ public class DashboardStudentController implements Initializable {
         Iterator it = quizAnswers.iterator();
         int i = 0;
 
-        int totalQuestions =0;
+        int totalQuestions = 0;
         int correctQuestions = 0;
-        
-        
+
         HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
         HashMap<String, Integer> correctMap = new HashMap<String, Integer>();
         totalMap.put("E", 0);
@@ -720,48 +722,43 @@ public class DashboardStudentController implements Initializable {
             }
         }
         saveAsPng(reportBarChart, "chart.png"); */
-        
-        
-        
-        for(int k : totalMap.values()){
+
+        for (int k : totalMap.values()) {
             totalQuestions += k;
         }
-        
-        for(int m : correctMap.values()){
+
+        for (int m : correctMap.values()) {
             correctQuestions += m;
         }
-        
+
         System.out.println(correctQuestions);
-        System.out.println(totalQuestions-correctQuestions);
-        
-        
+        System.out.println(totalQuestions - correctQuestions);
+
         String score = Integer.toString(correctQuestions);
         score = score + "/" + Integer.toString(totalQuestions);
-             
+
         quizpane.setVisible(false);
         resultPane.setVisible(true);
-        
+
         scoreLabel.setText(score);
-        
+
         ObservableList<PieChart.Data> resultChart = FXCollections.observableArrayList();
-        resultChart.addAll(new PieChart.Data("Correct Answers",correctQuestions),
-        new PieChart.Data("Incorrect Answers",totalQuestions-correctQuestions));
-        
+        resultChart.addAll(new PieChart.Data("Correct Answers", correctQuestions),
+                new PieChart.Data("Incorrect Answers", totalQuestions - correctQuestions));
+
         pieResults.setData(resultChart);
         pieResults.setLegendSide(Side.BOTTOM);
         pieResults.setLabelsVisible(true);
         pieResults.setStartAngle(90);
-        
-        
+
         pieResults.setVisible(true);
-        
-        
+
     }
 
     public void saveAsPng(BarChart chart, String path) {
         WritableImage image = chart.snapshot(new SnapshotParameters(), null);
         File file = new File(path);
-        
+
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream("sample4.pdf"));

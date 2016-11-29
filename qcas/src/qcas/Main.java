@@ -64,6 +64,7 @@ public class Main extends Application {
         }
         try {
             stage = primaryStage;
+            stage.setResizable(false);
             stage.setTitle("Quiz Creation and Assessment System");
             stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
             stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
