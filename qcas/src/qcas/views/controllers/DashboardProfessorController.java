@@ -98,6 +98,18 @@ public class DashboardProfessorController implements Initializable {
     private NumberAxis yAxis1 = new NumberAxis();
     @FXML
     private CategoryAxis xAxis1 = new CategoryAxis();
+    @FXML
+    private BarChart<String, Number> testsTakenChart2;
+    @FXML
+    private NumberAxis yAxis2;
+    @FXML
+    private CategoryAxis xAxis2;
+    @FXML
+    private BarChart<String, Number> testsTakenChart3;
+    @FXML
+    private NumberAxis yAxis3;
+    @FXML
+    private CategoryAxis xAxis3;
     
     
        
@@ -230,22 +242,29 @@ public class DashboardProfessorController implements Initializable {
             makeAvgScoresChart(avgScores);
         }
         else
+        if(reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[2]))
         {
-            
+            ArrayList<Double> avgLevelScores = this.application.getScoresLevel(Integer.parseInt(selectedSubject.getSubjectCode()));
+            makeScoresLevelChart(avgLevelScores);
+        }
+        else
+        if(reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[3]))
+        {
+            ArrayList<Integer> resultCount = this.application.getResultOverTime(Integer.parseInt(selectedSubject.getSubjectCode()));
+            makeResultsChart(resultCount);
         }
         
     }
 
     private void makeTestsTakenChart(ArrayList<Integer> testsCount) {
         testsTakenChart1.setVisible(false);
+        testsTakenChart2.setVisible(false);
+        testsTakenChart3.setVisible(false);
         
-        testsTakenChart.getData().clear();
-        
+        testsTakenChart.getData().clear(); 
         testsTakenChart.setVisible(true);
-        
        
         XYChart.Series series1 = new XYChart.Series<>();
-        
         
         series1.getData().add(new XYChart.Data("Past Month", testsCount.get(0))); 
         series1.getData().add(new XYChart.Data("Past Quarter", testsCount.get(1))); 
@@ -258,18 +277,64 @@ public class DashboardProfessorController implements Initializable {
 
     private void makeAvgScoresChart(ArrayList<Double> avgScores) {
         testsTakenChart.setVisible(false);
+        testsTakenChart2.setVisible(false);
+        testsTakenChart3.setVisible(false);
         
         testsTakenChart1.getData().clear();
         testsTakenChart1.setVisible(true);
         
         XYChart.Series series1 = new XYChart.Series<>();
-       
-   
+        
         series1.getData().add(new XYChart.Data("Past Month", avgScores.get(0))); 
         series1.getData().add(new XYChart.Data("Past Quarter", avgScores.get(1))); 
         series1.getData().add(new XYChart.Data("Past Year", avgScores.get(2))); 
         
         testsTakenChart1.getData().addAll(series1);
+        
+    }
+
+    private void makeScoresLevelChart(ArrayList<Double> avgLevelScores) {
+        testsTakenChart1.setVisible(false);
+        testsTakenChart.setVisible(false);
+        testsTakenChart3.setVisible(false);
+        
+        testsTakenChart2.getData().clear();
+        testsTakenChart2.setVisible(true);
+        
+        XYChart.Series series1 = new XYChart.Series<>();
+        
+        
+        series1.getData().add(new XYChart.Data("Easy", avgLevelScores.get(0))); 
+        series1.getData().add(new XYChart.Data("Medium", avgLevelScores.get(1))); 
+        series1.getData().add(new XYChart.Data("Hard", avgLevelScores.get(2))); 
+        
+        testsTakenChart2.getData().addAll(series1);
+        
+    }
+
+    private void makeResultsChart(ArrayList<Integer> resultCount) {
+         testsTakenChart1.setVisible(false);
+         testsTakenChart2.setVisible(false);
+         
+         testsTakenChart3.getData().clear();
+         testsTakenChart3.setVisible(true);
+        
+        XYChart.Series series1 = new XYChart.Series<>();
+        series1.getData().add(new XYChart.Data("Pass", resultCount.get(0))); 
+        series1.getData().add(new XYChart.Data("Fail", resultCount.get(1)));
+        series1.setName("Past Month");
+        
+        XYChart.Series series2 = new XYChart.Series<>();
+        series2.getData().add(new XYChart.Data("Pass", resultCount.get(2))); 
+        series2.getData().add(new XYChart.Data("Fail", resultCount.get(3)));
+        series2.setName("Past Quarter");
+        
+        XYChart.Series series3 = new XYChart.Series<>();
+        series3.getData().add(new XYChart.Data("Pass", resultCount.get(4))); 
+        series3.getData().add(new XYChart.Data("Fail", resultCount.get(5)));
+        series3.setName("Past Year");
+        
+        testsTakenChart3.getData().addAll(series1, series2, series3);
         
     }
 }

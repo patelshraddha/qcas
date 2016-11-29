@@ -284,5 +284,146 @@ public class ProfessorHandler {
         return averageScores;
     }
     
+    public static ArrayList<Double> getScoresLevel(DatabaseHandler database, int subjectCode){
+        ArrayList<Double> averageScores = new ArrayList<Double>();
+        
+        try {
+            ResultSet rs;
+           
+            //get avg scores E
+            String query = "SELECT AVG(score) FROM exam where difficulty_level = 'E' and subject_code = ?";     
+            PreparedStatement preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                averageScores.add(rs.getDouble(1));
+
+            }
+            
+            //get avg scores M
+            query = "SELECT AVG(score) FROM exam where difficulty_level = 'M' and subject_code = ?";     
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                averageScores.add(rs.getDouble(1));
+
+            }
+            
+            //get average scores H
+            query = "SELECT AVG(score) FROM exam where difficulty_level = 'H' and subject_code = ?";     //past Year
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                averageScores.add(rs.getDouble(1));
+
+            }
+             
+        }
+        catch (SQLException ex) {
+
+            System.out.println(ex);
+        }
+
+        return averageScores;
+    }
+    
+    public static ArrayList<Integer> getResultOverTime(DatabaseHandler database, int subjectCode){
+        ArrayList<Integer> results = new ArrayList<Integer>();
+        
+        try {
+            ResultSet rs;
+           
+            //number of students passed last month
+            String query = "SELECT count(*) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) and subject_code = ? and result = 1";     //passing past month
+            PreparedStatement preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                results.add(rs.getInt(1));
+
+            }
+            
+            //number of students failed last month
+            query = "SELECT count(*) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) and subject_code = ? and result = 0";     
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                results.add(rs.getInt(1));
+
+            }
+            
+            //number of students passed last quarter
+            query = "SELECT count(*) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 4 MONTH) and subject_code = ? and result = 1";    
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                results.add(rs.getInt(1));
+
+            }
+            
+            
+            //number of students failed last quarter
+            query = "SELECT count(*) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 4 MONTH) and subject_code = ? and result = 0";     
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                results.add(rs.getInt(1));
+
+            }
+            
+            
+            //number of students passed last year
+            query = "SELECT count(*) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 1 YEAR) and subject_code = ? and result = 1";     //passing past month
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                results.add(rs.getInt(1));
+
+            }
+            
+            //number of students failed last year
+            query = "SELECT count(*) FROM exam where exam_date > DATE_SUB(NOW(), INTERVAL 1 YEAR) and subject_code = ? and result = 0";     
+            preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,subjectCode);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+
+                results.add(rs.getInt(1));
+
+            }
+            
+            
+        }
+        catch (SQLException ex) {
+
+            System.out.println(ex);
+        }
+
+        return results;
+    }
+    
     
 }
