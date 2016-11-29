@@ -369,12 +369,12 @@
                   <DropShadow />
                </effect>
             </Separator>
-            <BarChart blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="84.0" layoutY="163.0" legendSide="RIGHT" prefHeight="458.0" prefWidth="809.0" title="Answer Anaysis">
+            <BarChart fx:id="reportBarChart" animated="false" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" legendVisible="false" prefHeight="450.0" prefWidth="789.0" title="Result">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <CategoryAxis label="Answers" side="BOTTOM" />
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis label="Number Of Questions" side="LEFT" />
               </yAxis>
             </BarChart>
          </children>

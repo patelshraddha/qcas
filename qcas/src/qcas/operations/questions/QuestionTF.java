@@ -46,7 +46,7 @@ public class QuestionTF extends Question{
     
     @Override
     public boolean evaluate(Question question) {
-        boolean check=true;
+        boolean check=false;
         if(question.getId().equals(this.getId())&&(question instanceof QuestionTF)){
             if(this.getAnswer()==((QuestionTF)question).getAnswer()){
                 check=true;
@@ -58,15 +58,21 @@ public class QuestionTF extends Question{
     
     
     @Override
-    public Question getQuestion(String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
+    public Question getQuestion(String id,String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
         Question question;
         boolean answer=false;
         if(choice1.equals("true"))
             answer=true;
         else
             answer=false;
-        question = new QuestionTF(questionType,questionLevel, questionDescription, subjectCode,answer);
+        question = new QuestionTF(id,questionType,questionLevel, questionDescription, subjectCode,answer);
         return question;
+    }
+    
+    @Override
+    public Question clone()
+    {
+        return new QuestionTF(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),false);
     }
     
 }

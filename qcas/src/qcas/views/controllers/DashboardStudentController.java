@@ -5,22 +5,41 @@
  */
 package qcas.views.controllers;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.sun.javafx.charts.Legend;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -35,9 +54,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import javax.imageio.ImageIO;
 import qcas.Constants;
 import qcas.Main;
 import qcas.operations.questions.Question;
@@ -92,6 +113,7 @@ public class DashboardStudentController implements Initializable {
     private Button nextQuestion;
     @FXML
     private Button previousQuestion;
+
     private int presentQuestion;
     private ArrayList<Question> quizAnswers;
     private ArrayList<Question> quizQuestions;
@@ -167,11 +189,12 @@ public class DashboardStudentController implements Initializable {
 
     private HashMap<String, Integer> hashcountquestions;
     private boolean quizInProgress;
-    private int currentQuestion; //To hold the count of the question being displayed
     @FXML
     private Label questionDescription1;
     @FXML
     private Label questionDescription111;
+    @FXML
+    private BarChart<String, Integer> reportBarChart;
 
     /**
      * Initializes the controller class.
@@ -182,7 +205,7 @@ public class DashboardStudentController implements Initializable {
         homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
         quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
         homePane.setVisible(true);
-        currentQuestion = 1;
+
     }
 
     public void setApp(Main application) {
@@ -190,17 +213,14 @@ public class DashboardStudentController implements Initializable {
         loginBox.getItems().clear();
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
         loginBox.getItems().addAll("Log Out");
-        
-       
-        studentName.setText(this.application.getLoggedUser().getFirstName());
+
+        studentName.setText(this.application.getLoggedUser().getFirstName() + " " + this.application.getLoggedUser().getLastName());
         studentEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.equals("Log Out"))
-            {
+            if (newValue.equals("Log Out")) {
                 this.logout();
             }
         });
-        
 
         hashcountquestions = new HashMap<String, Integer>();
         List list = this.application.getSubjects();
@@ -291,10 +311,13 @@ public class DashboardStudentController implements Initializable {
         this.quizInProgress = true;
         quizcreatepane.setVisible(false);
         homePane.setVisible(false);
-        ArrayList<Question> answers = new ArrayList<>(questions); // create a shallow copy of the questions list.
+        ArrayList<Question> answers = new ArrayList<>();// = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
+        for (Question question : questions) {
+            answers.add(question.clone());
+        }
         timer.setText(Integer.toString(timeSeconds / 60) + ":" + Integer.toString(timeSeconds % 60));
         quizpane.setVisible(true);
-        
+
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
@@ -305,7 +328,8 @@ public class DashboardStudentController implements Initializable {
                 if (timeSeconds == 0) {
                     timeline.stop();
                     // Quiz stop code goes here
-                    //processSubmit();
+                    quizInProgress = false;
+                    submitQuiz();
                 }
             }
         }));
@@ -387,9 +411,9 @@ public class DashboardStudentController implements Initializable {
         String subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
         String difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
         int numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-        
+
         totalQuestionNo.setText(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-        
+
         if (subjectCode != null && difficulty != null && numberOfquestions != 0) {
 
             String level = "";
@@ -476,9 +500,8 @@ public class DashboardStudentController implements Initializable {
 
     }
 
-    
     private void logout() {
-        
+
         if (this.quizInProgress) {
             boolean submit = generateQuizInProgressAlert("Quiz in Progress. Are you sure you want to logout?");
             if (submit) {
@@ -502,9 +525,7 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion >= 1) {
                 previousQuestion.setDisable(false);
             }
-            currentQuestion++;
-            currentQuestionNo.setText(Integer.toString(currentQuestion));
-            
+
             changeQuestion();
 
         }
@@ -520,8 +541,7 @@ public class DashboardStudentController implements Initializable {
             if (presentQuestion <= quizAnswers.size() - 2) {
                 nextQuestion.setDisable(false);
             }
-            currentQuestion--;
-            currentQuestionNo.setText(Integer.toString(currentQuestion));
+
             changeQuestion();
 
         }
@@ -529,6 +549,7 @@ public class DashboardStudentController implements Initializable {
 
     private void changeQuestion() {
         Question presentQuestion = quizAnswers.get(this.presentQuestion);
+        currentQuestionNo.setText(Integer.toString(this.presentQuestion + 1));
         questionDescription.setText(presentQuestion.getDescription());
         this.panefib.setVisible(false);
         this.gridpaneMA.setVisible(false);
@@ -540,6 +561,8 @@ public class DashboardStudentController implements Initializable {
                 String answer = ((QuestionFIB) quizAnswers.get(this.presentQuestion)).getAnswer();
                 if (this.questionsAttempted[this.presentQuestion] != 0) {
                     this.fibblank.setText(answer);
+                } else {
+                    this.fibblank.setText("");
                 }
                 break;
             case "MC":
@@ -565,6 +588,11 @@ public class DashboardStudentController implements Initializable {
                             break;
 
                     }
+                } else {
+                    this.rbmcchoice1.setSelected(false);
+                    this.rbmcchoice2.setSelected(false);
+                    this.rbmcchoice3.setSelected(false);
+                    this.rbmcchoice4.setSelected(false);
                 }
                 this.rbmcchoice1.setUserData(0);
                 this.rbmcchoice2.setUserData(1);
@@ -592,6 +620,9 @@ public class DashboardStudentController implements Initializable {
                     }
                 } else {
                     ((QuestionMultipleAnswer) presentQuestion).setAnswer(new int[]{0, 0, 0, 0});
+                    for (CheckBox checkbox : checkboxes) {
+                        checkbox.setSelected(false);
+                    }
                 }
                 this.gridpaneMA.setVisible(true);
                 break;
@@ -607,6 +638,9 @@ public class DashboardStudentController implements Initializable {
                     } else {
                         this.rbtffalse.setSelected(true);
                     }
+                } else {
+                    this.rbtftrue.setSelected(false);
+                    this.rbtffalse.setSelected(false);
                 }
                 break;
             default:
@@ -628,9 +662,86 @@ public class DashboardStudentController implements Initializable {
 
     private void submitQuiz() {
         //TODO evaluation code goes here
-        
+        boolean check = false;
+        Iterator it = quizAnswers.iterator();
+        int i = 0;
+
+        HashMap<String, Integer> totalMap = new HashMap<String, Integer>();
+        HashMap<String, Integer> correctMap = new HashMap<String, Integer>();
+        totalMap.put("E", 0);
+        totalMap.put("M", 0);
+        totalMap.put("H", 0);
+        correctMap.put("E", 0);
+        correctMap.put("M", 0);
+        correctMap.put("H", 0);
+
+        for (Question quizQuestion : quizQuestions) {
+            totalMap.put(quizQuestion.getLevel(), totalMap.get(quizQuestion.getLevel()) + 1);
+            if (questionsAttempted[i] != 0) {
+                if (quizQuestion.evaluate((Question) it.next())) {
+                    correctMap.put(quizQuestion.getLevel(), correctMap.get(quizQuestion.getLevel()) + 1);
+                }
+            }
+            i++;
+        }
+
+        List<XYChart.Series> allSeries = new ArrayList<XYChart.Series>();
+        reportBarChart.getData().clear();
+
+        for (Object obj : totalMap.keySet()) {
+            if (totalMap.get(obj) != 0) {
+                String label = "";
+                XYChart.Series series = new XYChart.Series<>();
+                switch (obj.toString()) {
+                    case "E":
+                        label = "Easy";
+                        break;
+                    case "M":
+                        label = "Medium";
+                        break;
+                    case "H":
+                        label = "Hard";
+                        break;
+
+                }
+                series.getData().add(new XYChart.Data(label + " Correct", correctMap.get(obj)));
+                series.getData().add(new XYChart.Data(label + " Incorrect", totalMap.get(obj) - correctMap.get(obj)));
+                series.getData().add(new XYChart.Data(label + " Total", totalMap.get(obj)));
+                reportBarChart.getData().addAll(series);
+            }
+        }
+        saveAsPng(reportBarChart, "chart.png");
         quizpane.setVisible(false);
         resultPane.setVisible(true);
+
+    }
+
+    public void saveAsPng(BarChart chart, String path) {
+        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+        File file = new File(path);
+        
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("sample4.pdf"));
+            ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
+
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", byteOutput);
+
+            com.itextpdf.text.Image graph;
+            graph = com.itextpdf.text.Image.getInstance(byteOutput.toByteArray());
+
+            document.open();
+
+            document.add(graph);
+            document.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

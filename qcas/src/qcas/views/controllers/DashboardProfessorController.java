@@ -8,12 +8,18 @@ package qcas.views.controllers;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -78,6 +84,35 @@ public class DashboardProfessorController implements Initializable {
     private ComboBox reportType;
     @FXML
     private ComboBox subjectType;
+    @FXML
+    private Button generate;
+    @FXML
+    private BarChart<String, Number> testsTakenChart;
+    @FXML
+    private final NumberAxis yAxis = new NumberAxis();
+    @FXML
+    private final CategoryAxis xAxis = new CategoryAxis();
+    @FXML
+    private BarChart<String, Number> testsTakenChart1;
+    @FXML
+    private NumberAxis yAxis1 = new NumberAxis();
+    @FXML
+    private CategoryAxis xAxis1 = new CategoryAxis();
+    @FXML
+    private BarChart<String, Number> testsTakenChart2;
+    @FXML
+    private NumberAxis yAxis2;
+    @FXML
+    private CategoryAxis xAxis2;
+    @FXML
+    private BarChart<String, Number> testsTakenChart3;
+    @FXML
+    private NumberAxis yAxis3;
+    @FXML
+    private CategoryAxis xAxis3;
+    
+    
+       
 
     /**
      * Initializes the controller class.
@@ -95,11 +130,12 @@ public class DashboardProfessorController implements Initializable {
         uploadPane.setVisible(false);
         loginBox.getItems().clear();
         loginBox.getItems().addAll("Log Out");
+        
     }
 
     public void setApp(Main application) {
         this.application = application;
-        professorName.setText(this.application.getLoggedUser().getFirstName());
+        professorName.setText(this.application.getLoggedUser().getFirstName()+" "+this.application.getLoggedUser().getLastName());
         professorEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
 
@@ -111,13 +147,15 @@ public class DashboardProfessorController implements Initializable {
         subjectList.setItems(FXCollections.observableList(subjectNames));
         subjectList.setPromptText("Select Subject");
         subjects = (ArrayList<Subject>) list;
+
+       
+        subjectType.setItems(FXCollections.observableList(subjectNames));
+        subjectType.setPromptText("Select Subject");
         
-        subjectType.getItems().clear();
-        List list2 = this.application.getAllSubjects();
-        //List subjectNames = new ArrayList<>();
-        for (Object subject : list2) {
-            subjectType.getItems().addAll(((Subject)subject).getSubjectName());
-        }
+
+        subjectType.setItems(FXCollections.observableList(subjectNames));
+        subjectType.setPromptText("Select Subject");
+
         reportType.getItems().clear();
         for(String s: Constants.REPORTTYPES){
             reportType.getItems().addAll(s);
@@ -186,5 +224,117 @@ public class DashboardProfessorController implements Initializable {
         } else {
             this.fileuploadalert.setText("You haven't selected any file.");
         }
+    }
+
+    @FXML
+    private void generateReport(ActionEvent event) {
+        
+        Subject selectedSubject = subjects.get(this.subjectType.getSelectionModel().getSelectedIndex());
+        
+        
+        if(reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[0])){                       //First Report selected
+            ArrayList<Integer> testsCount = this.application.getTestsTaken(Integer.parseInt(selectedSubject.getSubjectCode()));
+            makeTestsTakenChart(testsCount);
+        }
+        else
+        if(reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[1])){                       //Second Report selected
+            ArrayList<Double> avgScores = this.application.getAverageScores(Integer.parseInt(selectedSubject.getSubjectCode()));
+            makeAvgScoresChart(avgScores);
+        }
+        else
+        if(reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[2]))
+        {
+            ArrayList<Double> avgLevelScores = this.application.getScoresLevel(Integer.parseInt(selectedSubject.getSubjectCode()));
+            makeScoresLevelChart(avgLevelScores);
+        }
+        else
+        if(reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[3]))
+        {
+            ArrayList<Integer> resultCount = this.application.getResultOverTime(Integer.parseInt(selectedSubject.getSubjectCode()));
+            makeResultsChart(resultCount);
+        }
+        
+    }
+
+    private void makeTestsTakenChart(ArrayList<Integer> testsCount) {
+        testsTakenChart1.setVisible(false);
+        testsTakenChart2.setVisible(false);
+        testsTakenChart3.setVisible(false);
+        
+        testsTakenChart.getData().clear(); 
+        testsTakenChart.setVisible(true);
+       
+        XYChart.Series series1 = new XYChart.Series<>();
+        
+        series1.getData().add(new XYChart.Data("Past Month", testsCount.get(0))); 
+        series1.getData().add(new XYChart.Data("Past Quarter", testsCount.get(1))); 
+        series1.getData().add(new XYChart.Data("Past Year", testsCount.get(2))); 
+        
+        testsTakenChart.getData().addAll(series1);
+       
+        
+    }
+
+    private void makeAvgScoresChart(ArrayList<Double> avgScores) {
+        testsTakenChart.setVisible(false);
+        testsTakenChart2.setVisible(false);
+        testsTakenChart3.setVisible(false);
+        
+        testsTakenChart1.getData().clear();
+        testsTakenChart1.setVisible(true);
+        
+        XYChart.Series series1 = new XYChart.Series<>();
+        
+        series1.getData().add(new XYChart.Data("Past Month", avgScores.get(0))); 
+        series1.getData().add(new XYChart.Data("Past Quarter", avgScores.get(1))); 
+        series1.getData().add(new XYChart.Data("Past Year", avgScores.get(2))); 
+        
+        testsTakenChart1.getData().addAll(series1);
+        
+    }
+
+    private void makeScoresLevelChart(ArrayList<Double> avgLevelScores) {
+        testsTakenChart1.setVisible(false);
+        testsTakenChart.setVisible(false);
+        testsTakenChart3.setVisible(false);
+        
+        testsTakenChart2.getData().clear();
+        testsTakenChart2.setVisible(true);
+        
+        XYChart.Series series1 = new XYChart.Series<>();
+        
+        
+        series1.getData().add(new XYChart.Data("Easy", avgLevelScores.get(0))); 
+        series1.getData().add(new XYChart.Data("Medium", avgLevelScores.get(1))); 
+        series1.getData().add(new XYChart.Data("Hard", avgLevelScores.get(2))); 
+        
+        testsTakenChart2.getData().addAll(series1);
+        
+    }
+
+    private void makeResultsChart(ArrayList<Integer> resultCount) {
+         testsTakenChart1.setVisible(false);
+         testsTakenChart2.setVisible(false);
+         
+         testsTakenChart3.getData().clear();
+         testsTakenChart3.setVisible(true);
+        
+        XYChart.Series series1 = new XYChart.Series<>();
+        series1.getData().add(new XYChart.Data("Pass", resultCount.get(0))); 
+        series1.getData().add(new XYChart.Data("Fail", resultCount.get(1)));
+        series1.setName("Past Month");
+        
+        XYChart.Series series2 = new XYChart.Series<>();
+        series2.getData().add(new XYChart.Data("Pass", resultCount.get(2))); 
+        series2.getData().add(new XYChart.Data("Fail", resultCount.get(3)));
+        series2.setName("Past Quarter");
+        
+        XYChart.Series series3 = new XYChart.Series<>();
+        series3.getData().add(new XYChart.Data("Pass", resultCount.get(4))); 
+        series3.getData().add(new XYChart.Data("Fail", resultCount.get(5)));
+        series3.setName("Past Year");
+        
+        testsTakenChart3.getData().addAll(series1, series2, series3);
+        
     }
 }
