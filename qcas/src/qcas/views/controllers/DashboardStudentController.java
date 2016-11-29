@@ -205,6 +205,12 @@ public class DashboardStudentController implements Initializable {
     private String subjectCode;
     private String difficulty;
     private int numberOfquestions;
+    @FXML
+    private Label passLabel;
+    @FXML
+    private Label failLabel;
+    @FXML
+    private Label gradeLabel;
     /**
      * Initializes the controller class.
      */
@@ -677,7 +683,7 @@ public class DashboardStudentController implements Initializable {
         boolean check = false;
         Iterator it = quizAnswers.iterator();
         int i = 0;
-
+        ArrayList<String> grade = new ArrayList<String>();
         int totalQuestions = 0;
         int correctQuestions = 0;
         int correct=0;
@@ -690,7 +696,11 @@ public class DashboardStudentController implements Initializable {
         correctMap.put("E", 0);
         correctMap.put("M", 0);
         correctMap.put("H", 0);
-
+        
+        passLabel.setVisible(false);
+        failLabel.setVisible(false);
+        gradeLabel.setText("");
+        
         for (Question quizQuestion : quizQuestions) {
             totalMap.put(quizQuestion.getLevel(), totalMap.get(quizQuestion.getLevel()) + 1);
             if (questionsAttempted[i] != 0) {
@@ -742,12 +752,26 @@ public class DashboardStudentController implements Initializable {
 
         String score = Integer.toString(correctQuestions);
         score = score + "/" + Integer.toString(totalQuestions);
+        
         this.application.insertAnswers(quizAnswers, subjectCode, numberOfquestions, difficulty, correctQuestions, correct);     
         quizpane.setVisible(false);
         resultPane.setVisible(true);
-          
+        
+        grade = getGrade(numberOfquestions,correctQuestions);
+        
+        
+        
+        
         scoreLabel.setText(score);
-
+        if(grade.get(0).equals("1")){
+            passLabel.setVisible(true);
+        }
+        else
+        {
+            failLabel.setVisible(true);
+        }
+        gradeLabel.setText(grade.get(1));
+        
         ObservableList<PieChart.Data> resultChart = FXCollections.observableArrayList();
         resultChart.addAll(new PieChart.Data("Correct Answers", correctQuestions),
                 new PieChart.Data("Incorrect Answers", totalQuestions - correctQuestions));
@@ -787,6 +811,35 @@ public class DashboardStudentController implements Initializable {
             Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    private ArrayList<String> getGrade(int numberOfquestions, int correctQuestions) {
+        
+        ArrayList<String> grade = new ArrayList<String>();
+        
+        double percent = (correctQuestions/numberOfquestions)*100;
+            if(percent>=60){
+                grade.add("1");
+            }else{
+                grade.add("0");
+            }
+            
+            
+            if(percent<60&&percent>=0){
+                grade.add("F");
+            }else if(percent>=60&&percent<70){
+                grade.add("C");
+            }else if(percent>=70&&percent<80){
+                grade.add("B");
+            }else if(percent>=80&&percent<90){
+                grade.add("B+");
+            }else if(percent>=90&&percent<100){
+                grade.add("A");
+            }else if(percent==100){
+                grade.add("A+");
+            }
+            
+            return grade;
     }
 
 }
