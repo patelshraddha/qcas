@@ -5,8 +5,15 @@
  */
 package qcas.views.controllers;
 
+import com.itextpdf.text.Anchor;
+import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Section;
+import com.itextpdf.text.pdf.CMYKColor;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.sun.javafx.charts.Legend;
 import java.io.ByteArrayOutputStream;
@@ -759,11 +766,12 @@ public class DashboardStudentController implements Initializable {
         
         
         pieResults.setVisible(true);
-        
+         saveAsPng(pieResults, "chart.png");
+         
         
     }
 
-    public void saveAsPng(BarChart chart, String path) {
+    public void saveAsPng(PieChart chart, String path) {
         WritableImage image = chart.snapshot(new SnapshotParameters(), null);
         File file = new File(path);
         
@@ -779,6 +787,33 @@ public class DashboardStudentController implements Initializable {
 
             document.open();
 
+Paragraph title1 = new Paragraph("Chapter 1", 
+ 
+   FontFactory.getFont(FontFactory.HELVETICA, 
+    
+   18, Font.BOLDITALIC, new CMYKColor(0, 255, 255,17)));
+    
+Chapter chapter1 = new Chapter(title1, 1);
+       
+chapter1.setNumberDepth(0);
+
+Paragraph title11 = new Paragraph("This is Section 1 in Chapter 1", 
+ 
+       FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, 
+    
+       new CMYKColor(0, 255, 255,17)));
+    
+Section section1 = chapter1.addSection(title11);
+ 
+Paragraph someSectionText = new Paragraph("This text comes as part of section 1 of chapter 1.");
+ 
+section1.add(someSectionText);
+ 
+someSectionText = new Paragraph("Following is a 3 X 2 table.");
+ 
+section1.add(someSectionText);
+document.add(chapter1);document.close();
+            
             document.add(graph);
             document.close();
         } catch (FileNotFoundException ex) {
