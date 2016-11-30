@@ -183,11 +183,7 @@
                         <Font name="Microsoft JhengHei UI Light" size="18.0" />
                      </font>
                   </Label>
-                  <MenuButton fx:id="selectMenuSubject" mnemonicParsing="false" prefHeight="37.0" prefWidth="256.0" text="Select Subject" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                    <items>
-                        <CheckMenuItem fx:id="checkMenuSubject" mnemonicParsing="false" text="Unspecified Action" />
-                    </items>
-                  </MenuButton>
+                  <MenuButton fx:id="selectMenuSubject" mnemonicParsing="false" prefHeight="37.0" prefWidth="256.0" text="Select Subject" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
             <Button fx:id="registerButton" layoutX="230.0" layoutY="513.0" mnemonicParsing="false" onAction="#registerUser" prefHeight="59.0" prefWidth="138.0" text="Register">
