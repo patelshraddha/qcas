@@ -26,9 +26,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,7 +49,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.Chart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
@@ -222,6 +228,12 @@ public class DashboardStudentController implements Initializable {
     private Label gradeLabel;
     @FXML
     private Label homePrompt;
+    @FXML
+    private LineChart<String, Number> studentActivity;
+    @FXML
+    private NumberAxis yAxis;
+    @FXML
+    private CategoryAxis xAxis;
     /**
      * Initializes the controller class.
      */
@@ -231,6 +243,7 @@ public class DashboardStudentController implements Initializable {
         homeImg.setImage(new Image(Main.class.getResourceAsStream(Constants.homeImg)));
         quizImg.setImage(new Image(Main.class.getResourceAsStream(Constants.clipboardImg)));
         homePane.setVisible(true);
+        
 
     }
 
@@ -276,6 +289,8 @@ public class DashboardStudentController implements Initializable {
         selectsubjectdropdown.getSelectionModel().select(0);
         reassignDifficulty();
         reassignQuestionCount("Easy");
+        
+        makeActivityGraph();
     }
 
     private void reassignDifficulty() {
@@ -429,7 +444,9 @@ public class DashboardStudentController implements Initializable {
             quizcreatepane.setVisible(false);
             quizpane.setVisible(false);
             homePane.setVisible(true);
+            
             resultPane.setVisible(false);
+            makeActivityGraph();
         }
 
     }
@@ -892,6 +909,30 @@ FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD, new CMYKColor(0, 255, 0,
             }
             
             return grade;
+    }
+
+    private void makeActivityGraph() {
+        
+        LinkedHashMap activity = this.application.getStudentActivity(Integer.parseInt(this.application.getLoggedUser().getUserKey()));
+        Set set = activity.entrySet();
+        Iterator i = set.iterator();
+        
+        XYChart.Series series = new XYChart.Series();
+        
+        
+        
+        while(i.hasNext()) {
+           
+            Map.Entry me = (Map.Entry)i.next();
+            
+            
+            series.getData().add(new XYChart.Data(me.getKey(), me.getValue()));
+           System.out.println(me.getValue() +" "+ me.getKey());
+        }
+        series.setName("Tests");
+        studentActivity.setLegendVisible(true);
+        studentActivity.getData().add(series);
+        
     }
 
 }

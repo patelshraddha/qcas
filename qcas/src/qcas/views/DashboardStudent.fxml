@@ -107,6 +107,14 @@
                   <DropShadow />
                </effect>
             </Separator>
+            <LineChart fx:id="studentActivity" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="142.0" layoutY="258.0" prefHeight="400.0" prefWidth="745.0" title="Your Activity">
+              <xAxis>
+                <CategoryAxis animated="false" label="Month" side="BOTTOM" fx:id="xAxis" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yAxis" label="Tests Taken" side="LEFT" />
+              </yAxis>
+            </LineChart>
          </children>
       </Pane>
       <Pane fx:id="quizcreatepane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">

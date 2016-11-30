@@ -166,16 +166,13 @@ public class LoginController implements Initializable {
       }
     }
     
-//    @FXML
-//    public void exitApplication(ActionEvent event)
-//    {
-//        System.exit(0);
-//    }
-//    
+   
+    
             
     }
 
     @FXML
     private void exitApplication(ActionEvent event) {
+        System.exit(0);
     }
 }

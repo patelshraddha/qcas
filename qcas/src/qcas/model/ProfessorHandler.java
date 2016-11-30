@@ -54,6 +54,7 @@ public class ProfessorHandler {
   return list;      
 
     }
+    
     public static ArrayList<String> getAllSubject(DatabaseHandler database) {
              ArrayList<String> list = new ArrayList<String>();
         try {

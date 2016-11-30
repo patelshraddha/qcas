@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import qcas.operations.questions.Question;
@@ -26,6 +27,87 @@ import sun.security.krb5.internal.rcache.AuthList;
  * @author Dell
  */
 public class StudentHandler {
+    
+    public static LinkedHashMap getStudentActivity(DatabaseHandler database, int user_id) {
+        
+        LinkedHashMap result = new LinkedHashMap();
+        
+        try {
+            ResultSet rs;
+            System.out.println(user_id +"HELOOOOO");
+            String query = "SELECT COUNT(*), MONTH(exam_date) FROM exam WHERE YEAR(exam_date) = YEAR(curdate()) AND user_key = ? GROUP BY MONTH(exam_date)";     //past month
+            PreparedStatement preparedStatement = database.getConnection().prepareStatement(query);
+            preparedStatement.setInt(1,user_id);
+            //preparedStatement.execute();
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String month = null;
+                
+                if(rs.getInt(2)==1){
+                    month = "January";
+                }
+                else
+                if(rs.getInt(2)==2){
+                    month = "February";
+                }
+                else
+                    if(rs.getInt(2)==3){
+                    month = "March";
+                }
+                else
+                if(rs.getInt(2)==4){
+                    month = "April";
+                }
+                else
+                if(rs.getInt(2)==5){
+                    month = "May";
+                }
+                else
+                if(rs.getInt(2)==6){
+                    month = "June";
+                }
+                else
+                if(rs.getInt(2)==7){
+                    month = "July";
+                }
+                else
+                if(rs.getInt(2)==8){
+                    month = "August";
+                }
+                else
+                if(rs.getInt(2)==9){
+                    month = "September";
+                }
+                else
+                if(rs.getInt(2)==10){
+                    month = "October";
+                }
+                else
+                if(rs.getInt(2)==11){
+                    month = "November";
+                     
+                }
+                else
+                if(rs.getInt(2)==12) 
+                {
+                    month = "December";
+                    
+                }
+                    
+                   System.out.println(month +" "+ rs.getInt(1));
+                  
+                result.put(month, rs.getInt(1));
+
+            }
+            
+           
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLoginTableHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
 
     public static HashMap<String, Integer> getCountQuestions(DatabaseHandler database, String subjectCode) {
         HashMap<String, Integer> hmap = new HashMap<String, Integer>();

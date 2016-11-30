@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -173,6 +174,10 @@ public class Main extends Application {
         } else {
             return -1;
         }
+    }
+    
+    public LinkedHashMap getStudentActivity(int user_id){
+        return StudentHandler.getStudentActivity(this.database, user_id);
     }
 
     public List<Subject> getSubjects() {
