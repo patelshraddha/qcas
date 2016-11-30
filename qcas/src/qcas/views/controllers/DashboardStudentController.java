@@ -446,7 +446,7 @@ public class DashboardStudentController implements Initializable {
             homePane.setVisible(true);
             
             resultPane.setVisible(false);
-            makeActivityGraph();
+            //makeActivityGraph();
         }
 
     }
@@ -919,7 +919,7 @@ FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD, new CMYKColor(0, 255, 0,
         
         XYChart.Series series = new XYChart.Series();
         
-        
+        studentActivity.getData().clear();
         
         while(i.hasNext()) {
            
