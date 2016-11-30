@@ -309,6 +309,7 @@ public class DashboardProfessorController implements Initializable {
         series1.getData().add(new XYChart.Data("Easy", avgLevelScores.get(0))); 
         series1.getData().add(new XYChart.Data("Medium", avgLevelScores.get(1))); 
         series1.getData().add(new XYChart.Data("Hard", avgLevelScores.get(2))); 
+        series1.getData().add(new XYChart.Data("Mixed", avgLevelScores.get(3)));
         series1.setName("Average Scores");
         
         testsTakenChart2.getData().addAll(series1);

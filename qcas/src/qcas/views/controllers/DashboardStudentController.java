@@ -211,6 +211,8 @@ public class DashboardStudentController implements Initializable {
     private Label failLabel;
     @FXML
     private Label gradeLabel;
+    @FXML
+    private Label homePrompt;
     /**
      * Initializes the controller class.
      */
