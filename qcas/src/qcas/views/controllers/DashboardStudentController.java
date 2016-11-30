@@ -234,6 +234,8 @@ public class DashboardStudentController implements Initializable {
     private NumberAxis yAxis;
     @FXML
     private CategoryAxis xAxis;
+    @FXML
+    private Label subjectLabel;
     /**
      * Initializes the controller class.
      */
@@ -446,7 +448,7 @@ public class DashboardStudentController implements Initializable {
             homePane.setVisible(true);
             
             resultPane.setVisible(false);
-            makeActivityGraph();
+          
         }
 
     }
@@ -459,7 +461,7 @@ public class DashboardStudentController implements Initializable {
         subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
         difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
         numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-
+        subjectLabel.setText(subjects.get(subjectCodeIndex).getSubjectName());
         totalQuestionNo.setText(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
 
         if (subjectCode != null && difficulty != null && numberOfquestions != 0) {
@@ -528,6 +530,7 @@ public class DashboardStudentController implements Initializable {
         } else {
             quizpane.setVisible(false);
             resultPane.setVisible(true);
+            makeActivityGraph();
         }
 
     }

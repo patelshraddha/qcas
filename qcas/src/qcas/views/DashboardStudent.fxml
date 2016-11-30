@@ -169,7 +169,7 @@
       </Pane>
       <Pane fx:id="quizpane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
          <children>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="Subject Code: ">
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="97.0" text="Subject: ">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
@@ -361,6 +361,11 @@
             <Label fx:id="totalQuestionNo" alignment="CENTER" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="571.0" layoutY="143.0" prefHeight="31.0" prefWidth="38.0" text="1" wrapText="true">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="subjectLabel" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="137.0" layoutY="36.0" prefHeight="76.0" prefWidth="477.0">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
             </Label>
          </children>
