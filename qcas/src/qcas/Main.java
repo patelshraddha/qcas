@@ -84,7 +84,7 @@ public class Main extends Application {
     public boolean userLogging(String userId, String password) {
         if (UserLoginTableHandler.verifyLogin(this.database, userId, password)) {
             loggedUser = UserLoginTableHandler.getUser(database, userId);
-            System.out.println(loggedUser);
+            
             gotoProfile();
             return true;
         } else {
