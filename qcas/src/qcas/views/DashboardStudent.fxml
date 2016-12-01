@@ -107,12 +107,12 @@
                   <DropShadow />
                </effect>
             </Separator>
-            <LineChart fx:id="studentActivity" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="142.0" layoutY="258.0" prefHeight="400.0" prefWidth="745.0" title="Your Activity">
+            <LineChart fx:id="studentActivity" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="98.0" layoutY="229.0" prefHeight="440.0" prefWidth="841.0" title="My Activity">
               <xAxis>
                 <CategoryAxis animated="false" label="Month" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
               <yAxis>
-                <NumberAxis fx:id="yAxis" label="Tests Taken" side="LEFT" />
+                <NumberAxis fx:id="yAxis" autoRanging="false" label="Tests Taken" minorTickCount="0" minorTickLength="0.0" minorTickVisible="false" side="LEFT" tickLabelGap="10.0" tickLength="20.0" tickUnit="10.0" />
               </yAxis>
             </LineChart>
          </children>
