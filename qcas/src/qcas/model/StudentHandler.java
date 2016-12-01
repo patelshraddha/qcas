@@ -225,7 +225,7 @@ public class StudentHandler {
             ps.setInt(5,noQuestions);
             ps.setInt(6, correctQuestions);
             //Pass/Fail and Grade Logic here
-            double percent = (correctQuestions/noQuestions)*100;
+            double percent = ((double)correctQuestions/(double)noQuestions)*100;
             if(percent>=60){
                 ps.setInt(7, 1);
             }else{

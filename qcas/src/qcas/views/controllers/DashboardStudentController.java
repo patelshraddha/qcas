@@ -448,7 +448,7 @@ public class DashboardStudentController implements Initializable {
             homePane.setVisible(true);
             
             resultPane.setVisible(false);
-          
+            //makeActivityGraph();
         }
 
     }
@@ -889,7 +889,9 @@ FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD, new CMYKColor(0, 255, 0,
         
         ArrayList<String> grade = new ArrayList<String>();
         
-        double percent = (correctQuestions/numberOfquestions)*100;
+        double percent = ((double)correctQuestions/(double)numberOfquestions)*100;
+        
+        System.out.println("percent"+percent);
             if(percent>=60){
                 grade.add("1");
             }else{
@@ -911,6 +913,8 @@ FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD, new CMYKColor(0, 255, 0,
                 grade.add("A+");
             }
             
+            System.out.println(grade.get(0)+" "+grade.get(1));
+            
             return grade;
     }
 
@@ -922,7 +926,7 @@ FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD, new CMYKColor(0, 255, 0,
         
         XYChart.Series series = new XYChart.Series();
         
-        
+        studentActivity.getData().clear();
         
         while(i.hasNext()) {
            
