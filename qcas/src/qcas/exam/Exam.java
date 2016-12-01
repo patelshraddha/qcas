@@ -134,7 +134,7 @@ public class Exam {
     }
     
     private void generateGrade(int correctQuestions) {
-        double percent = (correctQuestions / numberOfQuestions) * 100;
+        double percent = ((double)correctQuestions / (double)numberOfQuestions) * 100;
         if (percent >= 60) {
             pass = true;
         } else {
