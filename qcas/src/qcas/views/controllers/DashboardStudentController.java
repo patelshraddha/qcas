@@ -82,7 +82,7 @@ import qcas.operations.subject.Subject;
 import qcas.operations.user.User;
 
 /**
- * FXML Controller class
+ * FXML Controller class for student dashboard
  *
  * @author RAHUL
  */
@@ -234,6 +234,8 @@ public class DashboardStudentController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -244,6 +246,10 @@ public class DashboardStudentController implements Initializable {
 
     }
 
+    /**
+     * sets the app for student dashboard
+     * @param application
+     */
     public void setApp(Main application) {
         this.application = application;
         loginBox.getItems().clear();
@@ -820,6 +826,11 @@ public class DashboardStudentController implements Initializable {
         }
     }
 
+    /**
+     *saves the app as pdf for student dashboard
+     * @param chart
+     * @param path
+     */
     public void saveAsPng(PieChart chart, String path) {
 
         WritableImage image = chart.snapshot(new SnapshotParameters(), null);

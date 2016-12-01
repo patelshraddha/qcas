@@ -7,8 +7,9 @@ import java.util.Random;
 import java.util.TreeMap;
 
 /**
- *
+ * Creates random collection. Used for question selection.
  * @author Deepak
+ * @param <E>
  */
 public class RandomCollection<E> {
     private final NavigableMap<Double, E> map = new TreeMap<Double, E>();
@@ -29,11 +30,18 @@ public class RandomCollection<E> {
         map.put(total, result);
     }
     
+    /**
+     * Clears the map
+     */
     public void remove()
     {
         map.clear();
     }
 
+    /**
+     * gives next random entry
+     * @return
+     */
     public E next() {
         double value = random.nextDouble() * total;
         return map.ceilingEntry(value).getValue();

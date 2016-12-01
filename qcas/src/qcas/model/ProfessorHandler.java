@@ -24,12 +24,17 @@ import qcas.operations.questions.QuestionTF;
 import qcas.operations.user.User;
 
 /**
- *
+ * Database handler for professor database
  * @author Dell
  */
 public class ProfessorHandler {
 
-
+    /**
+     * gets all subjects for users
+     * @param database
+     * @param user
+     * @return
+     */
     public static ArrayList<String> getSubject(DatabaseHandler database, User user) {
              ArrayList<String> list = new ArrayList<String>();
         try {
@@ -55,6 +60,11 @@ public class ProfessorHandler {
 
     }
     
+    /**
+     * gets all subjects
+     * @param database
+     * @return
+     */
     public static ArrayList<String> getAllSubject(DatabaseHandler database) {
              ArrayList<String> list = new ArrayList<String>();
         try {
@@ -79,6 +89,12 @@ public class ProfessorHandler {
   return list;      
     }
 
+    /**
+     * inserts questions in the database
+     * @param database
+     * @param questions
+     * @return
+     */
     public static int insertQuestions(DatabaseHandler database, ArrayList<qcas.operations.questions.Question> questions) {
 
         try {
@@ -179,7 +195,12 @@ public class ProfessorHandler {
         return 0;
     }
     
-    
+    /**
+     * gets test taken for a subject
+     * @param database
+     * @param subjectCode
+     * @return
+     */
     public static ArrayList<Integer> getTestsTaken(DatabaseHandler database, int subjectCode) {
         ArrayList<Integer> testCount = new ArrayList<Integer>();
         
@@ -234,6 +255,12 @@ public class ProfessorHandler {
         
     }
     
+    /**
+     * gets arraylist of average score of a subject
+     * @param database
+     * @param subjectCode
+     * @return
+     */
     public static ArrayList<Double> getAverageScores(DatabaseHandler database, int subjectCode){
         ArrayList<Double> averageScores = new ArrayList<Double>();
         
@@ -285,6 +312,12 @@ public class ProfessorHandler {
         return averageScores;
     }
     
+    /**
+     * gets scores level of a subject 
+     * @param database
+     * @param subjectCode
+     * @return
+     */
     public static ArrayList<Double> getScoresLevel(DatabaseHandler database, int subjectCode){
         ArrayList<Double> averageScores = new ArrayList<Double>();
         
@@ -347,7 +380,7 @@ public class ProfessorHandler {
 
         return averageScores;
     }
-    
+
     public static ArrayList<Integer> getResultOverTime(DatabaseHandler database, int subjectCode){
         ArrayList<Integer> results = new ArrayList<Integer>();
         

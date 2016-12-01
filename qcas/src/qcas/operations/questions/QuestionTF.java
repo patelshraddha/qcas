@@ -17,21 +17,45 @@ public class QuestionTF extends Question{
        
     }
     
+    /**
+     *constructor of QuestionTF a class dealing with true or false question
+     * @param id
+     * @param type
+     * @param level
+     * @param description
+     * @param subjectCode
+     * @param answer
+     */
     public QuestionTF(String id, String type, String level, String description, String subjectCode,boolean answer) {
         super(id, type, level, description, subjectCode,new String[0]);
         this.answer=answer;        
     }
 
+    /**
+     *Constructor
+     * @param type
+     * @param level
+     * @param description
+     * @param subjectCode
+     * @param answer
+     */
     public QuestionTF(String type, String level, String description, String subjectCode,boolean answer) {
         super(type, level, description, subjectCode,new String[0]);
         this.answer=answer;
     }
 
-    
+    /**
+     *gets answer
+     * @return
+     */
     public boolean getAnswer() {
         return answer;
     }
     
+    /**
+     *gets answers 
+     * @param answer
+     */
     public void setAnswer(boolean answer) {
         this.answer=answer;
     }
@@ -43,7 +67,11 @@ public class QuestionTF extends Question{
        return super.toString()+" answer:"+ this.getAnswer();
     }
     
-    
+    /**
+     *evaluates the questions 
+     * @param question
+     * @return
+     */
     @Override
     public boolean evaluate(Question question) {
         boolean check=false;
@@ -56,7 +84,23 @@ public class QuestionTF extends Question{
         return check;
     }
     
-    
+    /**
+     *gets questions 
+     * @param id
+     * @param questionType
+     * @param questionLevel
+     * @param questionDescription
+     * @param subjectCode
+     * @param choice1
+     * @param valid1
+     * @param choice2
+     * @param valid2
+     * @param choice3
+     * @param valid3
+     * @param choice4
+     * @param valid4
+     * @return
+     */
     @Override
     public Question getQuestion(String id,String questionType, String questionLevel, String questionDescription,String subjectCode,String choice1,String valid1,String choice2,String valid2,String choice3,String valid3,String choice4,String valid4) {
         Question question;

@@ -9,7 +9,7 @@ import java.util.Iterator;
 import qcas.operations.questions.Question;
 
 /**
- *
+ * Used to manage elements that consist within an exam 
  * @author Deepak
  */
 public class Exam {
@@ -23,10 +23,19 @@ public class Exam {
     private String grade="F";
     private int correctAnswers;
 
+    /**
+     * Gets all the correct answers
+     * @return
+     */
     public int getCorrectAnswers() {
         return correctAnswers;
     }
 
+    /**
+     *  Constructor of exam
+     * @param questions
+     * @param difficulty
+     */
     public Exam(ArrayList<Question> questions, String difficulty) {
         this.questions = questions;
         answers = new ArrayList<>();// = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
@@ -38,30 +47,58 @@ public class Exam {
         this.examDate = new Date();
     }
 
+    /**
+     * Gets questions
+     * @return
+     */
     public ArrayList<Question> getQuestions() {
         return questions;
     }
 
+    /**
+     * Gets answer
+     * @return
+     */
     public ArrayList<Question> getAnswers() {
         return answers;
     }
 
+    /**
+     * Gets exam date
+     * @return
+     */
     public Date getExamDate() {
         return examDate;
     }
 
+    /**
+     *Gets number of questions 
+     * @return
+     */
     public int getNumberOfQuestions() {
         return numberOfQuestions;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDifficulty() {
         return difficulty;
     }
 
+    /**
+     * gets difficulty of question
+     * @return
+     */
     public boolean isPass() {
         return pass;
     }
 
+    /**
+     *Gets grade
+     * @return
+     */
     public String getGrade() {
         return grade;
     }
@@ -89,7 +126,11 @@ public class Exam {
         }
     }
     
-    
+    /**
+     * Evaluates questions attempted
+     * @param questionsAttempted
+     * @return
+     */
     public int evalute(int[] questionsAttempted)
     {
         correctAnswers=0;

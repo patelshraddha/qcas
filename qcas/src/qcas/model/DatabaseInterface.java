@@ -14,8 +14,27 @@ import java.util.ArrayList;
  */
 public interface DatabaseInterface extends AutoCloseable{
  
+    /**
+     * sets url
+     * @param url
+     */
     public void setUrl(String url);
+
+    /**
+     * sets the user
+     * @param user
+     */
     public void setUser(String user);
+
+    /**
+     * sets user's password
+     * @param password
+     */
     public void setPassword(String password);
+
+    /**
+     * gets connection
+     * @return
+     */
     public Connection getConnection();    
 }

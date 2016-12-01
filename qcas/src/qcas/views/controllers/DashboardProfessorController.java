@@ -31,7 +31,7 @@ import qcas.Main;
 import qcas.operations.subject.Subject;
 
 /**
- * FXML Controller class
+ * FXML Controller class for professor dashboard
  *
  * @author RAHUL
  */
@@ -113,6 +113,8 @@ public class DashboardProfessorController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -130,6 +132,10 @@ public class DashboardProfessorController implements Initializable {
 
     }
 
+    /**
+     * sets the app
+     * @param application
+     */
     public void setApp(Main application) {
         this.application = application;
         professorName.setText(this.application.getLoggedUser().getFirstName() + " " + this.application.getLoggedUser().getLastName());

@@ -27,12 +27,20 @@ public class CSVReader {
     private ArrayList<Question> questions = new ArrayList<Question>();
     private String subjectCode;
     
-    
+    /**
+     * Costructor for reading csv
+     * @param file
+     * @param subjectCode
+     */
     public CSVReader(File file, String subjectCode) {
         this.file = file;
         this.subjectCode = subjectCode;
     }
 
+    /**
+     * Parse a csv to a object
+     * @return boolean of file parsed or not
+     */
     public boolean ParseCSV() {
         if (file == null) {
             return false;
@@ -63,10 +71,18 @@ public class CSVReader {
 
     }
 
+    /**
+     * Gets the file 
+     * @return
+     */
     public File getFile() {
         return file;
     }
 
+    /**
+     * gets the questions
+     * @return
+     */
     public ArrayList<Question> getQuestions() {
         return questions;
     }
