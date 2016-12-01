@@ -15,11 +15,17 @@ import qcas.operations.subject.Subject;
 import qcas.operations.user.User;
 
 /**
- *
+ *Subject handler in database
  * @author Dell
  */
 public class SubjectHandler {
 
+    /**
+     *Subject handler in database
+     * @param database
+     * @param user
+     * @return
+     */
     public static ArrayList<Subject> getSubjectUser(DatabaseHandler database, User user) {
         ArrayList<Subject> list = new ArrayList<Subject>();
         try {
@@ -43,6 +49,11 @@ public class SubjectHandler {
 
     }
 
+    /**
+     *gets all the subjects
+     * @param database
+     * @return
+     */
     public static ArrayList<Subject> getAllSubjects(DatabaseHandler database) {
         ArrayList<Subject> list = new ArrayList<Subject>();
         try {

@@ -1,5 +1,4 @@
-/*
- */
+
 package qcas.model;
 
 import java.sql.PreparedStatement;
@@ -11,11 +10,18 @@ import java.util.logging.Logger;
 import qcas.operations.user.User;
 
 /**
- *
+ * User login table in database handler 
  * @author Deepak
  */
 public class UserLoginTableHandler {
 
+    /**
+     * Verifies the login
+     * @param database
+     * @param username
+     * @param password
+     * @return
+     */
     public static boolean verifyLogin(DatabaseHandler database, String username, String password) {
         boolean verified = false;
         try {

@@ -23,11 +23,17 @@ import qcas.operations.user.User;
 import sun.security.krb5.internal.rcache.AuthList;
 
 /**
- *
+ *database handler for student table
  * @author Dell
  */
 public class StudentHandler {
     
+    /**
+     *database handler for student table
+     * @param database
+     * @param user_id
+     * @return
+     */
     public static LinkedHashMap getStudentActivity(DatabaseHandler database, int user_id) {
         
         LinkedHashMap result = new LinkedHashMap();
@@ -108,6 +114,12 @@ public class StudentHandler {
         return result;
     }
 
+    /**
+     *gets count of the question according to its difficulty
+     * @param database
+     * @param subjectCode
+     * @return
+     */
     public static HashMap<String, Integer> getCountQuestions(DatabaseHandler database, String subjectCode) {
         HashMap<String, Integer> hmap = new HashMap<String, Integer>();
         try {
@@ -135,6 +147,13 @@ public class StudentHandler {
 
     }
 
+    /**
+     * gets questions 
+     * @param database
+     * @param subjectCode
+     * @param hm
+     * @return array list questions
+     */
     public static ArrayList<Question> getQuestions(DatabaseHandler database, String subjectCode, HashMap<String, Integer> hm) {
         ArrayList<Question> questions = new ArrayList<Question>();
         System.out.println(subjectCode);
@@ -208,6 +227,18 @@ public class StudentHandler {
         return question;
     }
     
+    /**
+     *Insert the quiz answers in the db
+     * @param database
+     * @param user
+     * @param quizAnswers
+     * @param subjectCode
+     * @param noQuestions
+     * @param difficulty
+     * @param correctQuestions
+     * @param isCorrect
+     * @return
+     */
     public static int insertSelection(DatabaseHandler database, User user, ArrayList<Question> quizAnswers, String subjectCode, int noQuestions, String difficulty, int correctQuestions, int[] isCorrect){
         String insertSelectionQuery = "Insert into exam (user_key, subject_code, exam_date, difficulty_level, question_count, score, result, grade) values (?,?,?,?,?,?,?,?)";
         ResultSet rs;

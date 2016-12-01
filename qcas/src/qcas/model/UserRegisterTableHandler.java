@@ -14,11 +14,22 @@ import javafx.scene.control.MenuItem;
 import qcas.operations.user.User;
 
 /**
- *
+ * User register table handler in database
  * @author Deepak
  */
 public class UserRegisterTableHandler {
 
+    /**
+     * saves user to the database
+     * @param database
+     * @param userName
+     * @param password
+     * @param firstName
+     * @param secondName
+     * @param emailID
+     * @param subjectMenuList
+     * @return
+     */
     public static String saveUser(DatabaseHandler database, String userName, String password,String firstName, String secondName,String emailID,ArrayList<String> subjectMenuList) {
         //Please see the first variable.Dont know what ot do with it
         String userID = null;
@@ -40,7 +51,6 @@ public class UserRegisterTableHandler {
                     +"WHERE login_id =?";
             PreparedStatement preparedStatement1 = database.getConnection().prepareStatement(insertuserquery1);
             preparedStatement1.setString(1, userName);
-//            preparedStatement.setString(2, password);
             rs1 = preparedStatement1.executeQuery();
             rs1.next();
             userID=rs1.getString(1);
@@ -94,7 +104,12 @@ public class UserRegisterTableHandler {
         return userName;
     }
 
-    
+    /**
+     *
+     * @param database
+     * @param username
+     * @return
+     */
     public static boolean isUsernamePresent(DatabaseHandler database, String username) {
         boolean verified = false;
         try {
@@ -125,7 +140,7 @@ public class UserRegisterTableHandler {
     }
     
     /**
-     * gets user details
+     * gets user details from database
      *
      * @param database database from which the details have to be fetched
      * @param username
@@ -170,7 +185,12 @@ public class UserRegisterTableHandler {
 
     }
     
-    
+    /**
+     * gets subject with the subject name
+     * @param database
+     * @param subjectName
+     * @return
+     */
     public static String getSubjectWithName(DatabaseHandler database, String subjectName) {
 String subjectID = null;
         try {

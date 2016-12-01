@@ -84,6 +84,10 @@ public class LoginController implements Initializable {
     @FXML
     private Label signUpError;
 
+    /**
+     * Sets the app
+     * @param application
+     */
     public void setApp(Main application) {
         this.application = application;
     }
@@ -95,6 +99,10 @@ public class LoginController implements Initializable {
         loginButton.setDefaultButton(true);
     }
 
+    /**
+     * Processes the login
+     * @param event
+     */
     @FXML
     public void processLogin(ActionEvent event) {
 
@@ -106,6 +114,10 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Processes the signup
+     * @param event
+     */
     @FXML
     public void processSignUp(ActionEvent event) {
         signUpPane.setVisible(true);
@@ -128,16 +140,28 @@ public class LoginController implements Initializable {
 
     }
 
+    /**
+     * closes the signup
+     * @param event
+     */
     @FXML
     public void closeSignup(ActionEvent event) {
         signUpPane.setVisible(false);
     }
 
+    /**
+     * closes the register box
+     * @param event
+     */
     public void closeRegister(ActionEvent event) {
 
         signUpPane.setVisible(false);
     }
 
+    /**
+     * registers the user
+     * @param event
+     */
     @FXML
     public void registerUser(ActionEvent event) {
         if (registerUsername.getText().isEmpty() || registerPassword.getText().isEmpty() || registerFirstName.getText().isEmpty() || registerLastName.getText().isEmpty() || registerEmail.getText().isEmpty()) {
