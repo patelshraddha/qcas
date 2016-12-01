@@ -34,7 +34,7 @@ public class StudentHandler {
         
         try {
             ResultSet rs;
-            System.out.println(user_id +"HELOOOOO");
+            
             String query = "SELECT COUNT(*), MONTH(exam_date) FROM exam WHERE YEAR(exam_date) = YEAR(curdate()) AND user_key = ? GROUP BY MONTH(exam_date)";     //past month
             PreparedStatement preparedStatement = database.getConnection().prepareStatement(query);
             preparedStatement.setInt(1,user_id);
@@ -94,7 +94,6 @@ public class StudentHandler {
                     
                 }
                     
-                   System.out.println(month +" "+ rs.getInt(1));
                   
                 result.put(month, rs.getInt(1));
 

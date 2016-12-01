@@ -446,7 +446,7 @@ public class DashboardStudentController implements Initializable {
             homePane.setVisible(true);
             
             resultPane.setVisible(false);
-            //makeActivityGraph();
+            makeActivityGraph();
         }
 
     }
