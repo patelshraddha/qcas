@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -116,6 +117,8 @@ public class DashboardProfessorController implements Initializable {
     private List<Subject> list;
     @FXML
     private ListView<String> notification;
+    @FXML
+    private PieChart homePie;
 
     /**
      * Initializes the controller class.
@@ -156,7 +159,7 @@ public class DashboardProfessorController implements Initializable {
         subjectList.setItems(FXCollections.observableList(subjectNames));
         subjectList.setPromptText("Select Subject");
         subjects = (ArrayList<Subject>) list;
-        
+        populateHomePie();
         populateNotifications();
     }
 
@@ -424,15 +427,24 @@ public class DashboardProfessorController implements Initializable {
         ObservableList<String> notifications = FXCollections.observableArrayList();
         int i=0;
         for (HashMap.Entry<Exam, String> e : notify.entrySet()) {
-            note = e.getValue()+" gave a "+ e.getKey().getDifficulty() +" exam and got "+e.getKey().getGrade()+" in "+ e.getKey().getSubject();
+            note = e.getValue()+" gave a "+ e.getKey().getDifficulty() +" exam and got "+e.getKey().getGrade()+" in "+ e.getKey().getSubject()+"...";
             notifications.add(note);
-            System.out.println(note);
+            //System.out.println(note);
             i++;
-            if(i==10){
+            if(i==20){
                 break;
             }
         }
         notification.setItems(notifications);
     }
+    }
+    
+    private void populateHomePie(){
+        HashMap<String,Integer> map = this.application.getGradesCount();
+        homePie.setVisible(true);
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+        map.forEach((key, value) -> pieChartData.add(new PieChart.Data(key, value))); 
+        //homePie.setTitle("Grade wise distribution");
+        homePie.setData(pieChartData);
     }
 }

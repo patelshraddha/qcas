@@ -373,6 +373,10 @@ public class Main extends Application {
         return ProfessorHandler.getNotifications(database, getSubjects());
     }
 
-
+    public HashMap<String,Integer> getGradesCount() {
+        HashMap<String,Integer> map = ProfessorHandler.getGradesCount(database, getSubjects());
+        return map;
+    }
+    
 
 }

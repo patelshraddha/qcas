@@ -500,4 +500,27 @@ public class ProfessorHandler {
         }
         return null;
         }
+    
+    public static HashMap<String,Integer> getGradesCount(DatabaseHandler database, List<Subject> subjects) {
+             HashMap<String,Integer> map = new HashMap<String,Integer>();
+             String insertquestionsquery;
+        try {
+            ResultSet rs;
+            PreparedStatement preparedStatement;
+//get the user details from the user table
+            for(Subject subject : subjects){
+                insertquestionsquery = "SELECT  `grade` , COUNT( * ) FROM  `exam` WHERE subject_code = ? GROUP BY  `grade` ";
+                preparedStatement = database.getConnection().prepareStatement(insertquestionsquery);
+                preparedStatement.setInt(1, Integer.parseInt(subject.getSubjectCode()));
+                rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+                    map.put(rs.getString(1),Integer.parseInt(rs.getString(2)));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLoginTableHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  return map;      
+
+    }
 }

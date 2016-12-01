@@ -100,6 +100,7 @@
                </effect>
             </Separator>
             <ListView fx:id="notification" layoutX="650.0" layoutY="140.0" prefHeight="500.0" prefWidth="345.0" />
+            <PieChart fx:id="homePie" animated="false" layoutY="140.0" prefHeight="280.0" prefWidth="340.0" />
          </children>
          <effect>
             <DropShadow />
