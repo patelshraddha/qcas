@@ -54,7 +54,7 @@ public class LoginController implements Initializable {
     @FXML
     private Pane signUpPane;
     @FXML
-    
+
     private Button registerButton;
     @FXML
     private Button signUp;
@@ -91,14 +91,13 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         clglogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
-        
+
         loginButton.setDefaultButton(true);
     }
 
     @FXML
     public void processLogin(ActionEvent event) {
 
-        
         if (application == null) {
             System.exit(0);
         } else if (!application.userLogging(userId.getText(), userPassword.getText())) {
@@ -106,69 +105,103 @@ public class LoginController implements Initializable {
             invalidLabel.setVisible(true);
         }
     }
-    
+
     @FXML
     public void processSignUp(ActionEvent event) {
         signUpPane.setVisible(true);
+        signUpError.setVisible(false);
+        registerEmail.clear();
+        registerFirstName.clear();
+        registerLastName.clear();
+        registerPassword.clear();
+        registerUsername.clear();
         
-          List<Subject> subjects=application.getAllSubjects();
-          
-        for (Subject subject:subjects){
-                selectMenuSubject.getItems().add(CheckMenuItemBuilder.create()
-                .text(subject.getSubjectName())
-                .selected(false)
-                .build());
-        
+        List<Subject> subjects = application.getAllSubjects();
+        selectMenuSubject.getItems().clear();
+        for (Subject subject : subjects) {
+            selectMenuSubject.getItems().add(CheckMenuItemBuilder.create()
+                    .text(subject.getSubjectName())
+                    .selected(false)
+                    .build());
+
         }
-        
+
     }
-    
+
     @FXML
     public void closeSignup(ActionEvent event) {
         signUpPane.setVisible(false);
     }
-    
-    
+
     public void closeRegister(ActionEvent event) {
-        
-        
+
         signUpPane.setVisible(false);
     }
-    
+
     @FXML
     public void registerUser(ActionEvent event) {
-        if(registerUsername.getText().isEmpty() || registerPassword.getText().isEmpty() || registerFirstName.getText().isEmpty() || registerLastName.getText().isEmpty() || registerEmail.getText().isEmpty()){
-           signUpError.setVisible(true);
-        }
-        else
-        {
-        signUpPane.setVisible(false);
-       // menuItem1.is
-        ObservableList<MenuItem> subjects = selectMenuSubject.getItems();
+        if (registerUsername.getText().isEmpty() || registerPassword.getText().isEmpty() || registerFirstName.getText().isEmpty() || registerLastName.getText().isEmpty() || registerEmail.getText().isEmpty()) {
+            signUpError.setVisible(true);
+            signUpError.setText("Please complete all the fields.");
+        } else {
+            boolean checkPassed = true;
+            int error = -1;
+            // menuItem1.is
+            ObservableList<MenuItem> subjects = selectMenuSubject.getItems();
 
-        
-        ArrayList<String> sub = new ArrayList<>();
-        
-        for(MenuItem m:subjects){
-            CheckMenuItem checkMenuItem = (CheckMenuItem) m;
-                if(checkMenuItem.isSelected()){
-                
-                System.out.println(checkMenuItem.getText());
-                String s= checkMenuItem.getText();
-                sub.add(s);
+            ArrayList<String> sub = new ArrayList<>();
+
+            for (MenuItem m : subjects) {
+                CheckMenuItem checkMenuItem = (CheckMenuItem) m;
+                if (checkMenuItem.isSelected()) {
+
+                    System.out.println(checkMenuItem.getText());
+                    String s = checkMenuItem.getText();
+                    sub.add(s);
                 }
             }
-      
-        boolean flag=application.userRegistering(registerUsername.getText(), registerPassword.getText(), registerFirstName.getText(), registerLastName.getText(), registerEmail.getText(),sub);
-      if(!flag){
-          invalidLabel.setText("Opps..! You already have a account.\n Use your existing account details.");
-      invalidLabel.setVisible(true);
-      }
-    }
-    
-   
-    
+            if (!emailCheck(registerEmail.getText())) {
+                checkPassed = false;
+                error = 1;
+            }
+            if (sub.size() == 0) {
+                checkPassed = false;
+                error = 2;
+            }
             
+
+            if (!checkPassed) {
+                signUpError.setVisible(true);
+                switch (error) {
+                    case 1:
+                        signUpError.setText("Email address is invalid.");
+                        break;
+                    case 2:
+                        signUpError.setText("No subjects selected.");
+                        break;
+                    
+                }
+
+            } else {
+                boolean flag = application.userRegistering(registerUsername.getText(), registerPassword.getText(), registerFirstName.getText(), registerLastName.getText(), registerEmail.getText(), sub);
+                if (!flag) {
+                    signUpError.setText("Opps..! You already have a account.\n Use your existing account details.");
+                    signUpError.setVisible(true);
+                }
+                else
+                    signUpPane.setVisible(false);
+            }
+
+            
+        }
+
+    }
+
+    private static boolean emailCheck(String email) {
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
 
     @FXML
