@@ -89,11 +89,6 @@
                   <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
             </Label>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="640.0" layoutY="40.0" prefHeight="65.0" prefWidth="109.0" text="EMAIL:">
-               <font>
-                  <Font name="Microsoft YaHei UI Light" size="20.0" />
-               </font>
-            </Label>
             <Label fx:id="professorEmail" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="750.0" layoutY="40.0" prefHeight="65.0" prefWidth="249.0">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
