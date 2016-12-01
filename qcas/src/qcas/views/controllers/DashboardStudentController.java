@@ -230,12 +230,9 @@ public class DashboardStudentController implements Initializable {
     private NumberAxis yAxis;
     @FXML
     private CategoryAxis xAxis;
-
+    private Exam exam;
     @FXML
     private Label subjectLabel;
-
-    private Exam exam;
-
 
     /**
      * Initializes the controller class.
@@ -853,38 +850,7 @@ public class DashboardStudentController implements Initializable {
     }
 
 
-    private ArrayList<String> getGrade(int numberOfquestions, int correctQuestions) {
-        
-        ArrayList<String> grade = new ArrayList<String>();
-        
-        double percent = ((double)correctQuestions/(double)numberOfquestions)*100;
-        
-        System.out.println("percent"+percent);
-            if(percent>=60){
-                grade.add("1");
-            }else{
-                grade.add("0");
-            }
-            
-            
-            if(percent<60&&percent>=0){
-                grade.add("F");
-            }else if(percent>=60&&percent<70){
-                grade.add("C");
-            }else if(percent>=70&&percent<80){
-                grade.add("B");
-            }else if(percent>=80&&percent<90){
-                grade.add("B+");
-            }else if(percent>=90&&percent<100){
-                grade.add("A");
-            }else if(percent==100){
-                grade.add("A+");
-            }
-            
-            System.out.println(grade.get(0)+" "+grade.get(1));
-            
-            return grade;
-    }
+    
 
 
     private void makeActivityGraph() {
@@ -892,25 +858,6 @@ public class DashboardStudentController implements Initializable {
         LinkedHashMap activity = this.application.getStudentActivity(Integer.parseInt(this.application.getLoggedUser().getUserKey()));
         Set set = activity.entrySet();
         Iterator i = set.iterator();
-
-        
-        XYChart.Series series = new XYChart.Series();
-        
-        studentActivity.getData().clear();
-        
-        while(i.hasNext()) {
-           
-            Map.Entry me = (Map.Entry)i.next();
-            
-            
-            series.getData().add(new XYChart.Data(me.getKey(), me.getValue()));
-           System.out.println(me.getValue() +" "+ me.getKey());
-        }
-        series.setName("Tests");
-        studentActivity.setLegendVisible(true);
-        studentActivity.getData().add(series);
-        
-
 
         new Thread() {
             // runnable for that thread
@@ -935,7 +882,6 @@ public class DashboardStudentController implements Initializable {
                 });
             }
         }.start();
-
 
     }
 
