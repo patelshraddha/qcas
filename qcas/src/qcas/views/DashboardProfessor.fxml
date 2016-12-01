@@ -89,22 +89,12 @@
                   <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
             </Label>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="122.0" prefHeight="65.0" prefWidth="109.0" text="NAME: ">
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="640.0" layoutY="40.0" prefHeight="65.0" prefWidth="109.0" text="EMAIL:">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="177.0" prefHeight="65.0" prefWidth="109.0" text="EMAIL:">
-               <font>
-                  <Font name="Microsoft YaHei UI Light" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="professorName" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="122.0" prefHeight="65.0" prefWidth="249.0">
-               <font>
-                  <Font name="Microsoft YaHei UI Light" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="professorEmail" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="177.0" prefHeight="65.0" prefWidth="249.0">
+            <Label fx:id="professorEmail" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="750.0" layoutY="40.0" prefHeight="65.0" prefWidth="249.0">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
@@ -114,7 +104,7 @@
                   <DropShadow />
                </effect>
             </Separator>
-            <ListView fx:id="notification" layoutX="650.0" layoutY="140.0" prefHeight="325.0" prefWidth="345.0" />
+            <ListView fx:id="notification" layoutX="650.0" layoutY="140.0" prefHeight="500.0" prefWidth="345.0" />
          </children>
          <effect>
             <DropShadow />

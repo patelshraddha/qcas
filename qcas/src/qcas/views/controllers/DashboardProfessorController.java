@@ -58,8 +58,8 @@ public class DashboardProfessorController implements Initializable {
     private Button reportButton;
     @FXML
     private Pane homePane;
-    @FXML
-    private Label professorName;
+    //@FXML
+    //private Label professorName;
     @FXML
     private Label professorEmail;
     @FXML
@@ -144,7 +144,7 @@ public class DashboardProfessorController implements Initializable {
      */
     public void setApp(Main application) {
         this.application = application;
-        professorName.setText(this.application.getLoggedUser().getFirstName() + " " + this.application.getLoggedUser().getLastName());
+        //professorName.setText(this.application.getLoggedUser().getFirstName() + " " + this.application.getLoggedUser().getLastName());
         professorEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
 
