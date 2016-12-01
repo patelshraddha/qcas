@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import qcas.exam.Exam;
 import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
@@ -69,6 +70,7 @@ public class Main extends Application {
             stage = primaryStage;
             stage.setResizable(false);
             stage.setTitle("Quiz Creation and Assessment System");
+            stage.getIcons().add(new Image(Main.class.getResourceAsStream(Constants.cmuIconImg)));
             stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
             stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
             gotoLogin();

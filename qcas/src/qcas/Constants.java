@@ -74,6 +74,9 @@ public class Constants {
     public static final String reportImg=pathToAssets+"report.png";
 
     public static final String clipboardImg=pathToAssets+"clipboard.jpg";
+    
+    public static final String cmuIconImg=pathToAssets+"cmuicon.png";
+    
  
  //timer
 
