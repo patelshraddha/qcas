@@ -16,11 +16,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import qcas.Main;
+import qcas.exam.Exam;
 import qcas.operations.questions.Question;
 import qcas.operations.questions.QuestionFIB;
 import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
+import qcas.operations.subject.Subject;
 import qcas.operations.user.User;
 
 /**
@@ -471,5 +474,30 @@ public class ProfessorHandler {
         return results;
     }
     
-    
+    public static HashMap<Exam, String> getNotifications(DatabaseHandler database, List<Subject> subjects){
+        //String query = "SELECT `exam_key`, exam.user_key, `subject_code`, `exam_date`, `difficulty_level`, `grade`, `firstname` FROM `exam` inner join `Student` on exam.user_key=Student.user_key WHERE exam_date >= DATE_ADD(CURDATE(), INTERVAL -1 DAY)";
+        String query = "SELECT `exam_key`, exam.user_key, `subject_code`, `exam_date`, `difficulty_level`, `grade`, `firstname` FROM `exam` inner join `Student` on exam.user_key=Student.user_key WHERE exam_date >= DATE_ADD(CURDATE(), INTERVAL -1 DAY) AND subject_code=?";
+        PreparedStatement ps;
+        ResultSet rs;
+        HashMap<Exam, String> notify =new HashMap<>();
+        Exam temp;
+        String name;
+        try{
+            for(Subject subjects1 : subjects){
+                ps = database.getConnection().prepareStatement(query);
+                ps.setInt(1, Integer.parseInt(subjects1.getSubjectCode()));
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    temp = new Exam(rs.getInt(1), rs.getInt(2), subjects1.getSubjectName(), rs.getString(5), rs.getDate(4), rs.getString(6));
+                    name = rs.getString(7);
+                    notify.put(temp, name);
+                }
+            }
+            return notify;        
+        }
+       catch (SQLException ex) {
+            Logger.getLogger(ProfessorHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+        }
 }

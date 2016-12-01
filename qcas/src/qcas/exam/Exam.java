@@ -13,10 +13,13 @@ import qcas.operations.questions.Question;
  * @author Deepak
  */
 public class Exam {
+    private int exam_key;
+    private int user_key;
     private ArrayList<Question> questions;
     private ArrayList<Question> answers;
     private Date examDate;             
-    
+    private int subject_code;
+    private String subject;
     private int numberOfQuestions;
     private String difficulty;
     private boolean pass=false;
@@ -46,7 +49,16 @@ public class Exam {
         this.difficulty = difficulty;
         this.examDate = new Date();
     }
-
+    
+    public Exam(int exam_key, int user_key, String subject, String difficulty, Date exam_date, String grade) {
+        this.exam_key = exam_key;
+        this.user_key = user_key;
+        this.subject = subject;
+        this.difficulty = difficulty;
+        this.examDate = exam_date;
+        this.grade = grade;
+    }
+    
     /**
      * Gets questions
      * @return
@@ -62,7 +74,25 @@ public class Exam {
     public ArrayList<Question> getAnswers() {
         return answers;
     }
+    
+    public int getExam_key() {
+        return exam_key;
+    }
 
+    public int getUser_key() {
+        return user_key;
+    }
+    
+    public int getSubject_code() {
+        return subject_code;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+    
+    
+    
     /**
      * Gets exam date
      * @return

@@ -8,10 +8,12 @@ package qcas.views.controllers;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,12 +24,14 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import qcas.Constants;
 import qcas.Main;
+import qcas.exam.Exam;
 import qcas.operations.subject.Subject;
 
 /**
@@ -110,6 +114,8 @@ public class DashboardProfessorController implements Initializable {
     private CategoryAxis xAxis3;
     private ArrayList<String> subjectNames;
     private List<Subject> list;
+    @FXML
+    private ListView<String> notification;
 
     /**
      * Initializes the controller class.
@@ -150,7 +156,8 @@ public class DashboardProfessorController implements Initializable {
         subjectList.setItems(FXCollections.observableList(subjectNames));
         subjectList.setPromptText("Select Subject");
         subjects = (ArrayList<Subject>) list;
-
+        
+        populateNotifications();
     }
 
     @FXML
@@ -408,5 +415,24 @@ public class DashboardProfessorController implements Initializable {
 
         testsTakenChart3.getData().addAll(series1, series2, series3);
 
+    }
+    
+    private void populateNotifications(){
+        HashMap<Exam, String> notify = this.application.getNotifications();
+        if(notify!=null){
+        String note;
+        ObservableList<String> notifications = FXCollections.observableArrayList();
+        int i=0;
+        for (HashMap.Entry<Exam, String> e : notify.entrySet()) {
+            note = e.getValue()+" gave a "+ e.getKey().getDifficulty() +" exam and got "+e.getKey().getGrade()+" in "+ e.getKey().getSubject();
+            notifications.add(note);
+            System.out.println(note);
+            i++;
+            if(i==10){
+                break;
+            }
+        }
+        notification.setItems(notifications);
+    }
     }
 }

@@ -22,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.control.MenuItem;
+import qcas.exam.Exam;
 import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
 import qcas.model.ProfessorHandler;
@@ -368,7 +369,9 @@ public class Main extends Application {
         return StudentHandler.insertSelection(database, getLoggedUser(), quizAnswers, subjectCode, noQuestions, diff, correctQuestions, isCorrect);
     }
 
-
+    public HashMap<Exam, String> getNotifications(){
+        return ProfessorHandler.getNotifications(database, getSubjects());
+    }
 
 
 
