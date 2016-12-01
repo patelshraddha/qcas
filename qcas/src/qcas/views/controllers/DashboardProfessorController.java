@@ -7,7 +7,9 @@ package qcas.views.controllers;
 
 import java.io.File;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -19,6 +21,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -28,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import qcas.Constants;
 import qcas.Main;
+import qcas.operations.report.Report;
 import qcas.operations.subject.Subject;
 
 /**
@@ -83,8 +87,6 @@ public class DashboardProfessorController implements Initializable {
     @FXML
     private ComboBox subjectType;
     @FXML
-    private Button generate;
-    @FXML
     private BarChart<String, Number> testsTakenChart;
     @FXML
     private final NumberAxis yAxis = new NumberAxis();
@@ -110,6 +112,8 @@ public class DashboardProfessorController implements Initializable {
     private CategoryAxis xAxis3;
     private ArrayList<String> subjectNames;
     private List<Subject> list;
+    @FXML
+    private Button generatereport;
 
     /**
      * Initializes the controller class.
@@ -236,23 +240,36 @@ public class DashboardProfessorController implements Initializable {
 
     @FXML
     private void generateReport(ActionEvent event) {
+        generatereport.setDisable(true);
+        String selectedSubject = (String) this.subjectType.getSelectionModel().getSelectedItem();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 
-        Subject selectedSubject = subjects.get(this.subjectType.getSelectionModel().getSelectedIndex());
+        Date date = new Date();
+        String filename = application.getLoggedUser().getFirstName() + "_" + dateFormat.format(date);
 
-        if (reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[0])) {                       //First Report selected
-            ArrayList<Integer> testsCount = this.application.getTestsTaken(Integer.parseInt(selectedSubject.getSubjectCode()));
-            makeTestsTakenChart(testsCount);
+        if (reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[0])) {
+            filename+= "_" + "report1.pdf";
+            Report.producePerformanceReport(application.getLoggedUser(), selectedSubject, Constants.REPORTTYPES[0], date,filename, testsTakenChart);
         } else if (reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[1])) {                       //Second Report selected
-            ArrayList<Double> avgScores = this.application.getAverageScores(Integer.parseInt(selectedSubject.getSubjectCode()));
-            makeAvgScoresChart(avgScores);
+            filename+= "_" + "report2.pdf";
+            Report.producePerformanceReport(application.getLoggedUser(), selectedSubject, Constants.REPORTTYPES[1], date, filename, testsTakenChart1);
         } else if (reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[2])) {
-            ArrayList<Double> avgLevelScores = this.application.getScoresLevel(Integer.parseInt(selectedSubject.getSubjectCode()));
-            makeScoresLevelChart(avgLevelScores);
+            filename+= "_" + "report3.pdf";
+            Report.producePerformanceReport(application.getLoggedUser(), selectedSubject, Constants.REPORTTYPES[2], date, filename, testsTakenChart2);
         } else if (reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[3])) {
-            ArrayList<Integer> resultCount = this.application.getResultOverTime(Integer.parseInt(selectedSubject.getSubjectCode()));
-            makeResultsChart(resultCount);
+            filename+= "_" + "report4.pdf";
+            Report.producePerformanceReport(application.getLoggedUser(), selectedSubject, Constants.REPORTTYPES[3], date, filename, testsTakenChart3);
         }
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Report Generated");
+                        alert.setContentText("Report produced at:" + filename);
 
+                        alert.show();
+        
+        
+        
+        generatereport.setDisable(false);
     }
 
     private void makeReport(String report) {
@@ -262,57 +279,62 @@ public class DashboardProfessorController implements Initializable {
             new Thread() {
                 // runnable for that thread
                 public void run() {
+                    generatereport.setDisable(true);
                     ArrayList<Integer> testsCount = application.getTestsTaken(Integer.parseInt(selectedSubject.getSubjectCode()));
                     Platform.runLater(new Runnable() {
                         public void run() {
-                             makeTestsTakenChart(testsCount);
+                            makeTestsTakenChart(testsCount);
                         }
                     });
+                    generatereport.setDisable(false);
                 }
             }.start();
-            
-            
+
         } else if (report.equals(Constants.REPORTTYPES[1])) {                       //Second Report selected
             new Thread() {
                 // runnable for that thread
                 public void run() {
+                    generatereport.setDisable(true);
                     ArrayList<Double> avgScores = application.getAverageScores(Integer.parseInt(selectedSubject.getSubjectCode()));
                     Platform.runLater(new Runnable() {
                         public void run() {
-                             makeAvgScoresChart(avgScores);
+                            makeAvgScoresChart(avgScores);
                         }
                     });
+                    generatereport.setDisable(false);
                 }
             }.start();
-            
-            
+
         } else if (report.equals(Constants.REPORTTYPES[2])) {
-            
+
             new Thread() {
                 // runnable for that thread
                 public void run() {
+                    generatereport.setDisable(true);
                     ArrayList<Double> avgLevelScores = application.getScoresLevel(Integer.parseInt(selectedSubject.getSubjectCode()));
-           
+
                     Platform.runLater(new Runnable() {
                         public void run() {
                             makeScoresLevelChart(avgLevelScores);
                         }
                     });
+                    generatereport.setDisable(false);
                 }
             }.start();
-            
-            
+
         } else if (report.equals(Constants.REPORTTYPES[3])) {
-             new Thread() {
+            new Thread() {
 
                 // runnable for that thread
                 public void run() {
+                    generatereport.setDisable(true);
                     ArrayList<Integer> resultCount = application.getResultOverTime(Integer.parseInt(selectedSubject.getSubjectCode()));
                     Platform.runLater(new Runnable() {
                         public void run() {
                             makeResultsChart(resultCount);
                         }
                     });
+                    generatereport.setDisable(false);
                 }
             }.start();
         }

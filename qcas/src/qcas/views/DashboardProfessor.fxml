@@ -194,7 +194,7 @@
                <children>
                   <ComboBox fx:id="subjectType" blendMode="SRC_ATOP" depthTest="DISABLE" prefWidth="150.0" promptText="Subject Code" />
                   <ComboBox fx:id="reportType" blendMode="SRC_ATOP" depthTest="ENABLE" prefHeight="31.0" prefWidth="454.0" promptText="Report Type" />
-                  <Button fx:id="generate" blendMode="SRC_ATOP" mnemonicParsing="false" onAction="#generateReport" prefHeight="31.0" prefWidth="150.0" text="Generate">
+                  <Button fx:id="generatereport" blendMode="SRC_ATOP" mnemonicParsing="false" onAction="#generateReport" prefHeight="31.0" prefWidth="150.0" text="Generate PDF">
                      <font>
                         <Font name="Microsoft JhengHei UI Light" size="15.0" />
                      </font>

@@ -32,12 +32,7 @@ public class QuestionFIB extends Question{
         return answer;
     }  
     
-    @Override
-    public String toString()
-    {
-       return super.toString()+" answer:"+ this.getAnswer();
-    }
-    
+       
     public void setAnswer(String answer) {
         this.answer = answer;
     }
@@ -63,7 +58,6 @@ public class QuestionFIB extends Question{
     {
         return new QuestionFIB(this.getId(),this.getType(),this.getLevel(),this.getDescription(),this.getSubjectCode(),null);
     }
-    
     
     
 }

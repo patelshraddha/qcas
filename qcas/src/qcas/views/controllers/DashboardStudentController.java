@@ -72,7 +72,8 @@ import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import qcas.Constants;
 import qcas.Main;
-import qcas.exam.Exam;
+import qcas.operations.exam.Exam;
+import qcas.operations.report.Report;
 import qcas.operations.questions.Question;
 import qcas.operations.questions.QuestionFIB;
 import qcas.operations.questions.QuestionMultipleAnswer;
@@ -767,8 +768,7 @@ public class DashboardStudentController implements Initializable {
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
                         // Create a custom Notification without icon
                         String filename = application.getLoggedUser().getFirstName() + "_" + dateFormat.format(exam.getExamDate()) + ".pdf";
-                        createReport(pieResults,exam.getGrade(), filename);
-
+                        Report.produceReport(exam,application.getLoggedUser(), filename, pieResults);
                         Alert alert = new Alert(AlertType.INFORMATION);
                         alert.setTitle("Report Generated");
                         alert.setHeaderText("Test Successful:");
@@ -782,56 +782,6 @@ public class DashboardStudentController implements Initializable {
             }
 
         }.start();
-
-    }
-
-    private final void createReport(PieChart chart, String grade, String path) {
-        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
-        File file = new File(path);
-
-        try {
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(path));
-            ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
-
-            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", byteOutput);
-            com.itextpdf.text.Image graph;
-            graph = com.itextpdf.text.Image.getInstance(byteOutput.toByteArray());
-
-            document.open();
-            User user = this.application.getLoggedUser();
-
-            Paragraph title1 = new Paragraph(user.getFirstName() + " " + user.getLastName(),
-                    FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD, new CMYKColor(0, 0, 0, 0)));
-
-            Chapter chapter1 = new Chapter(title1, 1);
-            document.add(chapter1);
-            document.add(new Paragraph("Email: " + user.getEmail() + "\n" + "Grades: " + grade,
-                    FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD, new CMYKColor(0, 255, 0, 0))));
-
-            document.add(graph);
-            document.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DocumentException ex) {
-            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void saveAsPng(PieChart chart, String path) {
-
-        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
-
-        // TODO: probably use a file chooser here
-        File file = new File("chart.png");
-
-        try {
-            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-        } catch (IOException e) {
-            // TODO: handle exception here
-        }
 
     }
 

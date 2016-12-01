@@ -1,6 +1,6 @@
 /*
  */
-package qcas.exam;
+package qcas.operations.exam;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -106,5 +106,6 @@ public class Exam {
         generateGrade(correctAnswers);
         return correctAnswers;
     }
+    
    
 }
