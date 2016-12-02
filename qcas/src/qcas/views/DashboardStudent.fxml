@@ -72,7 +72,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;">
+      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: white;">
          <effect>
             <DropShadow />
          </effect>
@@ -107,17 +107,17 @@
                   <DropShadow />
                </effect>
             </Separator>
-            <LineChart fx:id="studentActivity" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="142.0" layoutY="258.0" prefHeight="400.0" prefWidth="745.0" title="Your Activity">
+            <LineChart fx:id="studentActivity" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="98.0" layoutY="229.0" prefHeight="440.0" prefWidth="841.0" title="My Activity">
               <xAxis>
                 <CategoryAxis animated="false" label="Month" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
               <yAxis>
-                <NumberAxis fx:id="yAxis" label="Tests Taken" side="LEFT" />
+                <NumberAxis fx:id="yAxis" autoRanging="false" label="Tests Taken" minorTickCount="0" minorTickLength="0.0" minorTickVisible="false" side="LEFT" tickLabelGap="10.0" tickLength="20.0" tickUnit="10.0" />
               </yAxis>
             </LineChart>
          </children>
       </Pane>
-      <Pane fx:id="quizcreatepane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="quizcreatepane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: white;" visible="false">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="PLAN QUIZ">
                <font>
@@ -167,9 +167,9 @@
             <DropShadow />
          </effect>
       </Pane>
-      <Pane fx:id="quizpane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="quizpane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: white;" visible="false">
          <children>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="Subject Code: ">
+            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="97.0" text="Subject: ">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
@@ -363,12 +363,17 @@
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
             </Label>
+            <Label fx:id="subjectLabel" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="137.0" layoutY="36.0" prefHeight="76.0" prefWidth="477.0">
+               <font>
+                  <Font name="Microsoft YaHei UI Light" size="24.0" />
+               </font>
+            </Label>
          </children>
          <effect>
             <DropShadow />
          </effect>
       </Pane>
-      <Pane fx:id="resultPane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="resultPane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: white;" visible="false">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="Test Results">
                <font>

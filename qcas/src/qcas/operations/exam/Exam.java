@@ -1,32 +1,41 @@
-/*
- */
 package qcas.operations.exam;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import qcas.operations.questions.Question;
 
 /**
- *
- * @author Deepak
+ * Used to manage elements that consist within an exam 
+ * @author Shraddha Patel
  */
 public class Exam {
+    private int exam_key;
+    private int user_key;
     private ArrayList<Question> questions;
     private ArrayList<Question> answers;
     private Date examDate;             
-    
+    private int subject_code;
+    private String subject;
     private int numberOfQuestions;
     private String difficulty;
     private boolean pass=false;
     private String grade="F";
     private int correctAnswers;
 
+    /**
+     * Gets all the correct answers
+     * @return
+     */
     public int getCorrectAnswers() {
         return correctAnswers;
     }
 
+    /**
+     *  Constructor of exam
+     * @param questions
+     * @param difficulty
+     */
     public Exam(ArrayList<Question> questions, String difficulty) {
         this.questions = questions;
         answers = new ArrayList<>();// = new ArrayList<Question>(questions); // create a shallow copy of the questions list.
@@ -37,37 +46,92 @@ public class Exam {
         this.difficulty = difficulty;
         this.examDate = new Date();
     }
-
+    
+    public Exam(int exam_key, int user_key, String subject, String difficulty, Date exam_date, String grade) {
+        this.exam_key = exam_key;
+        this.user_key = user_key;
+        this.subject = subject;
+        this.difficulty = difficulty;
+        this.examDate = exam_date;
+        this.grade = grade;
+    }
+    
+    /**
+     * Gets questions
+     * @return
+     */
     public ArrayList<Question> getQuestions() {
         return questions;
     }
 
+    /**
+     * Gets answer
+     * @return
+     */
     public ArrayList<Question> getAnswers() {
         return answers;
     }
+    
+    public int getExam_key() {
+        return exam_key;
+    }
 
+    public int getUser_key() {
+        return user_key;
+    }
+    
+    public int getSubject_code() {
+        return subject_code;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+    
+    
+    
+    /**
+     * Gets exam date
+     * @return
+     */
     public Date getExamDate() {
         return examDate;
     }
 
+    /**
+     *Gets number of questions 
+     * @return
+     */
     public int getNumberOfQuestions() {
         return numberOfQuestions;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDifficulty() {
         return difficulty;
     }
 
+    /**
+     * gets difficulty of question
+     * @return
+     */
     public boolean isPass() {
         return pass;
     }
 
+    /**
+     *Gets grade
+     * @return
+     */
     public String getGrade() {
         return grade;
     }
     
     private void generateGrade(int correctQuestions) {
-        double percent = (correctQuestions / numberOfQuestions) * 100;
+        double percent = ((double)correctQuestions / (double)numberOfQuestions) * 100;
         if (percent >= 60) {
             pass = true;
         } else {
@@ -89,7 +153,11 @@ public class Exam {
         }
     }
     
-    
+    /**
+     * Evaluates questions attempted
+     * @param questionsAttempted
+     * @return
+     */
     public int evalute(int[] questionsAttempted)
     {
         correctAnswers=0;
@@ -106,6 +174,5 @@ public class Exam {
         generateGrade(correctAnswers);
         return correctAnswers;
     }
-    
    
 }

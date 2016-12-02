@@ -1,41 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package qcas.views.controllers;
 
 import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.Date;
+
+import java.util.HashMap;
+
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import qcas.Constants;
 import qcas.Main;
+import qcas.operations.exam.Exam;
+
 import qcas.operations.report.Report;
+
 import qcas.operations.subject.Subject;
 
 /**
- * FXML Controller class
+ * FXML Controller class for professor dashboard
  *
  * @author RAHUL
  */
@@ -58,8 +63,8 @@ public class DashboardProfessorController implements Initializable {
     private Button reportButton;
     @FXML
     private Pane homePane;
-    @FXML
-    private Label professorName;
+    //@FXML
+    //private Label professorName;
     @FXML
     private Label professorEmail;
     @FXML
@@ -113,12 +118,22 @@ public class DashboardProfessorController implements Initializable {
     private ArrayList<String> subjectNames;
     private List<Subject> list;
     @FXML
+
     private Button generatereport;
+
+    @FXML
+    private ListView<String> notification;
+    @FXML
+    private PieChart homePie;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
+
     public void initialize(URL url, ResourceBundle rb) {
 
         clgLogo.setImage(new Image(Main.class.getResourceAsStream(Constants.clgLogo)));
@@ -134,9 +149,14 @@ public class DashboardProfessorController implements Initializable {
 
     }
 
+    /**
+     * sets the app
+     *
+     * @param application
+     */
     public void setApp(Main application) {
         this.application = application;
-        professorName.setText(this.application.getLoggedUser().getFirstName() + " " + this.application.getLoggedUser().getLastName());
+        //professorName.setText(this.application.getLoggedUser().getFirstName() + " " + this.application.getLoggedUser().getLastName());
         professorEmail.setText(this.application.getLoggedUser().getEmail());
         loginBox.setPromptText(this.application.getLoggedUser().getFirstName());
 
@@ -148,7 +168,8 @@ public class DashboardProfessorController implements Initializable {
         subjectList.setItems(FXCollections.observableList(subjectNames));
         subjectList.setPromptText("Select Subject");
         subjects = (ArrayList<Subject>) list;
-
+        populateHomePie();
+        populateNotifications();
     }
 
     @FXML
@@ -248,27 +269,25 @@ public class DashboardProfessorController implements Initializable {
         String filename = application.getLoggedUser().getFirstName() + "_" + dateFormat.format(date);
 
         if (reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[0])) {
-            filename+= "_" + "report1.pdf";
-            Report.producePerformanceReport(application.getLoggedUser(), selectedSubject, Constants.REPORTTYPES[0], date,filename, testsTakenChart);
+            filename += "_" + "report1.pdf";
+            Report.producePerformanceReport(application.getLoggedUser(), selectedSubject, Constants.REPORTTYPES[0], date, filename, testsTakenChart);
         } else if (reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[1])) {                       //Second Report selected
-            filename+= "_" + "report2.pdf";
+            filename += "_" + "report2.pdf";
             Report.producePerformanceReport(application.getLoggedUser(), selectedSubject, Constants.REPORTTYPES[1], date, filename, testsTakenChart1);
         } else if (reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[2])) {
-            filename+= "_" + "report3.pdf";
+            filename += "_" + "report3.pdf";
             Report.producePerformanceReport(application.getLoggedUser(), selectedSubject, Constants.REPORTTYPES[2], date, filename, testsTakenChart2);
         } else if (reportType.getSelectionModel().getSelectedItem().toString().equals(Constants.REPORTTYPES[3])) {
-            filename+= "_" + "report4.pdf";
+            filename += "_" + "report4.pdf";
             Report.producePerformanceReport(application.getLoggedUser(), selectedSubject, Constants.REPORTTYPES[3], date, filename, testsTakenChart3);
         }
-        
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Report Generated");
-                        alert.setContentText("Report produced at:" + filename);
 
-                        alert.show();
-        
-        
-        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Report Generated");
+        alert.setContentText("Report produced at:" + filename);
+
+        alert.show();
+
         generatereport.setDisable(false);
     }
 
@@ -423,6 +442,58 @@ public class DashboardProfessorController implements Initializable {
         series3.setName("Past Year");
 
         testsTakenChart3.getData().addAll(series1, series2, series3);
+
+    }
+
+    private void populateNotifications() {
+        new Thread() {
+            // runnable for that thread
+            public void run() {
+                HashMap<Exam, String> notify = application.getNotifications();
+                HashMap<String, Integer> map = application.getGradesCount();
+                Platform.runLater(new Runnable() {
+                    public void run() {
+
+                        if (notify != null) {
+                            String note;
+                            ObservableList<String> notifications = FXCollections.observableArrayList();
+                            int i = 0;
+                            for (HashMap.Entry<Exam, String> e : notify.entrySet()) {
+                                note = e.getValue() + " gave a " + e.getKey().getDifficulty() + " exam and got " + e.getKey().getGrade() + " in " + e.getKey().getSubject() + "...";
+                                notifications.add(note);
+                                //System.out.println(note);
+                                i++;
+                                if (i == 20) {
+                                    break;
+                                }
+                            }
+                            notification.setItems(notifications);
+                        }
+                    }
+                });
+
+            }
+        }.start();
+
+    }
+
+    private void populateHomePie() {
+        new Thread() {
+            // runnable for that thread
+            public void run() {
+                HashMap<String, Integer> map = application.getGradesCount();
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        homePie.setVisible(true);
+                        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+                        map.forEach((key, value) -> pieChartData.add(new PieChart.Data(key, value)));
+                        homePie.setTitle("Grade wise distribution");
+                        homePie.setData(pieChartData);
+                    }
+                });
+
+            }
+        }.start();
 
     }
 }

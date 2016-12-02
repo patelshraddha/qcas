@@ -29,11 +29,19 @@ import qcas.operations.user.User;
 import qcas.views.controllers.DashboardStudentController;
 
 /**
+ * Report class to generate PDF reports
  *
- * @author Deepak
+ * @author Shraddha Patel
  */
 public class Report {
     
+    /**
+     * Produces exam report
+     * @param exam the exam for which the report has to be produced.
+     * @param user the user 
+     * @param filepath the filepath where the report must be printed
+     * @param chart the chart to be printed
+     */
     public static void produceReport(Exam exam, User user,String filepath,Chart chart)
     {
         WritableImage image = chart.snapshot(new SnapshotParameters(), null);
@@ -101,7 +109,15 @@ public class Report {
         }
     }
     
-    
+    /**
+     * produces performance reports
+     * @param user user 
+     * @param subject subject for the report
+     * @param report the type of report
+     * @param date the date of the report
+     * @param filepath the file where the report will be stored
+     * @param chart chart of the report
+     */
     public static void producePerformanceReport(User user,String subject,String report,Date date,String filepath,Chart chart)
     {
         WritableImage image = chart.snapshot(new SnapshotParameters(), null);

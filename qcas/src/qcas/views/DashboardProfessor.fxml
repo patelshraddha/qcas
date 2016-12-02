@@ -82,29 +82,14 @@
             <DropShadow />
          </effect>
       </Pane>
-      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="homePane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: white;" visible="false">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="FACULTY HOME">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="24.0" />
                </font>
             </Label>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="122.0" prefHeight="65.0" prefWidth="109.0" text="NAME: ">
-               <font>
-                  <Font name="Microsoft YaHei UI Light" size="20.0" />
-               </font>
-            </Label>
-            <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="177.0" prefHeight="65.0" prefWidth="109.0" text="EMAIL:">
-               <font>
-                  <Font name="Microsoft YaHei UI Light" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="professorName" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="122.0" prefHeight="65.0" prefWidth="249.0">
-               <font>
-                  <Font name="Microsoft YaHei UI Light" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="professorEmail" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="129.0" layoutY="177.0" prefHeight="65.0" prefWidth="249.0">
+            <Label fx:id="professorEmail" blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="750.0" layoutY="40.0" prefHeight="65.0" prefWidth="249.0">
                <font>
                   <Font name="Microsoft YaHei UI Light" size="20.0" />
                </font>
@@ -114,12 +99,14 @@
                   <DropShadow />
                </effect>
             </Separator>
+            <ListView fx:id="notification" layoutX="650.0" layoutY="140.0" prefHeight="500.0" prefWidth="345.0" />
+            <PieChart fx:id="homePie" animated="false" layoutY="140.0" prefHeight="280.0" prefWidth="340.0" />
          </children>
          <effect>
             <DropShadow />
          </effect>
       </Pane>
-      <Pane fx:id="uploadPane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="uploadPane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: white;" visible="false">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="325.0" text="UPLOAD QUESTION BANK">
                <font>
@@ -178,7 +165,7 @@
             <DropShadow />
          </effect>
       </Pane>
-      <Pane fx:id="reportPane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: wh494443ite;" visible="false">
+      <Pane fx:id="reportPane" layoutX="289.0" layoutY="79.0" prefHeight="694.0" prefWidth="1028.0" style="-fx-background-radius: 20px; -fx-border-radius: 20px; -fx-border-color: black; -fx-border-width: 1px; -fx-padding: 20px; -fx-background-color: white;" visible="false">
          <children>
             <Label blendMode="SRC_ATOP" depthTest="ENABLE" layoutX="48.0" layoutY="36.0" prefHeight="76.0" prefWidth="214.0" text="Reports">
                <font>
@@ -201,7 +188,7 @@
                   </Button>
                </children>
             </HBox>
-            <BarChart fx:id="testsTakenChart" alternativeRowFillVisible="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Tests Taken" visible="false">
+            <BarChart fx:id="testsTakenChart" alternativeRowFillVisible="false" animated="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Tests Taken" visible="false">
               <xAxis>
                 <CategoryAxis animated="false" label="Time Period" side="BOTTOM" fx:id="xAxis" />
               </xAxis>
@@ -209,7 +196,7 @@
                 <NumberAxis fx:id="yAxis" label="Number of Tests" side="LEFT" upperBound="10.0" />
               </yAxis>
             </BarChart>
-            <BarChart fx:id="testsTakenChart1" alternativeRowFillVisible="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Average Scores " visible="false">
+            <BarChart fx:id="testsTakenChart1" alternativeRowFillVisible="false" animated="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Average Scores " visible="false">
                <xAxis>
                   <CategoryAxis animated="false" label="Time Period" side="BOTTOM" fx:id="xAxis1" />
                </xAxis>
@@ -217,7 +204,7 @@
                   <NumberAxis fx:id="yAxis1" label="Scores" side="LEFT" upperBound="10.0" />
                </yAxis>
             </BarChart>
-            <BarChart fx:id="testsTakenChart2" alternativeRowFillVisible="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Scores by levels of difficulty" visible="false">
+            <BarChart fx:id="testsTakenChart2" alternativeRowFillVisible="false" animated="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="100.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Scores by levels of difficulty" visible="false">
                <xAxis>
                   <CategoryAxis animated="false" label="Difficulty Level" side="BOTTOM" fx:id="xAxis2" />
                </xAxis>
@@ -225,7 +212,7 @@
                   <NumberAxis fx:id="yAxis2" label="Scores" side="LEFT" upperBound="10.0" />
                </yAxis>
             </BarChart>
-            <BarChart fx:id="testsTakenChart3" alternativeRowFillVisible="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Pass or Fail Results" visible="false">
+            <BarChart fx:id="testsTakenChart3" alternativeRowFillVisible="false" animated="false" barGap="10.0" blendMode="SRC_ATOP" categoryGap="150.0" depthTest="ENABLE" layoutX="122.0" layoutY="199.0" prefHeight="450.0" prefWidth="789.0" title="Pass or Fail Results" visible="false">
                <xAxis>
                   <CategoryAxis animated="false" label="Time" side="BOTTOM" fx:id="xAxis3" />
                </xAxis>

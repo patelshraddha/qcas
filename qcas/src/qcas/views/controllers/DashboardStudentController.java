@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package qcas.views.controllers;
 
 import com.itextpdf.text.Chapter;
@@ -83,7 +79,7 @@ import qcas.operations.subject.Subject;
 import qcas.operations.user.User;
 
 /**
- * FXML Controller class
+ * FXML Controller class for student dashboard
  *
  * @author RAHUL
  */
@@ -232,9 +228,13 @@ public class DashboardStudentController implements Initializable {
     @FXML
     private CategoryAxis xAxis;
     private Exam exam;
+    @FXML
+    private Label subjectLabel;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -245,6 +245,10 @@ public class DashboardStudentController implements Initializable {
 
     }
 
+    /**
+     * sets the app for student dashboard
+     * @param application
+     */
     public void setApp(Main application) {
         this.application = application;
         loginBox.getItems().clear();
@@ -441,7 +445,7 @@ public class DashboardStudentController implements Initializable {
             homePane.setVisible(true);
 
             resultPane.setVisible(false);
-            makeActivityGraph();
+            //makeActivityGraph();
         }
 
     }
@@ -454,7 +458,7 @@ public class DashboardStudentController implements Initializable {
         subjectCode = subjects.get(subjectCodeIndex).getSubjectCode();
         difficulty = (String) difficultyselectdropdown.getSelectionModel().getSelectedItem();
         numberOfquestions = Integer.parseInt(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
-
+        subjectLabel.setText(subjects.get(subjectCodeIndex).getSubjectName());
         totalQuestionNo.setText(numberquestionsselectdropdown.getSelectionModel().getSelectedItem().toString());
 
         if (subjectCode != null && difficulty != null && numberOfquestions != 0) {
@@ -523,6 +527,7 @@ public class DashboardStudentController implements Initializable {
         } else {
             quizpane.setVisible(false);
             resultPane.setVisible(true);
+            makeActivityGraph();
         }
 
     }
@@ -783,9 +788,68 @@ public class DashboardStudentController implements Initializable {
 
         }.start();
 
+
     }
 
+    private final void createReport(PieChart chart, String grade, String path) {
+        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+        File file = new File(path);
+
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(path));
+            ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
+
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", byteOutput);
+            com.itextpdf.text.Image graph;
+            graph = com.itextpdf.text.Image.getInstance(byteOutput.toByteArray());
+
+            document.open();
+            User user = this.application.getLoggedUser();
+
+            Paragraph title1 = new Paragraph(user.getFirstName() + " " + user.getLastName(),
+                    FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD, new CMYKColor(0, 0, 0, 0)));
+
+            Chapter chapter1 = new Chapter(title1, 1);
+            document.add(chapter1);
+            document.add(new Paragraph("Email: " + user.getEmail() + "\n" + "Grades: " + grade,
+                    FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD, new CMYKColor(0, 255, 0, 0))));
+
+            document.add(graph);
+            document.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardStudentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     *saves the app as pdf for student dashboard
+     * @param chart
+     * @param path
+     */
+    public void saveAsPng(PieChart chart, String path) {
+
+        WritableImage image = chart.snapshot(new SnapshotParameters(), null);
+
+        // TODO: probably use a file chooser here
+        File file = new File("chart.png");
+
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (IOException e) {
+            // TODO: handle exception here
+        }
+
+
+    }
+
+
     
+
 
     private void makeActivityGraph() {
 

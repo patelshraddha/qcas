@@ -8,28 +8,33 @@ package qcas.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import qcas.operations.questions.Question;
+import qcas.operations.exam.Exam;
+
 import qcas.operations.questions.QuestionFIB;
 import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
+import qcas.operations.subject.Subject;
 import qcas.operations.user.User;
 
 /**
- *
- * @author Dell
+ * Database handler for professor database
+ * @author Akshay Thorat
+ * @author Aniket Jain
  */
 public class ProfessorHandler {
 
-
+    /**
+     * gets all subjects for users
+     * @param database
+     * @param user
+     * @return
+     */
     public static ArrayList<String> getSubject(DatabaseHandler database, User user) {
              ArrayList<String> list = new ArrayList<String>();
         try {
@@ -55,6 +60,11 @@ public class ProfessorHandler {
 
     }
     
+    /**
+     * gets all subjects
+     * @param database
+     * @return
+     */
     public static ArrayList<String> getAllSubject(DatabaseHandler database) {
              ArrayList<String> list = new ArrayList<String>();
         try {
@@ -79,6 +89,12 @@ public class ProfessorHandler {
   return list;      
     }
 
+    /**
+     * inserts questions in the database
+     * @param database
+     * @param questions
+     * @return
+     */
     public static int insertQuestions(DatabaseHandler database, ArrayList<qcas.operations.questions.Question> questions) {
 
         try {
@@ -179,7 +195,12 @@ public class ProfessorHandler {
         return 0;
     }
     
-    
+    /**
+     * gets test taken for a subject
+     * @param database
+     * @param subjectCode
+     * @return
+     */
     public static ArrayList<Integer> getTestsTaken(DatabaseHandler database, int subjectCode) {
         ArrayList<Integer> testCount = new ArrayList<Integer>();
         
@@ -234,6 +255,12 @@ public class ProfessorHandler {
         
     }
     
+    /**
+     * gets arraylist of average score of a subject
+     * @param database
+     * @param subjectCode
+     * @return
+     */
     public static ArrayList<Double> getAverageScores(DatabaseHandler database, int subjectCode){
         ArrayList<Double> averageScores = new ArrayList<Double>();
         
@@ -285,6 +312,12 @@ public class ProfessorHandler {
         return averageScores;
     }
     
+    /**
+     * gets scores level of a subject 
+     * @param database
+     * @param subjectCode
+     * @return
+     */
     public static ArrayList<Double> getScoresLevel(DatabaseHandler database, int subjectCode){
         ArrayList<Double> averageScores = new ArrayList<Double>();
         
@@ -347,7 +380,7 @@ public class ProfessorHandler {
 
         return averageScores;
     }
-    
+
     public static ArrayList<Integer> getResultOverTime(DatabaseHandler database, int subjectCode){
         ArrayList<Integer> results = new ArrayList<Integer>();
         
@@ -438,5 +471,53 @@ public class ProfessorHandler {
         return results;
     }
     
+    public static HashMap<Exam, String> getNotifications(DatabaseHandler database, List<Subject> subjects){
+        //String query = "SELECT `exam_key`, exam.user_key, `subject_code`, `exam_date`, `difficulty_level`, `grade`, `firstname` FROM `exam` inner join `Student` on exam.user_key=Student.user_key WHERE exam_date >= DATE_ADD(CURDATE(), INTERVAL -1 DAY)";
+        String query = "SELECT `exam_key`, exam.user_key, `subject_code`, `exam_date`, `difficulty_level`, `grade`, `firstname` FROM `exam` inner join `Student` on exam.user_key=Student.user_key WHERE exam_date >= DATE_ADD(CURDATE(), INTERVAL -1 DAY) AND subject_code=?";
+        PreparedStatement ps;
+        ResultSet rs;
+        HashMap<Exam, String> notify =new HashMap<>();
+        Exam temp;
+        String name;
+        try{
+            for(Subject subjects1 : subjects){
+                ps = database.getConnection().prepareStatement(query);
+                ps.setInt(1, Integer.parseInt(subjects1.getSubjectCode()));
+                rs = ps.executeQuery();
+                while(rs.next()){
+                    temp = new Exam(rs.getInt(1), rs.getInt(2), subjects1.getSubjectName(), rs.getString(5), rs.getDate(4), rs.getString(6));
+                    name = rs.getString(7);
+                    notify.put(temp, name);
+                }
+            }
+            return notify;        
+        }
+       catch (SQLException ex) {
+            Logger.getLogger(ProfessorHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+        }
     
+    public static HashMap<String,Integer> getGradesCount(DatabaseHandler database, List<Subject> subjects) {
+             HashMap<String,Integer> map = new HashMap<String,Integer>();
+             String insertquestionsquery;
+        try {
+            ResultSet rs;
+            PreparedStatement preparedStatement;
+//get the user details from the user table
+            for(Subject subject : subjects){
+                insertquestionsquery = "SELECT  `grade` , COUNT( * ) FROM  `exam` WHERE subject_code = ? GROUP BY  `grade` ";
+                preparedStatement = database.getConnection().prepareStatement(insertquestionsquery);
+                preparedStatement.setInt(1, Integer.parseInt(subject.getSubjectCode()));
+                rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+                    map.put(rs.getString(1),Integer.parseInt(rs.getString(2)));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserLoginTableHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  return map;      
+
+    }
 }

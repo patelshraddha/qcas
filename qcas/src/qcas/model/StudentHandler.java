@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package qcas.model;
 
 import java.sql.PreparedStatement;
@@ -10,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,14 +14,20 @@ import qcas.operations.questions.QuestionMultipleAnswer;
 import qcas.operations.questions.QuestionMultipleChoice;
 import qcas.operations.questions.QuestionTF;
 import qcas.operations.user.User;
-import sun.security.krb5.internal.rcache.AuthList;
 
 /**
- *
- * @author Dell
+ *database handler for student table
+ * @author Akshay Thorat
+ * @author Aniket Jain
  */
 public class StudentHandler {
     
+    /**
+     *database handler for student table
+     * @param database
+     * @param user_id
+     * @return
+     */
     public static LinkedHashMap getStudentActivity(DatabaseHandler database, int user_id) {
         
         LinkedHashMap result = new LinkedHashMap();
@@ -108,6 +108,12 @@ public class StudentHandler {
         return result;
     }
 
+    /**
+     *gets count of the question according to its difficulty
+     * @param database
+     * @param subjectCode
+     * @return
+     */
     public static HashMap<String, Integer> getCountQuestions(DatabaseHandler database, String subjectCode) {
         HashMap<String, Integer> hmap = new HashMap<String, Integer>();
         try {
@@ -135,9 +141,16 @@ public class StudentHandler {
 
     }
 
+    /**
+     * gets questions 
+     * @param database
+     * @param subjectCode
+     * @param hm
+     * @return array list questions
+     */
     public static ArrayList<Question> getQuestions(DatabaseHandler database, String subjectCode, HashMap<String, Integer> hm) {
         ArrayList<Question> questions = new ArrayList<Question>();
-        System.out.println(subjectCode);
+        
         try {
             ResultSet rs;
 
@@ -208,6 +221,18 @@ public class StudentHandler {
         return question;
     }
     
+    /**
+     *Insert the quiz answers in the db
+     * @param database
+     * @param user
+     * @param quizAnswers
+     * @param subjectCode
+     * @param noQuestions
+     * @param difficulty
+     * @param correctQuestions
+     * @param isCorrect
+     * @return
+     */
     public static int insertSelection(DatabaseHandler database, User user, ArrayList<Question> quizAnswers, String subjectCode, int noQuestions, String difficulty, int correctQuestions, int[] isCorrect){
         String insertSelectionQuery = "Insert into exam (user_key, subject_code, exam_date, difficulty_level, question_count, score, result, grade) values (?,?,?,?,?,?,?,?)";
         ResultSet rs;
@@ -224,7 +249,7 @@ public class StudentHandler {
             ps.setInt(5,noQuestions);
             ps.setInt(6, correctQuestions);
             //Pass/Fail and Grade Logic here
-            double percent = (correctQuestions/noQuestions)*100;
+            double percent = ((double)correctQuestions/(double)noQuestions)*100;
             if(percent>=60){
                 ps.setInt(7, 1);
             }else{

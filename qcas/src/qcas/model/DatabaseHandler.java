@@ -72,6 +72,10 @@ public class DatabaseHandler implements DatabaseInterface {
         this.password = password;
     }
 
+    /**
+     * gets the conection
+     * @return
+     */
     @Override
     public Connection getConnection() {
         return this.con;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package qcas.model;
 
 import java.sql.PreparedStatement;
@@ -15,11 +10,18 @@ import qcas.operations.subject.Subject;
 import qcas.operations.user.User;
 
 /**
- *
- * @author Dell
+ *Subject handler in database
+ * @author Akshay Thorat
+ * @author Aniket Jain
  */
 public class SubjectHandler {
 
+    /**
+     *Subject handler in database
+     * @param database
+     * @param user
+     * @return
+     */
     public static ArrayList<Subject> getSubjectUser(DatabaseHandler database, User user) {
         ArrayList<Subject> list = new ArrayList<Subject>();
         try {
@@ -43,6 +45,11 @@ public class SubjectHandler {
 
     }
 
+    /**
+     *gets all the subjects
+     * @param database
+     * @return
+     */
     public static ArrayList<Subject> getAllSubjects(DatabaseHandler database) {
         ArrayList<Subject> list = new ArrayList<Subject>();
         try {

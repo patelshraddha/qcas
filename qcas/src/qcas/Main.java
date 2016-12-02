@@ -14,14 +14,13 @@ import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
-import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import qcas.model.CSVReader;
 import qcas.model.DatabaseHandler;
 import qcas.model.ProfessorHandler;
@@ -35,6 +34,7 @@ import qcas.views.controllers.DashboardProfessorController;
 import qcas.views.controllers.DashboardStudentController;
 import qcas.views.controllers.LoginController;
 import qcas.model.UserRegisterTableHandler;
+import qcas.operations.exam.Exam;
 /**
  * Main Application. This class handles navigation and user session.
  */
@@ -47,6 +47,7 @@ public class Main extends Application {
     private final double MINIMUM_WINDOW_HEIGHT = 500.0;
 
     /**
+     * This class handles navigation and user session. 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -67,6 +68,7 @@ public class Main extends Application {
             stage = primaryStage;
             stage.setResizable(false);
             stage.setTitle("Quiz Creation and Assessment System");
+            stage.getIcons().add(new Image(Main.class.getResourceAsStream(Constants.cmuIconImg)));
             stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
             stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
             gotoLogin();
@@ -77,10 +79,20 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Gets the logged in user
+     * @return
+     */
     public User getLoggedUser() {
         return loggedUser;
     }
 
+    /**
+     * Used to Log in a user
+     * @param userId
+     * @param password
+     * @return If login is successfull 
+     */
     public boolean userLogging(String userId, String password) {
         if (UserLoginTableHandler.verifyLogin(this.database, userId, password)) {
             loggedUser = UserLoginTableHandler.getUser(database, userId);
@@ -92,7 +104,18 @@ public class Main extends Application {
         }
 
     }
-      public boolean userRegistering(String userName, String password,String firstName, String secondName,String emailID,ArrayList<String> subjectMenuList) {
+
+    /**
+     * Registers the user to the database
+     * @param userName
+     * @param password
+     * @param firstName
+     * @param secondName
+     * @param emailID
+     * @param subjectMenuList
+     * @return Returns Boolean if the user is registered successfully or not
+     */
+    public boolean userRegistering(String userName, String password,String firstName, String secondName,String emailID,ArrayList<String> subjectMenuList) {
 	        if (!UserRegisterTableHandler.isUsernamePresent(this.database, userName)) {
 	            String userId=UserRegisterTableHandler.saveUser(database, userName, password, firstName, secondName, emailID,subjectMenuList);
 	            loggedUser = UserLoginTableHandler.getUser(database, userId);
@@ -105,6 +128,9 @@ public class Main extends Application {
                     return false;}
 	    }
 	    
+    /**
+     * Logs out the user
+     */
     public void userLogout() {
         loggedUser = null;
         gotoLogin();
@@ -128,6 +154,10 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Gets the stage that is built using FXML
+     * @return
+     */
     public Stage getStage() {
         return this.stage;
     }
@@ -158,6 +188,12 @@ public class Main extends Application {
         return (Initializable) loader.getController();
     }
 
+    /**
+     * Uploads the csv question file 
+     * @param file
+     * @param subject
+     * @return Number of questions updated
+     */
     public int uploadFile(File file, String subject) {
         CSVReader reader = new CSVReader(file, subject);
         if (reader.ParseCSV()) {
@@ -176,41 +212,85 @@ public class Main extends Application {
         }
     }
     
+    /**
+     * gets Student activity 
+     * @param user_id
+     * @return
+     */
     public LinkedHashMap getStudentActivity(int user_id){
         return StudentHandler.getStudentActivity(this.database, user_id);
     }
 
+    /** Gets all the subjects of a user
+     *
+     * @return list subjects of a user
+     */
     public List<Subject> getSubjects() {
 
         return SubjectHandler.getSubjectUser(this.database, this.getLoggedUser());
 
     }
 
+    /**
+     * Gets all the subjects 
+     * @return all the subjects 
+     */
     public List<Subject> getAllSubjects() {
         return SubjectHandler.getAllSubjects(this.database);
     }
 
+    /**
+     *gets Question's Count with its Difficulty
+     * @param subjectCode
+     * @return hashmap with Question's Count with its Difficulty
+     */
     public HashMap<String, Integer> getQuestionsCountDifficulty(String subjectCode) {
         return StudentHandler.getCountQuestions(this.database, subjectCode);
     }
     
+    /**
+     * Gets test taken for a particular sunject code
+     * @param subjectCode
+     * @return list of test taken for a particular sunject code
+     */
     public ArrayList<Integer> getTestsTaken(int subjectCode){
         return ProfessorHandler.getTestsTaken(database, subjectCode);
     }
     
+    /**
+     * Gets test taken for a particular sunject code over a time period
+     * @param subjectCode
+     * @return list of test taken for a particular sunject code over a time period
+     */
     public ArrayList<Integer> getResultOverTime(int subjectCode){
         return ProfessorHandler.getResultOverTime(database, subjectCode);
     }
     
-    
+    /**
+     * Gets average scores of a subject code
+     * @param subjectCode
+     * @return arraylist of average scores of a subject code
+     */
     public ArrayList<Double> getAverageScores(int subjectCode){
         return ProfessorHandler.getAverageScores(database, subjectCode);
     }
     
+    /**
+     * Gets score level according to subject code
+     * @param subjectCode
+     * @return returns arraylist score level according to subject code
+     */
     public ArrayList<Double> getScoresLevel(int subjectCode){
         return ProfessorHandler.getScoresLevel(database, subjectCode);
     }
 
+    /**
+     * Gets questions according to the required level, subject and counts of questions
+     * @param level
+     * @param subjectCode
+     * @param counts
+     * @return arraylist questions according to the required level, subject and counts of questions
+     */
     public ArrayList<Question> getQuestions(String level, String subjectCode, int... counts) {
 
         HashMap<String, Integer> hm = new HashMap<String, Integer>();
@@ -231,6 +311,12 @@ public class Main extends Application {
         return questions;
     }
 
+    /**
+     * Calculates numbers of easy medium and hard questions 
+     * @param map
+     * @param max
+     * @return
+     */
     public static HashMap<String, Integer> calculateCount(HashMap<String, Integer> map, int max) {
 
         HashMap<String, Integer> countMap = new HashMap<String, Integer>();
@@ -269,12 +355,28 @@ public class Main extends Application {
         return countMap;
     }
     
+    /**
+     * Inserts answers to the database
+     * @param quizAnswers
+     * @param subjectCode
+     * @param noQuestions
+     * @param diff
+     * @param correctQuestions
+     * @param isCorrect
+     * @return
+     */
     public int insertAnswers(ArrayList<Question> quizAnswers, String subjectCode, int noQuestions, String diff, int correctQuestions, int[] isCorrect){
         return StudentHandler.insertSelection(database, getLoggedUser(), quizAnswers, subjectCode, noQuestions, diff, correctQuestions, isCorrect);
     }
 
+    public HashMap<Exam,String> getNotifications(){
+        return ProfessorHandler.getNotifications(database, getSubjects());
+    }
 
-
-
+    public HashMap<String,Integer> getGradesCount() {
+        HashMap<String,Integer> map = ProfessorHandler.getGradesCount(database, getSubjects());
+        return map;
+    }
+    
 
 }
